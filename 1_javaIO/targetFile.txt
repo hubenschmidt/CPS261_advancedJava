@@ -1,0 +1,10 @@
+Fred E Flintstone
+2 0.301
+Bubba
+28 0.278
+Frank F Robinson
+ 10 0250
+Babe Ruth
+55x 0.320
+Ted Williams
+19 0.350

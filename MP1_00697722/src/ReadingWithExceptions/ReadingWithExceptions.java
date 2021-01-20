@@ -56,7 +56,7 @@ public class ReadingWithExceptions {
 		scanner.nextLine();
 		fo = new PrintWriter(new FileOutputStream(getOutputFileName()));
 
-		for (int i = 1; i <= get_number_to_read();) {
+		for (int i = 1; i <= get_number_to_read(); i++) {
 			if (!scanner.hasNextInt()) {
 				System.out.println("Error: bad data input.");
 				scanner.next();
@@ -65,7 +65,8 @@ public class ReadingWithExceptions {
 //				fo.print(scanner.nextInt());
 				System.out.println(scanner.nextInt() + " " + i);
 //				System.out.println(i);
-				i++;
+//				i++;
+
 			}
 
 			// If EOF has been reached

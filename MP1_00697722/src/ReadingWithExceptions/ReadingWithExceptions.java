@@ -1,7 +1,9 @@
 package ReadingWithExceptions;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -19,11 +21,14 @@ public class ReadingWithExceptions {
 	public void process(File inputFileName) {
 //		System.out.println(file);
 		Scanner scanner = null;
-//		PrintStream printStream = null;
+		PrintWriter fo = null;
 
 		try {
 			scanner = new Scanner(inputFileName);
-			readMixedData(scanner);
+
+//			printStream = new PrintStream();
+			readMixedData(scanner, fo);
+
 			// FileOutputStream fo = new FileOuputStream(outputFileName);
 
 		} catch (Exception e) { // what is approproate exception here?
@@ -36,10 +41,40 @@ public class ReadingWithExceptions {
 
 	}
 
-	public void readMixedData(Scanner scanner) throws IOException {
+	public void readMixedData(Scanner scanner, PrintWriter fo) throws IOException {
 		setOutputFileName(scanner.next());
-		System.out.println(getOutputFileName());
-//			if (scanner.hasNextInt())
+
+		if (scanner.hasNextInt()) {
+			set_number_to_read(scanner.nextInt());
+			if (get_number_to_read() < 0) {
+				System.out.println("Error: less than zero numbers to be read.");
+				// then read as many integers as you find
+			}
+		} else {
+			System.out.println("Error: bad count input: " + scanner.next());
+		}
+		scanner.nextLine();
+		fo = new PrintWriter(new FileOutputStream(getOutputFileName()));
+
+		for (int i = 1; i <= get_number_to_read();) {
+			if (!scanner.hasNextInt()) {
+				System.out.println("Error: bad data input.");
+				scanner.next();
+			} else {
+				// determine why code is not printing to file:
+//				fo.print(scanner.nextInt());
+				System.out.println(scanner.nextInt() + " " + i);
+//				System.out.println(i);
+				i++;
+			}
+
+			// If EOF has been reached
+			if (!scanner.hasNext()) {
+				System.out.println("End of file.");
+				break;
+			}
+
+		}
 
 	}
 
@@ -70,6 +105,14 @@ public class ReadingWithExceptions {
 
 	public void setOutputFileName(String outputFileName) {
 		this.outputFileName = outputFileName;
+	}
+
+	public Integer get_number_to_read() {
+		return number_to_read;
+	}
+
+	public void set_number_to_read(Integer number_to_read) {
+		this.number_to_read = number_to_read;
 	}
 
 }

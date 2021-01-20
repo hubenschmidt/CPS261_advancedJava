@@ -1,7 +1,6 @@
 package ReadingWithExceptions;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -17,18 +16,30 @@ public class ReadingWithExceptions {
 
 	}
 
-	public void process(File file) {
-		System.out.println(file);
-//		try {
-//			if (searchFile(file)) {
-//				
-//			}
-//		}
+	public void process(File inputFileName) {
+//		System.out.println(file);
+		Scanner scanner = null;
+//		PrintStream printStream = null;
+
+		try {
+			scanner = new Scanner(inputFileName);
+			readMixedData(scanner);
+			// FileOutputStream fo = new FileOuputStream(outputFileName);
+
+		} catch (Exception e) { // what is approproate exception here?
+			System.out.println("error: " + e);
+
+		} finally {
+			if (scanner != null)
+				scanner.close();
+		}
+
 	}
 
-	private void searchFile(File file) throws FileNotFoundException {
-		boolean found = false;
-		Scanner scanner = new Scanner(file, "UTF-8");
+	public void readMixedData(Scanner scanner) throws IOException {
+		setOutputFileName(scanner.next());
+		System.out.println(getOutputFileName());
+//			if (scanner.hasNextInt())
 
 	}
 
@@ -51,6 +62,14 @@ public class ReadingWithExceptions {
 
 	public void setInputFileName(String inputFileName) {
 		this.inputFileName = inputFileName;
+	}
+
+	public String getOutputFileName() {
+		return outputFileName;
+	}
+
+	public void setOutputFileName(String outputFileName) {
+		this.outputFileName = outputFileName;
 	}
 
 }

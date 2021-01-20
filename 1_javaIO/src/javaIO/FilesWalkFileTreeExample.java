@@ -11,7 +11,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 public class FilesWalkFileTreeExample {
 
 	public static void main(String[] args) {
-		Path path = Paths.get(".");
+		Path path = Paths.get("fuck");
 		try {
 			Files.walkFileTree(path, new FileVisitor<Path>() {
 

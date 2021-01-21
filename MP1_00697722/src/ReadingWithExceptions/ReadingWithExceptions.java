@@ -1,11 +1,12 @@
 package ReadingWithExceptions;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ReadingWithExceptions {
@@ -19,20 +20,16 @@ public class ReadingWithExceptions {
 	}
 
 	public void process(File inputFileName) {
-//		System.out.println(file);
 		Scanner scanner = null;
+		FileWriter writer = null;
 		PrintWriter fo = null;
 
 		try {
 			scanner = new Scanner(inputFileName);
-
-//			printStream = new PrintStream();
-			readMixedData(scanner, fo);
-
-			// FileOutputStream fo = new FileOuputStream(outputFileName);
+			readMixedData(scanner, writer, fo);
 
 		} catch (Exception e) { // what is approproate exception here?
-			System.out.println("error: " + e);
+			e.printStackTrace();
 
 		} finally {
 			if (scanner != null)
@@ -41,8 +38,11 @@ public class ReadingWithExceptions {
 
 	}
 
-	public void readMixedData(Scanner scanner, PrintWriter fo) throws IOException {
+	public void readMixedData(Scanner scanner, FileWriter writer, PrintWriter fo) throws IOException {
 		setOutputFileName(scanner.next());
+		boolean invalidCount = false;
+		int dataCounter = 0;
+		ArrayList<Integer> inputFileValues = new ArrayList<Integer>();
 
 		if (scanner.hasNextInt()) {
 			set_number_to_read(scanner.nextInt());
@@ -51,31 +51,39 @@ public class ReadingWithExceptions {
 				// then read as many integers as you find
 			}
 		} else {
-			System.out.println("Error: bad count input: " + scanner.next());
+			System.out.println("Error: invalid data count input: " + scanner.next());
+			invalidCount = true;
 		}
 		scanner.nextLine();
-		fo = new PrintWriter(new FileOutputStream(getOutputFileName()));
 
-		for (int i = 1; i <= get_number_to_read(); i++) {
-			if (!scanner.hasNextInt()) {
-				System.out.println("Error: bad data input.");
-				scanner.next();
-			} else {
-				// determine why code is not printing to file:
-//				fo.print(scanner.nextInt());
-				System.out.println(scanner.nextInt() + " " + i);
-//				System.out.println(i);
-//				i++;
+		writer = new FileWriter(getOutputFileName());
+		fo = new PrintWriter(writer);
+		fo.print(getOutputFileName() + " created the following output:");
 
+		if (!invalidCount) {
+//			for (int i = 1; i < get_number_to_read(); i++) {
+
+			while (scanner.hasNext() && dataCounter <= get_number_to_read()) {
+				if (scanner.hasNextInt()) {
+					inputFileValues.add(scanner.nextInt());
+					dataCounter++;
+				} else {
+					System.out.println("Error: bad input data." + scanner.next());
+				}
 			}
+//			}
 
 			// If EOF has been reached
 			if (!scanner.hasNext()) {
 				System.out.println("End of file.");
-				break;
 			}
-
 		}
+		fo.print(inputFileValues);
+
+		inputFileValues.clear();
+
+		fo.flush();
+		fo.close();
 
 	}
 

@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class ReadingWithExceptions {
 			scanner = new Scanner(inputFileName);
 			readMixedData(scanner, writer, fo);
 
-		} catch (Exception e) { // what is approproate exception here?
+		} catch (Exception e) {
 			e.printStackTrace();
 
 		} finally {
@@ -47,44 +48,56 @@ public class ReadingWithExceptions {
 		if (scanner.hasNextInt()) {
 			set_number_to_read(scanner.nextInt());
 			if (get_number_to_read() < 0) {
-				System.out.println("Error: less than zero numbers to be read.");
-				// then read as many integers as you find
+				System.err.println("ERROR: " + scanner.ioException() + " input. Threshold is less than zero "
+						+ getInputFileName());
 			}
 		} else {
-			System.out.println("Error: invalid data count input: " + scanner.next());
+			System.err.println("ERROR: " + scanner.ioException() + " input " + scanner.next()
+					+ ". Input threshold is not a valid number. Fetching all available data " + getInputFileName());
 			invalidCount = true;
 		}
+
 		scanner.nextLine();
 
 		writer = new FileWriter(getOutputFileName());
 		fo = new PrintWriter(writer);
-		fo.print(getOutputFileName() + " created the following output:");
+		fo.print(getOutputFileName() + " created the following output:\n");
 
+		// build array
 		if (!invalidCount) {
-//			for (int i = 1; i < get_number_to_read(); i++) {
-
 			while (scanner.hasNext() && dataCounter <= get_number_to_read()) {
 				if (scanner.hasNextInt()) {
 					inputFileValues.add(scanner.nextInt());
 					dataCounter++;
 				} else {
-					System.out.println("Error: bad input data." + scanner.next());
+					System.err.println("ERROR: " + scanner.ioException() + " input " + scanner.next()
+							+ ". Data is invalid. Input discarded: " + scanner.next() + " " + getInputFileName());
+					System.out.println();
 				}
 			}
-//			}
-
 			// If EOF has been reached
 			if (!scanner.hasNext()) {
-				System.out.println("End of file.");
+				System.err.println("WARNING: Input threshold exceeds file length. Fetching all availble data "
+						+ getInputFileName());
+				System.out.println();
+			}
+		} else {
+			while (scanner.hasNext()) {
+				inputFileValues.add(scanner.nextInt());
 			}
 		}
-		fo.print(inputFileValues);
+
+		// format and print array
+		for (int i = 0; i < inputFileValues.size(); i++) {
+			if (i % 10 == 0 && i > 0) {
+				fo.println();
+			}
+			fo.print(inputFileValues.get(i) + " ");
+		}
 
 		inputFileValues.clear();
-
 		fo.flush();
 		fo.close();
-
 	}
 
 	public static void main(String[] args) {
@@ -94,8 +107,12 @@ public class ReadingWithExceptions {
 			app.setInputFileName(arg);
 			try {
 				app.WalkFileTree(app.getInputFileName());
+			} catch (NoSuchFileException e) {
+				e.printStackTrace();
+				System.out.println();
 			} catch (Exception e) {
 				e.printStackTrace();
+				System.out.println();
 			}
 		}
 	}

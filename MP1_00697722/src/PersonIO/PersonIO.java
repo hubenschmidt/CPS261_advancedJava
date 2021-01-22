@@ -47,32 +47,35 @@ public class PersonIO {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
-		PersonIO mp1 = new PersonIO("person");
+		PersonIO mp1 = new PersonIO("person.ser");
 		try {
 			int option = -1;
-			while (option != 0) {
+			do {
 				System.out.println("Please choose an option:");
 				System.out.println("0: quit");
 				System.out.println("1: add");
 				System.out.println("2: display");
 				option = kbInput.nextInt();
+				kbInput.nextLine();
+				System.out.println("You entered: " + option);
 				switch (option) {
 				case 0:
-					System.out.println("Bye");
+					System.out.println("Bye.");
 					break;
 				case 1:
 					System.out.println("Enter name: ");
 					String name = kbInput.nextLine();
-					System.out.println("Enter age: ");
-//					mp1.add(kbInput.nextLine());
-
+//					System.out.println("Enter age: ");
+//					int age = kbInput.nextInt();
+					System.out.println("You entered: " + name);
 					break;
 				case 2:
 					mp1.display();
-
+				default:
+					System.out.println(option + " is not a valid entry");
 				}
 
-			}
+			} while (option != 0);
 		} finally {
 			try {
 				// close ois
@@ -92,4 +95,10 @@ public class PersonIO {
 		}
 
 	}
+
+	public static void processMenuInput(int in) {
+		System.out.print(in);
+
+	}
+
 }

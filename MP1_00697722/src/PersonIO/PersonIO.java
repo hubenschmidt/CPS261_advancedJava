@@ -1,5 +1,6 @@
 package PersonIO;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -34,7 +35,7 @@ class Person implements Serializable {
 
 	@Override
 	public String toString() {
-		return getName() + " " + getAge();
+		return "Name: " + getName() + ", Age: " + getAge();
 	}
 }
 
@@ -60,18 +61,19 @@ public class PersonIO {
 		if (file.isFile()) {
 			return;
 		} else {
-//			System.out.println("File doesn't exist or program doesn't have access to the file");
-			Path path = Paths.get("person.ser");
+			Path path = Paths.get(filePath);
 			Path createdFilePath = Files.createFile(path);
-//			System.out.println("File Created at Path: : " + createdFilePath);
-			System.out.println(createdFilePath);
 		}
 	}
 
-	public void populatePeopleList() throws FileNotFoundException, IOException, ClassNotFoundException {
-		ois = new ObjectInputStream(new FileInputStream(this.fileName));
-		List<Object> input = (List<Object>) ois.readObject();
-		setPeopleList(input);
+	public void preFetchPeopleListFromBinaryFile() throws FileNotFoundException, IOException, ClassNotFoundException {
+		try {
+			ois = new ObjectInputStream(new FileInputStream(this.fileName));
+			List<Object> input = (List<Object>) ois.readObject();
+			setPeopleList(input);
+		} catch (EOFException e) {
+			return;
+		}
 	}
 
 	public void writeToFile(List<Object> person) throws IOException {
@@ -81,31 +83,46 @@ public class PersonIO {
 	}
 
 	public void readFile() throws ClassNotFoundException, IOException {
-		ois = new ObjectInputStream(new FileInputStream(this.fileName));
-		List<Object> input = (List<Object>) ois.readObject();
-		List<Object> displayList = new ArrayList<>();
-		// this will contain the list of the objects
-		for (Object l : input) {
-			displayList.add(l.getClass().getSimpleName());
-			if (l instanceof Person) {
-				Person p = (Person) l;
-				System.out.println(p.toString());
+		try {
+			ois = new ObjectInputStream(new FileInputStream(this.fileName));
+			List<Object> input = (List<Object>) ois.readObject();
+			List<Object> displayList = new ArrayList<>();
+
+			System.out.println();
+			System.out.println("DISPLAYING ENTRIES");
+			System.out.println("-------------------");
+			for (Object l : input) {
+				displayList.add(l.getClass().getSimpleName());
+				if (l instanceof Person) {
+					Person p = (Person) l;
+					System.out.println(p.toString());
+				}
 			}
+			System.out.println();
+			ois.close();
+		} catch (EOFException e) {
+			System.out.println("..but there is nothing to display here.");
+			System.out.println();
+			return;
 		}
-		ois.close();
+
 	}
 
 	public void add(Person p) throws IOException {
 		peopleList.add(p);
 		writeToFile(peopleList);
-		System.out.println("Added " + p.toString());
+		System.out.println();
+		System.out.println("******");
+		System.out.println("ADDING " + p.toString());
+		System.out.println("******");
+		System.out.println();
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 		String filePath = "person.ser";
 		PersonIO mp1 = new PersonIO(filePath);
 		initializeBinaryFile(filePath, mp1);
-		mp1.populatePeopleList();
+		mp1.preFetchPeopleListFromBinaryFile();
 
 		int option = -1;
 		do {
@@ -115,7 +132,7 @@ public class PersonIO {
 			System.out.println("2: display");
 			option = kbInput.nextInt();
 			kbInput.nextLine();
-			System.out.println("You entered: " + option);
+			System.out.println();
 			switch (option) {
 			case 0:
 				System.out.println("Bye.");

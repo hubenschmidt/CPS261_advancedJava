@@ -50,12 +50,9 @@ public class PersonIO {
 		this.fileName = fileName;
 	}
 
-	public static void initializeBinaryFile() throws IOException {
-
-		String filePath = "person.ser";
-//		PersonIO pIO = new PersonIO(filePath);
-//		pIO.setFileName(filePath);
+	public static void initializeBinaryFile(String filePath, PersonIO mp1) throws IOException {
 		File file = new File(filePath);
+
 		if (file.isFile()) {
 			System.out.println("File exists.");
 		} else {
@@ -71,19 +68,6 @@ public class PersonIO {
 				e.printStackTrace();
 			}
 		}
-
-//		System.out.println(Files.exists(path));
-//		System.out.println(path);
-
-		// create file
-//		if (File.exists(filePath)) {
-//			try {
-//				Path createdFilePath = Files.createFile(path);
-//				System.out.println("File Created at Path: : " + createdFilePath);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
 	}
 
 	public void writeToFile(List<Object> person) throws IOException {
@@ -114,7 +98,10 @@ public class PersonIO {
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
-		PersonIO mp1 = new PersonIO("person.ser");
+		String filePath = "person.ser";
+		PersonIO mp1 = new PersonIO(filePath);
+		initializeBinaryFile(filePath, mp1);
+
 		int option = -1;
 		do {
 			System.out.println("Please choose an option:");

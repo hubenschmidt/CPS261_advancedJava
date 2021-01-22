@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -73,8 +72,13 @@ public class ReadingWithExceptions {
 	 * @param path
 	 * @throws IOException
 	 */
-	public void WalkFileTree(String path) throws IOException {
-		Files.walk(Paths.get(path)).forEach(f -> process(f.toFile()));
+	public void WalkFileTree(String path) {
+		try {
+			Files.walk(Paths.get(path)).forEach(f -> process(f.toFile()));
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -120,7 +124,6 @@ public class ReadingWithExceptions {
 				if (!scanner.hasNextInt()) {
 					System.err.println("ERROR: " + scanner.ioException() + " input. "
 							+ "Data is invalid. Input discarded: " + scanner.next() + " " + getInputFileName());
-					System.out.println();
 					inputFileValues.add(scanner.nextInt());
 					dataCounter++;
 				} else if (scanner.hasNextInt()) {
@@ -129,7 +132,6 @@ public class ReadingWithExceptions {
 				} else {
 					System.err.println("ERROR: " + scanner.ioException() + " input " + scanner.next()
 							+ ". Data is invalid. Input discarded: " + scanner.next() + " " + getInputFileName());
-					System.out.println();
 				}
 			}
 			checkForEOF(scanner);
@@ -138,7 +140,11 @@ public class ReadingWithExceptions {
 				inputFileValues.add(scanner.nextInt());
 			}
 		}
-		printOutputFile(inputFileValues, writer, fo);
+		try {
+			printOutputFile(inputFileValues, writer, fo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		inputFileValues.clear();
 	}
 
@@ -173,7 +179,6 @@ public class ReadingWithExceptions {
 		if (!scanner.hasNext()) {
 			System.err.println(
 					"WARNING: Input threshold exceeds file length. Fetching all availble data. " + getInputFileName());
-			System.out.println();
 		}
 	}
 
@@ -196,24 +201,16 @@ public class ReadingWithExceptions {
 			}
 			fo.print(inputFileValues.get(i) + " ");
 		}
+		System.out.println("SUCCESS: Printed " + getOutputFileName());
 		fo.flush();
 		fo.close();
-
 	}
 
 	public static void main(String[] args) {
 		ReadingWithExceptions app = new ReadingWithExceptions();
 		for (String arg : args) {
 			app.setInputFileName(arg);
-			try {
-				app.WalkFileTree(app.getInputFileName());
-			} catch (NoSuchFileException e) {
-				e.printStackTrace();
-				System.out.println();
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println();
-			}
+			app.WalkFileTree(app.getInputFileName());
 		}
 	}
 }

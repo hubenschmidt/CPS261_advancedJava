@@ -41,7 +41,7 @@ class Person implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Name: " + getName() + ", Age: " + getAge();
+		return "[name=" + getName() + ", age=" + getAge() + "]";
 	}
 }
 
@@ -109,26 +109,21 @@ public class PersonIO {
 	}
 
 	/**
-	 * Deserialize Person objects from binary file then display results in console
+	 * Deserialize Person objects from binary file then displays results in console
 	 * 
 	 * @throws ClassNotFoundException
 	 * @throws IOException
 	 */
-	public void readFile() throws ClassNotFoundException, IOException {
+	public void display() throws ClassNotFoundException, IOException {
 		try {
 			ois = new ObjectInputStream(new FileInputStream(this.fileName));
 			List<Object> input = (List<Object>) ois.readObject();
-			List<Object> displayList = new ArrayList<>();
-
 			System.out.println();
 			System.out.println("DISPLAYING ENTRIES");
 			System.out.println("-------------------");
 			for (Object l : input) {
-				displayList.add(l.getClass().getSimpleName());
-				if (l instanceof Person) {
-					Person p = (Person) l;
-					System.out.println(p.toString());
-				}
+				Person p = (Person) l;
+				System.out.println(l.getClass().getSimpleName() + " " + p.toString());
 			}
 			System.out.println();
 			ois.close();
@@ -137,11 +132,10 @@ public class PersonIO {
 			System.out.println();
 			return;
 		}
-
 	}
 
 	/**
-	 * Add user input to list for serialization
+	 * Add user input to list for serialization, calls write method
 	 * 
 	 * @param p
 	 * @throws IOException
@@ -192,7 +186,7 @@ public class PersonIO {
 				mp1.add(p);
 				break;
 			case 2:
-				mp1.readFile();
+				mp1.display();
 				break;
 			default:
 				System.out.println(option + " is not a valid entry");

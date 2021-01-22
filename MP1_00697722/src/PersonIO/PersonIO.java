@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author William Hubenschmidt
+ *
+ */
+
 class Person implements Serializable {
 	String name;
 	int age;
@@ -40,10 +46,10 @@ class Person implements Serializable {
 }
 
 public class PersonIO {
-	private String fileName;
-	private ObjectInputStream ois = null;
-	private ObjectOutputStream oos = null;
-	private FileInputStream fis = null;
+	String fileName;
+	ObjectInputStream ois = null;
+	ObjectOutputStream oos = null;
+	FileInputStream fis = null;
 	static Scanner kbInput = new Scanner(System.in);
 	List<Object> peopleList = new ArrayList<>();
 
@@ -55,6 +61,13 @@ public class PersonIO {
 		this.peopleList = peopleList;
 	}
 
+	/**
+	 * Create binary serialization file upon program start
+	 * 
+	 * @param filePath
+	 * @param mp1
+	 * @throws IOException
+	 */
 	public static void initializeBinaryFile(String filePath, PersonIO mp1) throws IOException {
 		File file = new File(filePath);
 		// check for existence of binary file
@@ -66,7 +79,14 @@ public class PersonIO {
 		}
 	}
 
-	public void preFetchPeopleListFromBinaryFile() throws FileNotFoundException, IOException, ClassNotFoundException {
+	/**
+	 * Get last session data and load into array for program inputs
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
+	public void fetchLastSessionData() throws FileNotFoundException, IOException, ClassNotFoundException {
 		try {
 			ois = new ObjectInputStream(new FileInputStream(this.fileName));
 			List<Object> input = (List<Object>) ois.readObject();
@@ -76,12 +96,24 @@ public class PersonIO {
 		}
 	}
 
+	/**
+	 * Serialize Person objects list to binary file
+	 * 
+	 * @param person
+	 * @throws IOException
+	 */
 	public void writeToFile(List<Object> person) throws IOException {
 		oos = new ObjectOutputStream(new FileOutputStream(this.fileName));
 		oos.writeObject(person);
 		oos.close();
 	}
 
+	/**
+	 * Deserialize Person objects from binary file then display results in console
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void readFile() throws ClassNotFoundException, IOException {
 		try {
 			ois = new ObjectInputStream(new FileInputStream(this.fileName));
@@ -108,6 +140,12 @@ public class PersonIO {
 
 	}
 
+	/**
+	 * Add user input to list for serialization
+	 * 
+	 * @param p
+	 * @throws IOException
+	 */
 	public void add(Person p) throws IOException {
 		peopleList.add(p);
 		writeToFile(peopleList);
@@ -118,11 +156,19 @@ public class PersonIO {
 		System.out.println();
 	}
 
+	/**
+	 * Menu prompt to generate user feedback
+	 * 
+	 * @param args
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 		String filePath = "person.ser";
 		PersonIO mp1 = new PersonIO(filePath);
 		initializeBinaryFile(filePath, mp1);
-		mp1.preFetchPeopleListFromBinaryFile();
+		mp1.fetchLastSessionData();
 
 		int option = -1;
 		do {

@@ -65,12 +65,13 @@ public class PersonIO {
 				case 1:
 					System.out.println("Enter name: ");
 					String name = kbInput.nextLine();
-//					System.out.println("Enter age: ");
-//					int age = kbInput.nextInt();
-					System.out.println("You entered: " + name);
+					System.out.println("Enter age: ");
+					int age = kbInput.nextInt();
+					System.out.println("You entered: " + name + " ," + age);
 					break;
 				case 2:
 					mp1.display();
+					break;
 				default:
 					System.out.println(option + " is not a valid entry");
 				}

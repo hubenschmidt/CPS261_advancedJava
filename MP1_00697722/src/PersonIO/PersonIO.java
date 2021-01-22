@@ -44,8 +44,6 @@ public class PersonIO {
 
 	public PersonIO(String fileName) {
 		this.fileName = fileName;
-//		ois = new ObjectInputStream(new FileInputStream(this.fileName));
-//		oos = new ObjectOutputStream(new FileOutputStream(this.fileName, true));
 	}
 
 	public void writeToFile(List<Object> person) throws IOException {
@@ -55,8 +53,6 @@ public class PersonIO {
 	}
 
 	public void readFile() throws ClassNotFoundException, IOException {
-		writeToFile(peopleList); // writes to file as extra "save changes" step before reading
-		
 		ois = new ObjectInputStream(new FileInputStream(this.fileName));
 		List<Object> input = (List<Object>) ois.readObject();
 		List<Object> checkList = new ArrayList<>();
@@ -65,20 +61,15 @@ public class PersonIO {
 			checkList.add(l.getClass().getSimpleName());
 			if (l instanceof Person) {
 				Person p = (Person) l;
-				System.out.println(p.name);
-				System.out.println(p.age);
+				System.out.println(p.toString());
 			}
 		}
-		System.out.println(checkList);
-
 		ois.close();
 	}
 
 	public void add(Person p) throws IOException {
-		// built list of persons before writing to file
-//		List<Object> peopleList = new ArrayList<>();
 		peopleList.add(p);
-//		writeToFile(peopleList);
+		writeToFile(peopleList);
 		System.out.println("Added " + p.toString());
 	}
 

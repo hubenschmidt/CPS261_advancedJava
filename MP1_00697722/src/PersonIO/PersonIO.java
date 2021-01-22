@@ -1,5 +1,6 @@
 package PersonIO;
 
+import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,6 +22,15 @@ class Person implements Serializable {
 	public String getName() {
 		return name;
 	}
+
+	public int getAge() {
+		return age;
+	}
+
+	@Override
+	public String toString() {
+		return getName() + " " + getAge();
+	}
 }
 
 public class PersonIO {
@@ -32,18 +42,27 @@ public class PersonIO {
 	public PersonIO(String fileName) throws FileNotFoundException, IOException {
 		this.fileName = fileName;
 
-		oos = new ObjectOutputStream(new FileOutputStream(this.fileName));
 		ois = new ObjectInputStream(new FileInputStream(this.fileName));
+		oos = new ObjectOutputStream(new FileOutputStream(this.fileName));
 
 	}
 
 	public void add(Person p) throws IOException {
 		oos.writeObject(p);
-		System.out.println("Added " + p.getName() + ".");
+		System.out.println("Added " + p.toString());
 	}
 
 	public void display() {
-		System.out.println("Invoke display");
+		try {
+			Person p = (Person) ois.readObject();
+			System.out.println(p.toString());
+		} catch (EOFException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(String[] args) throws FileNotFoundException, IOException {
@@ -67,7 +86,8 @@ public class PersonIO {
 					String name = kbInput.nextLine();
 					System.out.println("Enter age: ");
 					int age = kbInput.nextInt();
-					System.out.println("You entered: " + name + " ," + age);
+					Person p = new Person(name, age);
+					mp1.add(p);
 					break;
 				case 2:
 					mp1.display();
@@ -79,27 +99,20 @@ public class PersonIO {
 			} while (option != 0);
 		} finally {
 			try {
-				// close ois
-				if (mp1.ois != null) {
-					mp1.ois.close();
-				}
-				// close oos
-				if (mp1.oos != null) {
-					mp1.oos.close();
-				}
-
+				mp1.ois.close();
+				mp1.oos.close();
+//				// close ois
+//				if (mp1.ois != null) {
+//					mp1.ois.close();
+//				}
+//				// close oos
+//				if (mp1.oos != null) {
+//					mp1.oos.close();
+//				}
 			} catch (IOException e) {
 				System.out.println("Error.");
 				e.printStackTrace();
 			}
-
 		}
-
 	}
-
-	public static void processMenuInput(int in) {
-		System.out.print(in);
-
-	}
-
 }

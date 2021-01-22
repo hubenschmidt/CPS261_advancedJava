@@ -1,0 +1,28 @@
+SUCCESS: Printed MyOutput1.txt
+java.nio.file.NoSuchFileException: ../../non-existent-file
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:116)
+	at java.base/sun.nio.fs.UnixFileAttributeViews$Basic.readAttributes(UnixFileAttributeViews.java:55)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.readAttributes(UnixFileSystemProvider.java:149)
+	at java.base/java.nio.file.Files.readAttributes(Files.java:1843)
+	at java.base/java.nio.file.FileTreeWalker.getAttributes(FileTreeWalker.java:219)
+	at java.base/java.nio.file.FileTreeWalker.visit(FileTreeWalker.java:276)
+	at java.base/java.nio.file.FileTreeWalker.walk(FileTreeWalker.java:322)
+	at java.base/java.nio.file.FileTreeIterator.<init>(FileTreeIterator.java:71)
+	at java.base/java.nio.file.Files.walk(Files.java:3891)
+	at java.base/java.nio.file.Files.walk(Files.java:3945)
+	at ReadingWithExceptions.ReadingWithExceptions.WalkFileTree(ReadingWithExceptions.java:77)
+	at ReadingWithExceptions.ReadingWithExceptions.main(ReadingWithExceptions.java:213)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564)
+	at jdk.compiler/com.sun.tools.javac.launcher.Main.execute(Main.java:415)
+	at jdk.compiler/com.sun.tools.javac.launcher.Main.run(Main.java:192)
+	at jdk.compiler/com.sun.tools.javac.launcher.Main.main(Main.java:132)
+ERROR: null input. Data is invalid. Input discarded: x ../../file2.txt
+WARNING: Input threshold exceeds file length. Fetching all availble data. ../../file2.txt
+SUCCESS: Printed niceJob.txt
+ERROR: null input . Input threshold is not a valid number. Fetching all available data. Input discarded: x0 ../../file3.txt
+SUCCESS: Printed OneLastOutput.txt

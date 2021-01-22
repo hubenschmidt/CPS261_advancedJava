@@ -39,10 +39,10 @@ class Person implements Serializable {
 }
 
 public class PersonIO {
-	String fileName;
-	ObjectInputStream ois = null;
-	ObjectOutputStream oos = null;
-	FileInputStream fis = null;
+	private String fileName;
+	private ObjectInputStream ois = null;
+	private ObjectOutputStream oos = null;
+	private FileInputStream fis = null;
 	static Scanner kbInput = new Scanner(System.in);
 	List<Object> peopleList = new ArrayList<>();
 
@@ -50,24 +50,28 @@ public class PersonIO {
 		this.fileName = fileName;
 	}
 
+	public void setPeopleList(List<Object> peopleList) {
+		this.peopleList = peopleList;
+	}
+
 	public static void initializeBinaryFile(String filePath, PersonIO mp1) throws IOException {
 		File file = new File(filePath);
-
+		// check for existence of binary file
 		if (file.isFile()) {
-			System.out.println("File exists.");
+			return;
 		} else {
-			System.out.println("File doesn't exist or program doesn't have access to the file");
-			// initialize Path object
+//			System.out.println("File doesn't exist or program doesn't have access to the file");
 			Path path = Paths.get("person.ser");
-			// create file
-			try {
-				Path createdFilePath = Files.createFile(path);
-				System.out.println("File Created at Path: : " + createdFilePath);
-				System.out.println(createdFilePath);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			Path createdFilePath = Files.createFile(path);
+//			System.out.println("File Created at Path: : " + createdFilePath);
+			System.out.println(createdFilePath);
 		}
+	}
+
+	public void populatePeopleList() throws FileNotFoundException, IOException, ClassNotFoundException {
+		ois = new ObjectInputStream(new FileInputStream(this.fileName));
+		List<Object> input = (List<Object>) ois.readObject();
+		setPeopleList(input);
 	}
 
 	public void writeToFile(List<Object> person) throws IOException {
@@ -79,10 +83,10 @@ public class PersonIO {
 	public void readFile() throws ClassNotFoundException, IOException {
 		ois = new ObjectInputStream(new FileInputStream(this.fileName));
 		List<Object> input = (List<Object>) ois.readObject();
-		List<Object> checkList = new ArrayList<>();
+		List<Object> displayList = new ArrayList<>();
 		// this will contain the list of the objects
 		for (Object l : input) {
-			checkList.add(l.getClass().getSimpleName());
+			displayList.add(l.getClass().getSimpleName());
 			if (l instanceof Person) {
 				Person p = (Person) l;
 				System.out.println(p.toString());
@@ -101,6 +105,7 @@ public class PersonIO {
 		String filePath = "person.ser";
 		PersonIO mp1 = new PersonIO(filePath);
 		initializeBinaryFile(filePath, mp1);
+		mp1.populatePeopleList();
 
 		int option = -1;
 		do {

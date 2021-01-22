@@ -11,6 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author williamroymbp
+ *
+ */
+
 class Person implements Serializable {
 	String name;
 	int age;
@@ -20,6 +26,11 @@ class Person implements Serializable {
 		this.age = age;
 	}
 
+	/**
+	 * Getters
+	 * 
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
@@ -30,7 +41,7 @@ class Person implements Serializable {
 
 	@Override
 	public String toString() {
-		return getName() + " " + getAge();
+		return "NAME: " + getName() + " AGE: " + getAge();
 	}
 }
 
@@ -46,33 +57,68 @@ public class PersonIO {
 		this.fileName = fileName;
 	}
 
+	/**
+	 * Build an ArrayList of Person objects based on user input.
+	 * 
+	 * @param p
+	 * @throws IOException
+	 */
+	public void add(Person p) throws IOException {
+		peopleList.add(p);
+		writeToFile(peopleList);
+		System.out.println();
+		System.out.println("*****");
+		System.out.println("ADDING " + p.toString());
+		System.out.println("*****");
+		System.out.println();
+	}
+
+	/**
+	 * Serialize Person objects to binary file.
+	 * 
+	 * @param person
+	 * @throws IOException
+	 */
 	public void writeToFile(List<Object> person) throws IOException {
 		oos = new ObjectOutputStream(new FileOutputStream(this.fileName));
 		oos.writeObject(person);
 		oos.close();
 	}
 
+	/**
+	 * Deserialize Person objects from binary file, build an ArrayList of Person
+	 * objects, display output in console.
+	 * 
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void readFile() throws ClassNotFoundException, IOException {
 		ois = new ObjectInputStream(new FileInputStream(this.fileName));
 		List<Object> input = (List<Object>) ois.readObject();
-		List<Object> checkList = new ArrayList<>();
-		// this will contain the list of the objects
+		List<Object> displayList = new ArrayList<>();
+
 		for (Object l : input) {
-			checkList.add(l.getClass().getSimpleName());
-			if (l instanceof Person) {
-				Person p = (Person) l;
-				System.out.println(p.toString());
-			}
+			displayList.add(l);
+			Person p = (Person) l;
+
+			System.out.println();
+			System.out.println("DISPLAY ALL ENTRIES:");
+			System.out.println("---------------------");
+			System.out.println(p.toString());
+			System.out.println();
+			System.out.println();
 		}
 		ois.close();
 	}
 
-	public void add(Person p) throws IOException {
-		peopleList.add(p);
-		writeToFile(peopleList);
-		System.out.println("Added " + p.toString());
-	}
-
+	/**
+	 * Display menu to generate program input.
+	 * 
+	 * @param args
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws ClassNotFoundException
+	 */
 	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 		PersonIO mp1 = new PersonIO("person.ser");
 		int option = -1;

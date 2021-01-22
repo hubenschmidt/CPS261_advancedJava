@@ -40,6 +40,7 @@ public class PersonIO {
 	ObjectOutputStream oos = null;
 	FileInputStream fis = null;
 	static Scanner kbInput = new Scanner(System.in);
+	List<Object> peopleList = new ArrayList<>();
 
 	public PersonIO(String fileName) {
 		this.fileName = fileName;
@@ -54,54 +55,35 @@ public class PersonIO {
 	}
 
 	public void readFile() throws ClassNotFoundException, IOException {
+		writeToFile(peopleList); // writes to file as extra "save changes" step before reading
+		
 		ois = new ObjectInputStream(new FileInputStream(this.fileName));
-
 		List<Object> input = (List<Object>) ois.readObject();
 		List<Object> checkList = new ArrayList<>();
-
-//		for (int i = 0; i < checkList.size(); i++) {
-//			System.out.println(checkList.get(i));
-//		}
-
-		// this will contain the list of objects
+		// this will contain the list of the objects
 		for (Object l : input) {
 			checkList.add(l.getClass().getSimpleName());
-
 			if (l instanceof Person) {
 				Person p = (Person) l;
 				System.out.println(p.name);
 				System.out.println(p.age);
 			}
-
 		}
-//		System.out.println(checkList);
+		System.out.println(checkList);
+
 		ois.close();
 	}
 
 	public void add(Person p) throws IOException {
 		// built list of persons before writing to file
-		List<Object> peopleList = new ArrayList<>();
+//		List<Object> peopleList = new ArrayList<>();
 		peopleList.add(p);
-		writeToFile(peopleList);
+//		writeToFile(peopleList);
 		System.out.println("Added " + p.toString());
 	}
 
-//	public void display() {
-//		try {
-//			Person p = (Person) ois.readObject();
-//			System.out.println(p.toString());
-//		} catch (EOFException e) {
-//			e.printStackTrace();
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 		PersonIO mp1 = new PersonIO("person.ser");
-//		try {
 		int option = -1;
 		do {
 			System.out.println("Please choose an option:");
@@ -125,7 +107,6 @@ public class PersonIO {
 				break;
 			case 2:
 				mp1.readFile();
-//					mp1.display();
 				break;
 			default:
 				System.out.println(option + " is not a valid entry");
@@ -134,5 +115,3 @@ public class PersonIO {
 		} while (option != 0);
 	}
 }
-//	}
-//}

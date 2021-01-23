@@ -151,6 +151,53 @@ public class PersonIO {
 	}
 
 	/**
+	 * Validate user entry using method overloading
+	 * 
+	 * @param zero
+	 * @param one
+	 * @param two
+	 * @return
+	 */
+	public static int validate(int zero, int one, int two) {
+		boolean validated = false;
+		int option = -1;
+
+		while (!validated) {
+			if (zero == 0 || one == 1 || two == 2) {
+				option = kbInput.nextInt();
+				validated = true;
+				break;
+			} else {
+				System.out.println(option + " is invalid. Please enter another choice: ");
+			}
+		}
+		return option;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static int validate() {
+		boolean validated = false;
+		int age = -1;
+
+		while (!validated) {
+			if (kbInput.hasNextInt()) {
+				age = kbInput.nextInt();
+				if (age >= 0) {
+					validated = true;
+					break;
+				}
+			} else {
+				System.out.println(age + " is invalid. Please enter another choice: ");
+				kbInput.next();
+			}
+		}
+		return age;
+	}
+
+	/**
 	 * Menu prompt to generate user feedback
 	 * 
 	 * @param args
@@ -164,13 +211,14 @@ public class PersonIO {
 		initializeBinaryFile(filePath, mp1);
 		mp1.fetchLastSessionData();
 
-		int option = -1;
+		int option;
+		int age;
 		do {
 			System.out.println("Please choose an option:");
 			System.out.println("0: quit");
 			System.out.println("1: add");
 			System.out.println("2: display");
-			option = kbInput.nextInt();
+			option = validate(0, 1, 2);
 			kbInput.nextLine();
 			System.out.println();
 			switch (option) {
@@ -181,7 +229,7 @@ public class PersonIO {
 				System.out.println("Enter name: ");
 				String name = kbInput.nextLine();
 				System.out.println("Enter age: ");
-				int age = kbInput.nextInt();
+				age = validate();
 				Person p = new Person(name, age);
 				mp1.add(p);
 				break;
@@ -194,4 +242,5 @@ public class PersonIO {
 
 		} while (option != 0);
 	}
+
 }

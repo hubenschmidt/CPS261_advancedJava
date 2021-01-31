@@ -1,5 +1,6 @@
 package Student;
 
+//refactor as generic static method:
 public class MySelectionSort {
 	public static int[] _do(int arr[]) {
 		int n = arr.length;

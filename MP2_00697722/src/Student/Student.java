@@ -8,9 +8,9 @@ public class Student implements Comparable {
 	private String name;
 	private double gpa;
 
-	public Student(int studentID, String name, double gpa) {
+	public Student(String name, double gpa) {
 		super();
-		this.studentID = studentID;
+		setUID();
 		this.name = name;
 		this.gpa = gpa;
 	}
@@ -21,8 +21,13 @@ public class Student implements Comparable {
 	 * @param uID
 	 */
 
-	public void setUID(AtomicInteger uID) {
-		this.uID = uID;
+	public void setUID() {
+		this.studentID = uID.incrementAndGet();
+	}
+
+	@Override
+	public String toString() {
+		return "Student [studentID=" + studentID + ", name=" + name + ", gpa=" + gpa + "]";
 	}
 
 	public int getStudentID() {

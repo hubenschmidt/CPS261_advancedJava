@@ -1,7 +1,7 @@
 package Student;
 
-public class Student {
-	private int studentID = 10001;
+public class Student implements Comparable {
+	private int studentID = 1;
 	private String name;
 	private double gpa;
 
@@ -34,6 +34,11 @@ public class Student {
 
 	public void setGpa(double gpa) {
 		this.gpa = gpa;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		return getStudentID() - this.getStudentID();
 	}
 
 }

@@ -19,6 +19,14 @@ public class Main {
 		for (Student s : eastQuadCrew2004) {
 			System.out.println(s.toString());
 		}
+
+		// *implement generic static method on MySelectionSort class
+		// *use MySelectionSort._do() method on UID even though AtomicSort already
+		// increments the UID.
+		// *Test your class by creating an array of sample students and sort them using
+		// the sort method you defined from the last step
+		// *Comment out the compareTo method, re-write it to use student’s name to
+		// compare instead
 	}
 
 }

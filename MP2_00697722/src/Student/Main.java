@@ -30,6 +30,9 @@ public class Main {
 					System.out.println(arrlist.get(i + 1) + " studentId exceeds " + arrlist.get(i));
 				}
 			}
+
+			String[] arr = { "A", "B", "C", "D", "E" };
+			MySelectionSort.sort(arr);
 		}
 
 		catch (IndexOutOfBoundsException e) {

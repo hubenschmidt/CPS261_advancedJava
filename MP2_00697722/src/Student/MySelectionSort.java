@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class MySelectionSort {
 //	public static <E extends Comparable<E>> void selectionSort(E[] list) {
 	public static <E extends Comparable<E>> void selectionSort(ArrayList<E> list) {
+//		System.out.println("test print list " + list);
+
 		for (int i = 0; i < list.size(); i++) {
 			// find position of smallest num between (i+1)th element and last element
 			int smallest = i;
@@ -14,6 +16,7 @@ public class MySelectionSort {
 
 				if (list.get(smallest).compareTo((list.get(j))) > 0) {
 					i = j;
+					System.out.println("test print " + i);
 				}
 
 				// swap min (smallest num) to current position on array

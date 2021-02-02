@@ -8,6 +8,22 @@ public class Student implements Comparable<Student> {
 	private String name;
 	private double gpa;
 
+	// for testing:
+	public Student() {
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setGpa(double gpa) {
+		this.gpa = gpa;
+	}
+
 	public Student(String name, double gpa) {
 		super();
 		setUID();

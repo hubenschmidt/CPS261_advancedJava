@@ -11,31 +11,50 @@ public class Main {
 			ArrayList<Student> arrlist = new ArrayList<Student>();
 
 			// adding element to arrlist
-			arrlist.add(new Student("Becky", 3.9));
-			arrlist.add(new Student("Serena", 3.8));
-			arrlist.add(new Student("Celia", 3.9));
-			arrlist.add(new Student("Steve", 3.8));
-			arrlist.add(new Student("Irina", 3.9));
-			arrlist.add(new Student("Paul", 3.8));
-			arrlist.add(new Student("William", 3.9));
+//			arrlist.add(new Student("Becky", 3.9));
+//			arrlist.add(new Student("Serena", 3.8));
+//			arrlist.add(new Student("Celia", 3.9));
+//			arrlist.add(new Student("Steve", 3.8));
+//			arrlist.add(new Student("Irina", 3.9));
+//			arrlist.add(new Student("Paul", 3.8));
+//			arrlist.add(new Student("William", 3.9));
 
-			MySelectionSort.selectionSort(arrlist);
+			Student s1 = new Student();
+			s1.setStudentId(1);
+			s1.setName("Becky");
+			s1.setGpa(3.9);
+			arrlist.add(s1);
+
+			Student s2 = new Student();
+			s1.setStudentId(2);
+			s1.setName("Serena");
+			s1.setGpa(3.8);
+			arrlist.add(s2);
+
+			Student s3 = new Student();
+			s1.setStudentId(3);
+			s1.setName("Celia");
+			s1.setGpa(3.8);
+			arrlist.add(s3);
+
+//			MySelectionSort.selectionSort(arrlist);
 
 			System.out.println("Testing compareTo() method");
 			System.out.println("--------------------------");
-			// print arrlist
 			for (int i = 0; i < arrlist.size() - 1; i++) {
+				System.out.println("test");
 
 				if (arrlist.get(i) == null) {
+					System.out.println("Student array list empty");
 					break;
 				} else if (arrlist.get(i + 1).compareTo(arrlist.get(i)) == 1) {
 					System.out.println(arrlist.get(i + 1) + " studentId exceeds " + arrlist.get(i));
 				}
 			}
-
-			System.out.println();
-			System.out.println("Testing MySelectionSort.selectionSort() generic static method");
-			System.out.println("--------------------------");
+//
+//			System.out.println();
+//			System.out.println("Testing MySelectionSort.selectionSort() generic static method");
+//			System.out.println("--------------------------");
 
 //			Integer[] list = { 34, 17, 23, 35, 45, 9, 1 };
 //			System.out.println("Original Array: ");

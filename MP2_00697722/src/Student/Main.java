@@ -6,19 +6,40 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		ArrayList<Student> eastQuadCrew2004 = new ArrayList<>();
+		try {
+			// Creating object of ArrayList<Student>
+			ArrayList<Student> arrlist = new ArrayList<>();
 
-		eastQuadCrew2004.add(new Student("Becky", 3.9));
-		eastQuadCrew2004.add(new Student("Serena", 3.8));
-		eastQuadCrew2004.add(new Student("Celia", 3.9));
-		eastQuadCrew2004.add(new Student("Steve", 3.8));
-		eastQuadCrew2004.add(new Student("Irina", 3.9));
-		eastQuadCrew2004.add(new Student("Paul", 3.8));
-		eastQuadCrew2004.add(new Student("William", 3.9));
+			// adding element to arrlist
+			arrlist.add(new Student("Becky", 3.9));
+			arrlist.add(new Student("Serena", 3.8));
+			arrlist.add(new Student("Celia", 3.9));
+			arrlist.add(new Student("Steve", 3.8));
+			arrlist.add(new Student("Irina", 3.9));
+			arrlist.add(new Student("Paul", 3.8));
+			arrlist.add(new Student("William", 3.9));
 
-		for (Student s : eastQuadCrew2004) {
-			System.out.println(s.toString());
+			System.out.println("Testing compareTo() method");
+			System.out.println("--------------------------");
+			// print arrlist
+			for (int i = 0; i < arrlist.size() - 1; i++) {
+
+				if (arrlist.get(i) == null) {
+					break;
+				} else if (arrlist.get(i + 1).compareTo(arrlist.get(i)) == 1) {
+					System.out.println(arrlist.get(i + 1) + " studentId exceeds " + arrlist.get(i));
+				}
+			}
 		}
+
+		catch (IndexOutOfBoundsException e) {
+			System.out.println("Exception thrown : " + e);
+			return;
+		}
+
+//		for (Student s : eastQuadCrew04) {
+//			System.out.println(s.toString());
+//		}
 
 		// *implement generic static method on MySelectionSort class
 		// *use MySelectionSort._do() method on UID even though AtomicSort already

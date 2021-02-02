@@ -1,8 +1,9 @@
 package Student;
 
 //refactor as generic method
-public class MySelectionSort {
-	public static void _do(int arr[]) {
+public class MySelectionSort<T> {
+//	public static <T> void sort(int arr[]) {
+	public static <T> sort(T arr) {
 		int n = arr.length;
 		// One by one move boundary of unsorted subarray
 		for (int i = 0; i < n - 1; i++) {
@@ -18,7 +19,7 @@ public class MySelectionSort {
 			arr[i] = temp;
 		}
 
-//		return arr;
+		return arr;
 	}
 
 }

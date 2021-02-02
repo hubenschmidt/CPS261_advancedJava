@@ -8,7 +8,7 @@ public class Main {
 
 		try {
 			// Creating object of ArrayList<Student>
-			ArrayList<Student> arrlist = new ArrayList<>();
+			ArrayList<Student> arrlist = new ArrayList<Student>();
 
 			// adding element to arrlist
 			arrlist.add(new Student("Becky", 3.9));
@@ -18,6 +18,8 @@ public class Main {
 			arrlist.add(new Student("Irina", 3.9));
 			arrlist.add(new Student("Paul", 3.8));
 			arrlist.add(new Student("William", 3.9));
+
+			MySelectionSort.selectionSort(arrlist);
 
 			System.out.println("Testing compareTo() method");
 			System.out.println("--------------------------");
@@ -31,8 +33,20 @@ public class Main {
 				}
 			}
 
-			String[] arr = { "A", "B", "C", "D", "E" };
-			MySelectionSort.sort(arr);
+			System.out.println();
+			System.out.println("Testing MySelectionSort.selectionSort() generic static method");
+			System.out.println("--------------------------");
+
+//			Integer[] list = { 34, 17, 23, 35, 45, 9, 1 };
+//			System.out.println("Original Array: ");
+//			MySelectionSort.printArray(list);
+//
+//			MySelectionSort.selectionSort(list);
+//			System.out.println("\nSelection sort:");
+//			MySelectionSort.printArray(list);
+//			Float[] flist = { 34.4f, 17.6f, 23.0f };
+//			MySelectionSort.selectionSort(list);
+
 		}
 
 		catch (IndexOutOfBoundsException e) {

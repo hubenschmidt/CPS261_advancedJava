@@ -5,92 +5,87 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) {
-
 		try {
-			// Creating object of ArrayList<Student>
 			ArrayList<Student> arrlist = new ArrayList<Student>();
 
-			// adding element to arrlist
-//			arrlist.add(new Student("Becky", 3.9));
-//			arrlist.add(new Student("Serena", 3.8));
-//			arrlist.add(new Student("Celia", 3.9));
-//			arrlist.add(new Student("Steve", 3.8));
-//			arrlist.add(new Student("Irina", 3.9));
-//			arrlist.add(new Student("Paul", 3.8));
-//			arrlist.add(new Student("William", 3.9));
+			// add Students using constructor
+			arrlist.add(new Student("Blose", "Becky", 3.4));
+			arrlist.add(new Student("Renda", "Serena", 3.2));
+			arrlist.add(new Student("Wolfman", "Celia", 3.9));
+			arrlist.add(new Student("Olsen", "Steve", 3.8));
+			arrlist.add(new Student("Lyons", "Irina", 2.9));
+			arrlist.add(new Student("Czarnecki", "Paul", 3.3));
+			arrlist.add(new Student("Hubenschmidt", "Roy", 3.4));
+			arrlist.add(new Student("Hubenschmidt", "William", 3.6));
+			arrlist.add(new Student("Lynn", "Rob", 3.9));
+			arrlist.add(new Student("Lynn", "Erica", 3.9));
 
+			// add Students using setters
 			Student s1 = new Student();
-			s1.setStudentId(3);
-			s1.setName("Becky");
-			s1.setGpa(3.9);
+			s1.setStudentId(13);
+			s1.setLastName("Gentle");
+			s1.setFirstName("Joe");
+			s1.setGpa(3.1);
 			arrlist.add(s1);
 
 			Student s2 = new Student();
-			s2.setStudentId(2);
-			s2.setName("Serena");
+			s2.setStudentId(12);
+			s2.setLastName("Stenvig");
+			s2.setFirstName("Jane");
 			s2.setGpa(3.8);
 			arrlist.add(s2);
 
 			Student s3 = new Student();
-			s3.setStudentId(8);
-			s3.setName("Celia");
-			s3.setGpa(3.8);
+			s3.setStudentId(18);
+			s3.setLastName("Hammond-Bennett");
+			s3.setFirstName("Austin");
+			s3.setGpa(2.8);
 			arrlist.add(s3);
 
 			Student s4 = new Student();
-			s4.setStudentId(14);
-			s4.setName("William");
-			s4.setGpa(3.9);
+			s4.setStudentId(24);
+			s4.setLastName("Clark");
+			s4.setFirstName("Phil");
+			s4.setGpa(3.0);
 			arrlist.add(s4);
 
-			System.out.println("Testing compareTo() method");
+			Student s5 = new Student();
+			s5.setStudentId(9);
+			s5.setLastName("Welch");
+			s5.setFirstName("Molly");
+			s5.setGpa(3.1);
+			arrlist.add(s5);
+
+			/*
+			 * Testing compareTo() method
+			 */
+			System.out.println(
+					"Testing compareTo() method, ordering by Last Name THEN First Name, or by Student Id if alternate method is uncommented.");
 			System.out.println("--------------------------");
 			for (int i = 0; i < arrlist.size() - 1; i++) {
-
 				if (arrlist.get(i) == null) {
 					System.out.println("Student array list empty");
 					break;
 				} else if (arrlist.get(i + 1).compareTo(arrlist.get(i)) > 0) {
-					System.out.println(arrlist.get(i + 1) + " studentId exceeds " + arrlist.get(i));
+					System.out.println(arrlist.get(i + 1) + " IS GREATER THAN " + arrlist.get(i));
 				} else if (arrlist.get(i + 1).compareTo(arrlist.get(i)) < 0) {
-					System.out.println(arrlist.get(i + 1) + " studentId is less than " + arrlist.get(i));
+					System.out.println(arrlist.get(i + 1) + " IS LESS THAN " + arrlist.get(i));
 				}
 			}
 
+			/*
+			 * Testing doSelectionSort() method
+			 */
 			System.out.println();
 			System.out.println("Testing MySelectionSort.selectionSort() generic static method");
 			System.out.println("--------------------------");
 
 			MySelectionSort.doSelectionSort(arrlist);
-
-//			Integer[] list = { 34, 17, 23, 35, 45, 9, 1 };
-//			System.out.println("Original Array: ");
-//			MySelectionSort.printArray(list);
-//
-//			MySelectionSort.selectionSort(list);
-//			System.out.println("\nSelection sort:");
-//			MySelectionSort.printArray(list);
-//			Float[] flist = { 34.4f, 17.6f, 23.0f };
-//			MySelectionSort.selectionSort(list);
-
 		}
 
 		catch (IndexOutOfBoundsException e) {
 			System.out.println("Exception thrown : " + e);
 			return;
 		}
-
-//		for (Student s : eastQuadCrew04) {
-//			System.out.println(s.toString());
-//		}
-
-		// *implement generic static method on MySelectionSort class
-		// *use MySelectionSort._do() method on UID even though AtomicSort already
-		// increments the UID.
-		// *Test your class by creating an array of sample students and sort them using
-		// the sort method you defined from the last step
-		// *Comment out the compareTo method, re-write it to use student’s name to
-		// compare instead
 	}
-
 }

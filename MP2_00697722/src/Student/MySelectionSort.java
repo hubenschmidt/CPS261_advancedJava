@@ -2,9 +2,7 @@ package Student;
 
 import java.util.ArrayList;
 
-//refactor as generic method
 public class MySelectionSort {
-	// Create doSelectionSort method
 	public static <E extends Comparable<E>> void doSelectionSort(ArrayList<E> arr) {
 		for (int i = 0; i < arr.size(); i++) {
 			// find position of smallest num between (i + 1)th element and last element
@@ -33,7 +31,6 @@ public class MySelectionSort {
 			E iSwap = list[iSmallest];
 			list[iSmallest] = list[i];
 			list[i] = iSwap;
-
 		}
 	}
 

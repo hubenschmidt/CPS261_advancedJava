@@ -37,7 +37,11 @@ public class Main {
 			s3.setGpa(3.8);
 			arrlist.add(s3);
 
-//			MySelectionSort.selectionSort(arrlist);
+			Student s4 = new Student();
+			s4.setStudentId(14);
+			s4.setName("William");
+			s4.setGpa(3.9);
+			arrlist.add(s4);
 
 			System.out.println("Testing compareTo() method");
 			System.out.println("--------------------------");
@@ -52,10 +56,12 @@ public class Main {
 					System.out.println(arrlist.get(i + 1) + " studentId is less than " + arrlist.get(i));
 				}
 			}
-//
-//			System.out.println();
-//			System.out.println("Testing MySelectionSort.selectionSort() generic static method");
-//			System.out.println("--------------------------");
+
+			System.out.println();
+			System.out.println("Testing MySelectionSort.selectionSort() generic static method");
+			System.out.println("--------------------------");
+
+			MySelectionSort.doSelectionSort(arrlist);
 
 //			Integer[] list = { 34, 17, 23, 35, 45, 9, 1 };
 //			System.out.println("Original Array: ");

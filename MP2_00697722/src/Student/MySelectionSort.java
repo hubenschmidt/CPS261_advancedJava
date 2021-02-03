@@ -19,21 +19,6 @@ public class MySelectionSort {
 		printArray(arr);
 	}
 
-	public static <E extends Comparable<E>> void selectionSortArray(E[] list) {
-		for (int i = 0; i < list.length - 1; i++) {
-			int iSmallest = i;
-
-			for (int j = i + 1; j < list.length; j++) {
-				if (list[iSmallest].compareTo((list[j])) > 0) {
-					iSmallest = j;
-				}
-			}
-			E iSwap = list[iSmallest];
-			list[iSmallest] = list[i];
-			list[i] = iSwap;
-		}
-	}
-
 	private static <E> void printArray(ArrayList<E> list) {
 		for (int j = 0; j < list.size(); j++) {
 			System.out.println(j + " " + list.get(j));

@@ -20,21 +20,21 @@ public class Main {
 //			arrlist.add(new Student("William", 3.9));
 
 			Student s1 = new Student();
-			s1.setStudentId(1);
+			s1.setStudentId(3);
 			s1.setName("Becky");
 			s1.setGpa(3.9);
 			arrlist.add(s1);
 
 			Student s2 = new Student();
-			s1.setStudentId(2);
-			s1.setName("Serena");
-			s1.setGpa(3.8);
+			s2.setStudentId(2);
+			s2.setName("Serena");
+			s2.setGpa(3.8);
 			arrlist.add(s2);
 
 			Student s3 = new Student();
-			s1.setStudentId(3);
-			s1.setName("Celia");
-			s1.setGpa(3.8);
+			s3.setStudentId(8);
+			s3.setName("Celia");
+			s3.setGpa(3.8);
 			arrlist.add(s3);
 
 //			MySelectionSort.selectionSort(arrlist);
@@ -42,13 +42,14 @@ public class Main {
 			System.out.println("Testing compareTo() method");
 			System.out.println("--------------------------");
 			for (int i = 0; i < arrlist.size() - 1; i++) {
-				System.out.println("test");
 
 				if (arrlist.get(i) == null) {
 					System.out.println("Student array list empty");
 					break;
-				} else if (arrlist.get(i + 1).compareTo(arrlist.get(i)) == 1) {
+				} else if (arrlist.get(i + 1).compareTo(arrlist.get(i)) > 0) {
 					System.out.println(arrlist.get(i + 1) + " studentId exceeds " + arrlist.get(i));
+				} else if (arrlist.get(i + 1).compareTo(arrlist.get(i)) < 0) {
+					System.out.println(arrlist.get(i + 1) + " studentId is less than " + arrlist.get(i));
 				}
 			}
 //

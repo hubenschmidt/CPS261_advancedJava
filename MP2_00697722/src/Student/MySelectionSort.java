@@ -17,8 +17,8 @@ public class MySelectionSort {
 			E min = arr.get(pos);
 			arr.set(pos, arr.get(i));
 			arr.set(i, min);
-			printArray(i + 1, arr);
 		}
+		printArray(arr);
 	}
 
 	public static <E extends Comparable<E>> void selectionSortArray(E[] list) {
@@ -37,13 +37,9 @@ public class MySelectionSort {
 		}
 	}
 
-	private static <E> void printArray(int i, ArrayList<E> list) {
-		// TODO Auto-generated method stub
+	private static <E> void printArray(ArrayList<E> list) {
 		for (int j = 0; j < list.size(); j++) {
 			System.out.println(j + " " + list.get(j));
-
 		}
-
 	}
-
 }

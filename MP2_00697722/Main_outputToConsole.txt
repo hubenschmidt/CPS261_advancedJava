@@ -1,0 +1,80 @@
+
+/*
+* Console output implementing compareTo on studentId
+*/
+
+Testing compareTo() method
+--------------------------
+Student [studentId=2, Last name=Renda, First name=Serena, gpa=3.2] IS GREATER THAN Student [studentId=1, Last name=Blose, First name=Becky, gpa=3.4]
+Student [studentId=3, Last name=Wolfman, First name=Celia, gpa=3.9] IS GREATER THAN Student [studentId=2, Last name=Renda, First name=Serena, gpa=3.2]
+Student [studentId=4, Last name=Olsen, First name=Steve, gpa=3.8] IS GREATER THAN Student [studentId=3, Last name=Wolfman, First name=Celia, gpa=3.9]
+Student [studentId=5, Last name=Lyons, First name=Irina, gpa=2.9] IS GREATER THAN Student [studentId=4, Last name=Olsen, First name=Steve, gpa=3.8]
+Student [studentId=6, Last name=Czarnecki, First name=Paul, gpa=3.3] IS GREATER THAN Student [studentId=5, Last name=Lyons, First name=Irina, gpa=2.9]
+Student [studentId=7, Last name=Hubenschmidt, First name=Roy, gpa=3.4] IS GREATER THAN Student [studentId=6, Last name=Czarnecki, First name=Paul, gpa=3.3]
+Student [studentId=8, Last name=Hubenschmidt, First name=William, gpa=3.6] IS GREATER THAN Student [studentId=7, Last name=Hubenschmidt, First name=Roy, gpa=3.4]
+Student [studentId=9, Last name=Lynn, First name=Rob, gpa=3.9] IS GREATER THAN Student [studentId=8, Last name=Hubenschmidt, First name=William, gpa=3.6]
+Student [studentId=10, Last name=Lynn, First name=Erica, gpa=3.9] IS GREATER THAN Student [studentId=9, Last name=Lynn, First name=Rob, gpa=3.9]
+Student [studentId=13, Last name=Gentle, First name=Joe, gpa=3.1] IS GREATER THAN Student [studentId=10, Last name=Lynn, First name=Erica, gpa=3.9]
+Student [studentId=12, Last name=Stenvig, First name=Jane, gpa=3.8] IS LESS THAN Student [studentId=13, Last name=Gentle, First name=Joe, gpa=3.1]
+Student [studentId=18, Last name=Hammond-Bennett, First name=Austin, gpa=2.8] IS GREATER THAN Student [studentId=12, Last name=Stenvig, First name=Jane, gpa=3.8]
+Student [studentId=24, Last name=Clark, First name=Phil, gpa=3.0] IS GREATER THAN Student [studentId=18, Last name=Hammond-Bennett, First name=Austin, gpa=2.8]
+Student [studentId=9, Last name=Welch, First name=Molly, gpa=3.1] IS LESS THAN Student [studentId=24, Last name=Clark, First name=Phil, gpa=3.0]
+
+Testing MySelectionSort.selectionSort() generic static method
+--------------------------
+0 Student [studentId=1, Last name=Blose, First name=Becky, gpa=3.4]
+1 Student [studentId=2, Last name=Renda, First name=Serena, gpa=3.2]
+2 Student [studentId=3, Last name=Wolfman, First name=Celia, gpa=3.9]
+3 Student [studentId=4, Last name=Olsen, First name=Steve, gpa=3.8]
+4 Student [studentId=5, Last name=Lyons, First name=Irina, gpa=2.9]
+5 Student [studentId=6, Last name=Czarnecki, First name=Paul, gpa=3.3]
+6 Student [studentId=7, Last name=Hubenschmidt, First name=Roy, gpa=3.4]
+7 Student [studentId=8, Last name=Hubenschmidt, First name=William, gpa=3.6]
+8 Student [studentId=9, Last name=Lynn, First name=Rob, gpa=3.9]
+9 Student [studentId=9, Last name=Welch, First name=Molly, gpa=3.1]
+10 Student [studentId=10, Last name=Lynn, First name=Erica, gpa=3.9]
+11 Student [studentId=12, Last name=Stenvig, First name=Jane, gpa=3.8]
+12 Student [studentId=13, Last name=Gentle, First name=Joe, gpa=3.1]
+13 Student [studentId=18, Last name=Hammond-Bennett, First name=Austin, gpa=2.8]
+14 Student [studentId=24, Last name=Clark, First name=Phil, gpa=3.0]
+
+
+/*
+* Console output implementing compareTo on studentId
+*/
+
+Testing compareTo() method
+--------------------------
+Student [studentId=2, Last name=Renda, First name=Serena, gpa=3.2] IS GREATER THAN Student [studentId=1, Last name=Blose, First name=Becky, gpa=3.4]
+Student [studentId=3, Last name=Wolfman, First name=Celia, gpa=3.9] IS GREATER THAN Student [studentId=2, Last name=Renda, First name=Serena, gpa=3.2]
+Student [studentId=4, Last name=Olsen, First name=Steve, gpa=3.8] IS LESS THAN Student [studentId=3, Last name=Wolfman, First name=Celia, gpa=3.9]
+Student [studentId=5, Last name=Lyons, First name=Irina, gpa=2.9] IS LESS THAN Student [studentId=4, Last name=Olsen, First name=Steve, gpa=3.8]
+Student [studentId=6, Last name=Czarnecki, First name=Paul, gpa=3.3] IS LESS THAN Student [studentId=5, Last name=Lyons, First name=Irina, gpa=2.9]
+Student [studentId=7, Last name=Hubenschmidt, First name=Roy, gpa=3.4] IS GREATER THAN Student [studentId=6, Last name=Czarnecki, First name=Paul, gpa=3.3]
+Student [studentId=8, Last name=Hubenschmidt, First name=William, gpa=3.6] IS GREATER THAN Student [studentId=7, Last name=Hubenschmidt, First name=Roy, gpa=3.4]
+Student [studentId=9, Last name=Lynn, First name=Rob, gpa=3.9] IS GREATER THAN Student [studentId=8, Last name=Hubenschmidt, First name=William, gpa=3.6]
+Student [studentId=10, Last name=Lynn, First name=Erica, gpa=3.9] IS LESS THAN Student [studentId=9, Last name=Lynn, First name=Rob, gpa=3.9]
+Student [studentId=13, Last name=Gentle, First name=Joe, gpa=3.1] IS LESS THAN Student [studentId=10, Last name=Lynn, First name=Erica, gpa=3.9]
+Student [studentId=12, Last name=Stenvig, First name=Jane, gpa=3.8] IS GREATER THAN Student [studentId=13, Last name=Gentle, First name=Joe, gpa=3.1]
+Student [studentId=18, Last name=Hammond-Bennett, First name=Austin, gpa=2.8] IS LESS THAN Student [studentId=12, Last name=Stenvig, First name=Jane, gpa=3.8]
+Student [studentId=24, Last name=Clark, First name=Phil, gpa=3.0] IS LESS THAN Student [studentId=18, Last name=Hammond-Bennett, First name=Austin, gpa=2.8]
+Student [studentId=9, Last name=Welch, First name=Molly, gpa=3.1] IS GREATER THAN Student [studentId=24, Last name=Clark, First name=Phil, gpa=3.0]
+
+Testing MySelectionSort.selectionSort() generic static method
+--------------------------
+0 Student [studentId=1, Last name=Blose, First name=Becky, gpa=3.4]
+1 Student [studentId=24, Last name=Clark, First name=Phil, gpa=3.0]
+2 Student [studentId=6, Last name=Czarnecki, First name=Paul, gpa=3.3]
+3 Student [studentId=13, Last name=Gentle, First name=Joe, gpa=3.1]
+4 Student [studentId=18, Last name=Hammond-Bennett, First name=Austin, gpa=2.8]
+5 Student [studentId=7, Last name=Hubenschmidt, First name=Roy, gpa=3.4]
+6 Student [studentId=8, Last name=Hubenschmidt, First name=William, gpa=3.6]
+7 Student [studentId=10, Last name=Lynn, First name=Erica, gpa=3.9]
+8 Student [studentId=9, Last name=Lynn, First name=Rob, gpa=3.9]
+9 Student [studentId=5, Last name=Lyons, First name=Irina, gpa=2.9]
+10 Student [studentId=4, Last name=Olsen, First name=Steve, gpa=3.8]
+11 Student [studentId=2, Last name=Renda, First name=Serena, gpa=3.2]
+12 Student [studentId=12, Last name=Stenvig, First name=Jane, gpa=3.8]
+13 Student [studentId=9, Last name=Welch, First name=Molly, gpa=3.1]
+14 Student [studentId=3, Last name=Wolfman, First name=Celia, gpa=3.9]
+

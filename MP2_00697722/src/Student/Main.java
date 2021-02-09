@@ -8,7 +8,7 @@ public class Main {
 		try {
 			ArrayList<Student> arrlist = new ArrayList<Student>();
 
-			// add Students using constructor
+			// add Students using constructor, increment studentId using AtomicInteger
 			arrlist.add(new Student("Blose", "Becky", 3.4));
 			arrlist.add(new Student("Renda", "Serena", 3.2));
 			arrlist.add(new Student("Wolfman", "Celia", 3.9));
@@ -20,7 +20,7 @@ public class Main {
 			arrlist.add(new Student("Lynn", "Rob", 3.9));
 			arrlist.add(new Student("Lynn", "Erica", 3.9));
 
-			// add Students using setters
+			// add Students using setters, manually assign studentId
 			Student s1 = new Student();
 			s1.setStudentId(13);
 			s1.setLastName("Gentle");
@@ -59,9 +59,11 @@ public class Main {
 			/*
 			 * Testing compareTo() method
 			 */
-			System.out.println(
-					"Testing compareTo() method, ordering by Last Name THEN First Name, or by Student Id if alternate method is uncommented.");
+
+			System.out.println();
+			System.out.println("Testing compareTo() method");
 			System.out.println("--------------------------");
+
 			for (int i = 0; i < arrlist.size() - 1; i++) {
 				if (arrlist.get(i) == null) {
 					System.out.println("Student array list empty");

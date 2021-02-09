@@ -66,7 +66,8 @@ public class Student implements Comparable<Student> {
 				+ gpa + "]";
 	}
 
-	@Override
+//	@Override
+////	compareTo() method, ordering by student Id.	
 //	public int compareTo(Student that) {
 //		if (this.getStudentId() > that.getStudentId()) {
 //			return 1;
@@ -76,11 +77,11 @@ public class Student implements Comparable<Student> {
 //		return 0;
 //	}
 
-//	@Override
+	@Override
+//	compareTo() method, ordering by Last Name THEN First Name, or by studentId if alternate method is uncommented.
+
 	public int compareTo(Student that) {
 		int last = this.getLastName().compareTo(that.getLastName());
-
 		return last == 0 ? this.getFirstName().compareTo(that.getFirstName()) : last;
-
 	}
 }

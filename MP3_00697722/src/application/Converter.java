@@ -26,9 +26,14 @@ public class Converter extends Application {
 	RadioButton temperature, distance, weight;
 	ToggleGroup toggleGroup;
 
-	public void setConversion(String conversion) {
-		switch (conversion) {
-		case "Temperature":
+	/**
+	 * Selects conversion formula based on radio button selection
+	 * 
+	 * @param conversion
+	 */
+	public void setConversion(String selection) {
+		switch (selection) {
+		default:
 			labelA.setText("Fahrenheit");
 			labelB.setText("Celsius");
 			convertTemperature(eToM, mToE, english, metric);
@@ -43,9 +48,7 @@ public class Converter extends Application {
 			labelB.setText("Kilograms");
 			convertWeight(eToM, mToE, english, metric);
 			break;
-		default:
-			System.out.println("none");
-			break;
+
 		}
 	}
 
@@ -57,16 +60,15 @@ public class Converter extends Application {
 	 * @param english
 	 * @param metric
 	 */
-
 	public void convertTemperature(Button eToM, Button mToE, TextField english, TextField metric) {
 		eToM.setOnAction(e -> {
 			double celsius;
-			celsius = (Double.parseDouble(english.getText()) - 32) * 5 / 9; // substitute lambda here
+			celsius = (Double.parseDouble(english.getText()) - 32) * 5 / 9;
 			metric.setText(String.valueOf(celsius));
 		});
 		mToE.setOnAction(e -> {
 			double fahrenheit;
-			fahrenheit = (Double.parseDouble(metric.getText()) * 1.8) + 32; // substitute lambda here
+			fahrenheit = (Double.parseDouble(metric.getText()) * 1.8) + 32;
 			english.setText(String.valueOf(fahrenheit));
 		});
 	}
@@ -74,12 +76,12 @@ public class Converter extends Application {
 	public void convertDistance(Button eToM, Button mToE, TextField english, TextField metric) {
 		eToM.setOnAction(e -> {
 			double kilometers;
-			kilometers = (Double.parseDouble(english.getText()) * 1.609); // substitute lambda here
+			kilometers = (Double.parseDouble(english.getText()) * 1.609);
 			metric.setText(String.valueOf(kilometers));
 		});
 		mToE.setOnAction(e -> {
 			double miles;
-			miles = (Double.parseDouble(metric.getText()) / 1.609); // substitute lambda here
+			miles = (Double.parseDouble(metric.getText()) / 1.609);
 			english.setText(String.valueOf(miles));
 		});
 	}
@@ -96,6 +98,18 @@ public class Converter extends Application {
 			english.setText(String.valueOf(pounds));
 		});
 	}
+
+	/**
+	 * Builds and displays GUI
+	 * 
+	 * @param gridPane
+	 * @param english
+	 * @param metric
+	 * @param eToM
+	 * @param mToE
+	 * @param labelA
+	 * @param labelB
+	 */
 
 	public void displayGrid(GridPane gridPane, TextField english, TextField metric, Button eToM, Button mToE,
 			Label labelA, Label labelB) {

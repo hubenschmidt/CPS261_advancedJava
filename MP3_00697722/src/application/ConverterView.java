@@ -13,10 +13,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-//public class ConverterView extends Application {
 public class ConverterView {
-	Converter model;
-	ConverterController controller;
+//	Converter model;
+//	ConverterController controller;
 	GridPane gridPane;
 	ToggleGroup toggleGroup;
 	TextField english, metric;
@@ -29,24 +28,25 @@ public class ConverterView {
 	RadioButton chk;
 	String conversion;
 
-	public void displayConverter() {
-		System.out.println("displayConverter default constructor");
+	public String getConversion() {
+		return conversion;
 	}
 
-	// probably create overloaded method for each parameter type unless I can define
-	// a generic and reflect it as such
-	public void displayConverter(double fahrenheit, double celsius, double miles, double kilometers, double pounds,
-			double kilograms) {
-		System.out.println("Conversion results: ");
-		System.out.println("Fahrenheit: " + fahrenheit);
-		System.out.println("Celsius: " + celsius);
-		System.out.println("Miles: " + miles);
-		System.out.println("Kilometers: " + kilometers);
-		System.out.println("Pounds: " + pounds);
-		System.out.println("Kilograms" + kilograms);
-
+	public void setConversion(String conversion) {
+		this.conversion = conversion;
 	}
 
+	/**
+	 * builds GUI grid
+	 * 
+	 * @param gridPane
+	 * @param english
+	 * @param metric
+	 * @param eToM
+	 * @param mToE
+	 * @param labelA
+	 * @param labelB
+	 */
 	public void displayGrid(GridPane gridPane, TextField english, TextField metric, Button eToM, Button mToE,
 			Label labelA, Label labelB) {
 		gridPane.setVgap(5);
@@ -65,26 +65,38 @@ public class ConverterView {
 	}
 
 	/**
-	 * listen for radio button selection
+	 * listens for radio button selection
 	 * 
 	 * @param toggleGroup
 	 * @param converter
 	 */
+	public void handleToggleGroupEvents(ToggleGroup toggleGroup, ConverterController controller, Converter model) {
 
-	public void handleToggleGroupEvents(ToggleGroup toggleGroup, ConverterController converter) {
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
 				chk = (RadioButton) t1.getToggleGroup().getSelectedToggle();
-				conversion = chk.getText();
+//				conversion = chk.getText();
+				setConversion(chk.getText());
+				conversion = getConversion();
 				controller.setConversion(model, conversion, english, metric, eToM, mToE, labelA, labelB);
 			}
 		});
 	}
 
-//	@Override
-//	public void start(Stage primaryStage) throws Exception {
-	public void displayGraphicalUserInterface(Stage primaryStage) throws Exception {
+	/**
+	 * initializes and displays GUI elements
+	 * 
+	 * @param gridPane
+	 * @param english
+	 * @param metric
+	 * @param eToM
+	 * @param mToE
+	 * @param labelA
+	 * @param labelB
+	 */
+	public void displayGraphicalUserInterface(Stage primaryStage, Converter model, ConverterController controller)
+			throws Exception {
 		model = new Converter(); // detangle this mess from view
 		controller = new ConverterController(model); // detangle this mess from view
 		gridPane = new GridPane();
@@ -111,11 +123,8 @@ public class ConverterView {
 																		// conversion as default selection
 		initVal = initialToggle.getText();
 		controller.setConversion(model, initVal, english, metric, eToM, mToE, labelA, labelB);
-		handleToggleGroupEvents(toggleGroup, controller); // listen for events
+		handleToggleGroupEvents(toggleGroup, controller, model); // listen for events
+//		handleToggleGroupEvents(toggleGroup); // listen for events
+//		controller.setConversion(model, conversion, english, metric, eToM, mToE, labelA, labelB);
 	}
-
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
-
 }

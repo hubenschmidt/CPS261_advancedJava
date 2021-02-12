@@ -158,18 +158,6 @@ public class ConverterController {
 		});
 	}
 
-	/**
-	 * Builds and displays GUI
-	 * 
-	 * @param gridPane
-	 * @param english
-	 * @param metric
-	 * @param eToM
-	 * @param mToE
-	 * @param labelA
-	 * @param labelB
-	 */
-
 //	public void displayGrid(GridPane gridPane, TextField english, TextField metric, Button eToM, Button mToE,
 //			Label labelA, Label labelB) {
 //		gridPane.setVgap(5);

@@ -3,8 +3,6 @@ package application;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,31 +14,59 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Converter extends Application {
-	TextField fahrenheit = new TextField();
-	TextField celsius = new TextField();
-	Button fToC = new Button("f to c");
-	Button cToF = new Button("c to f");
 
-	TextField miles = new TextField();
-	TextField kilometers = new TextField();
-	Button mToK = new Button("m to k");
-	Button kToM = new Button("k to m");
+	TextField english = new TextField();
+	TextField metric = new TextField();
+	Button eToM = new Button("english to metric");
+	Button mToE = new Button("metric to english");
+	Label labelA = new Label();
+	Label labelB = new Label();
 
-	TextField pounds = new TextField();
-	TextField kilograms = new TextField();
-	Button pToKg = new Button("lb to kg");
-	Button kgToP = new Button("kg to lb");
-
-	Scene scene;
-	Label fileLabel, dotText;
 	RadioButton temperature, distance, weight;
 	ToggleGroup sumGroup;
 
+	public void setConversion(String conversion) {
+		switch (conversion) {
+		case "Temperature":
+			labelA.setText("Fahrenheit");
+			labelB.setText("Celsius");
+			convertTemperature(eToM, mToE, english, metric);
+			break;
+		case "Distance":
+			labelA.setText("Miles");
+			labelB.setText("Kilometers");
+			convertDistance(eToM, mToE, english, metric);
+			break;
+		case "Weight":
+			labelA.setText("Pounds");
+			labelB.setText("Kilograms");
+			convertWeight(eToM, mToE, english, metric);
+			break;
+		default:
+			System.out.println("none");
+			break;
+		}
+	}
+
+	public void makeGrid(GridPane gridPane, TextField english, TextField metric, Button eToM, Button mToE, Label labelA,
+			Label labelB) {
+		gridPane.add(labelA, 0, 0);
+		gridPane.add(english, 0, 1);
+		gridPane.add(labelB, 1, 0);
+		gridPane.add(metric, 1, 1);
+		gridPane.add(eToM, 0, 2);
+		gridPane.add(mToE, 1, 2);
+		gridPane.add(new Label("Select: "), 0, 3);
+		gridPane.add(temperature, 1, 3);
+		gridPane.add(distance, 1, 4);
+		gridPane.add(weight, 1, 5);
+	}
+
 	@Override
 	public void start(Stage primaryStage) {
-		GridPane layout = new GridPane();
-		layout.setVgap(5);
-		layout.setHgap(5);
+		GridPane gridPane = new GridPane();
+		gridPane.setVgap(5);
+		gridPane.setHgap(5);
 
 		// Makes Button group
 		sumGroup = new ToggleGroup();
@@ -55,44 +81,16 @@ public class Converter extends Application {
 		weight = new RadioButton("Weight");
 		weight.setToggleGroup(sumGroup);
 
-		GridPane gridPane = new GridPane();
-
-		gridPane.setVgap(5);
-		gridPane.setHgap(5);
-		gridPane.add(new Label("Fahrenheit: "), 0, 0);
-		gridPane.add(fahrenheit, 1, 0);
-		gridPane.add(new Label("Celsius: "), 0, 1);
-		gridPane.add(celsius, 1, 1);
-		gridPane.add(fToC, 0, 2);
-		gridPane.add(cToF, 1, 2);
-		gridPane.add(new Label("Select: "), 0, 3);
-		gridPane.add(temperature, 1, 3);
-		gridPane.add(distance, 1, 4);
-		gridPane.add(weight, 1, 5);
-
-//		RadioHandler handler1 = new RadioHandler();
-//		temperature.setOnAction(handler1);
+		makeGrid(gridPane, english, metric, eToM, mToE, labelA, labelB);
 
 		sumGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
 				RadioButton chk = (RadioButton) t1.getToggleGroup().getSelectedToggle();
-				System.out.println("Selected radio Button - " + chk.getText());
+				String conversion = chk.getText();
+				setConversion(conversion);
 			}
 		});
-
-		String conversion = "temp";
-
-		switch (conversion) {
-		case "temp":
-			convertTemperature(fToC, cToF, fahrenheit, celsius);
-		case "distance":
-			convertDistance(mToK, kToM, miles, kilometers);
-		case "weight":
-			convertWeight(kgToP, pToKg, pounds, kilograms);
-		default:
-			System.out.println("none");
-		}
 
 		Scene scene = new Scene(gridPane, 400, 400);
 
@@ -101,41 +99,42 @@ public class Converter extends Application {
 		primaryStage.show();
 	}
 
-	public void convertTemperature(Button fToC, Button cToF, TextField fahrenheit, TextField celsius) {
-		fToC.setOnAction(e -> {
-			double c;
-			c = (Double.parseDouble(fahrenheit.getText()) - 32) * 5 / 9;
-			celsius.setText(String.valueOf(c));
+	public void convertTemperature(Button eToM, Button mToE, TextField english, TextField metric) {
+		eToM.setOnAction(e -> {
+			double celsius;
+			celsius = (Double.parseDouble(english.getText()) - 32) * 5 / 9; // substitute lambda here
+			metric.setText(String.valueOf(celsius));
 		});
-		cToF.setOnAction(e -> {
-			double f;
-			f = (Double.parseDouble(celsius.getText()) * 1.8) + 32;
-			fahrenheit.setText(String.valueOf(f));
-		});
-	}
-
-	public void convertDistance(Button mToK, Button kToM, TextField miles, TextField kilometers) {
-		mToK.setOnAction(e -> {
-			double k;
-			k = (Double.parseDouble(miles.getText()) * 1.609);
-			kilometers.setText(String.valueOf(k));
-		});
-		kToM.setOnAction(e -> {
-			double m;
-			m = (Double.parseDouble(kilometers.getText()) / 1.609);
-			miles.setText(String.valueOf(m));
+		mToE.setOnAction(e -> {
+			double fahrenheit;
+			fahrenheit = (Double.parseDouble(metric.getText()) * 1.8) + 32; // substitute lambda here
+			english.setText(String.valueOf(fahrenheit));
 		});
 	}
 
-	public void convertWeight(Button pToKg, Button kgToP, TextField pounds, TextField kilograms) {
-		pToKg.setOnAction(e -> {
-			double kg;
-			kg = (Double.parseDouble(pounds.getText()) * 1.609);
-			kilograms.setText(String.valueOf(kg));
+	public void convertDistance(Button eToM, Button mToE, TextField english, TextField metric) {
+		eToM.setOnAction(e -> {
+			double kilometers;
+			kilometers = (Double.parseDouble(english.getText()) * 1.609); // substitute lambda here
+			metric.setText(String.valueOf(kilometers));
 		});
-		kgToP.setOnAction(e -> {
-			double m;
-			m = (Double.parseDouble(kilometers.getText()) / 1.609);
+		mToE.setOnAction(e -> {
+			double miles;
+			miles = (Double.parseDouble(metric.getText()) / 1.609); // substitute lambda here
+			english.setText(String.valueOf(miles));
+		});
+	}
+
+	public void convertWeight(Button eToM, Button mToE, TextField english, TextField metric) {
+		eToM.setOnAction(e -> {
+			double kilograms;
+			kilograms = (Double.parseDouble(english.getText()) / 2.205);
+			metric.setText(String.valueOf(kilograms));
+		});
+		mToE.setOnAction(e -> {
+			double pounds;
+			pounds = (Double.parseDouble(metric.getText()) * 2.205);
+			english.setText(String.valueOf(pounds));
 		});
 	}
 
@@ -143,10 +142,4 @@ public class Converter extends Application {
 		launch(args);
 	}
 
-	class RadioHandler implements EventHandler<ActionEvent> {
-		@Override
-		public void handle(ActionEvent event) {
-			System.out.println("OK radio buttton selected");
-		}
-	}
 }

@@ -1,6 +1,5 @@
 package application;
 
-import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -14,7 +13,8 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
-public class ConverterView extends Application {
+//public class ConverterView extends Application {
+public class ConverterView {
 	Converter model;
 	ConverterController controller;
 	GridPane gridPane;
@@ -64,10 +64,29 @@ public class ConverterView extends Application {
 		gridPane.add(weight, 1, 5);
 	}
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	/**
+	 * listen for radio button selection
+	 * 
+	 * @param toggleGroup
+	 * @param converter
+	 */
+
+	public void handleToggleGroupEvents(ToggleGroup toggleGroup, ConverterController converter) {
+		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
+				chk = (RadioButton) t1.getToggleGroup().getSelectedToggle();
+				conversion = chk.getText();
+				controller.setConversion(model, conversion, english, metric, eToM, mToE, labelA, labelB);
+			}
+		});
+	}
+
+//	@Override
+//	public void start(Stage primaryStage) throws Exception {
+	public void displayGraphicalUserInterface(Stage primaryStage) throws Exception {
 		model = new Converter(); // detangle this mess from view
-		controller = new ConverterController(model);
+		controller = new ConverterController(model); // detangle this mess from view
 		gridPane = new GridPane();
 		toggleGroup = new ToggleGroup();
 		english = new TextField();
@@ -83,34 +102,20 @@ public class ConverterView extends Application {
 		distance.setToggleGroup(toggleGroup);
 		weight = new RadioButton("Weight");
 		weight.setToggleGroup(toggleGroup);
-
-		displayGrid(gridPane, english, metric, eToM, mToE, labelA, labelB);
-
 		scene = new Scene(gridPane, 400, 400);
-
+		displayGrid(gridPane, english, metric, eToM, mToE, labelA, labelB);
 		primaryStage.setTitle("English to Metric Converter");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
-		// initialize application with temperature conversion as default selection
-		initialToggle = (RadioButton) toggleGroup.getSelectedToggle();
+		initialToggle = (RadioButton) toggleGroup.getSelectedToggle(); // initialize application with temperature
+																		// conversion as default selection
 		initVal = initialToggle.getText();
 		controller.setConversion(model, initVal, english, metric, eToM, mToE, labelA, labelB);
-
-		// listen for radio button selection
-		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-			@Override
-			public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
-				chk = (RadioButton) t1.getToggleGroup().getSelectedToggle();
-				conversion = chk.getText();
-				controller.setConversion(model, conversion, english, metric, eToM, mToE, labelA, labelB);
-			}
-		});
-
+		handleToggleGroupEvents(toggleGroup, controller); // listen for events
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+//	public static void main(String[] args) {
+//		launch(args);
+//	}
 
 }

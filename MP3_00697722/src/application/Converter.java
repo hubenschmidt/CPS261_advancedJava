@@ -1,11 +1,16 @@
 package application;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -41,13 +46,13 @@ public class Converter extends Application {
 		sumGroup = new ToggleGroup();
 
 		// Adding all radio buttons
-		temperature = new RadioButton("A Branch");
+		temperature = new RadioButton("Temperature");
 		temperature.setToggleGroup(sumGroup);
 
-		distance = new RadioButton("B Branch");
+		distance = new RadioButton("Distance");
 		distance.setToggleGroup(sumGroup);
 
-		weight = new RadioButton("C Branch");
+		weight = new RadioButton("Weight");
 		weight.setToggleGroup(sumGroup);
 
 		GridPane gridPane = new GridPane();
@@ -64,6 +69,17 @@ public class Converter extends Application {
 		gridPane.add(temperature, 1, 3);
 		gridPane.add(distance, 1, 4);
 		gridPane.add(weight, 1, 5);
+
+//		RadioHandler handler1 = new RadioHandler();
+//		temperature.setOnAction(handler1);
+
+		sumGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			@Override
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
+				RadioButton chk = (RadioButton) t1.getToggleGroup().getSelectedToggle();
+				System.out.println("Selected radio Button - " + chk.getText());
+			}
+		});
 
 		String conversion = "temp";
 
@@ -125,5 +141,12 @@ public class Converter extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	class RadioHandler implements EventHandler<ActionEvent> {
+		@Override
+		public void handle(ActionEvent event) {
+			System.out.println("OK radio buttton selected");
+		}
 	}
 }

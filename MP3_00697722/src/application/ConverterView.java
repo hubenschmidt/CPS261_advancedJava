@@ -15,15 +15,19 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class ConverterView extends Application {
-	TextField english = new TextField();
-	TextField metric = new TextField();
-	Button eToM = new Button("english to metric");
-	Button mToE = new Button("metric to english");
-	Label labelA = new Label();
-	Label labelB = new Label();
-
-	RadioButton temperature, distance, weight;
+	Converter model;
+	ConverterController controller;
+	GridPane gridPane;
 	ToggleGroup toggleGroup;
+	TextField english, metric;
+	Button eToM, mToE;
+	Label labelA, labelB;
+	RadioButton temperature, distance, weight;
+	Scene scene;
+	RadioButton initialToggle;
+	String initVal;
+	RadioButton chk;
+	String conversion;
 
 	public void displayConverter() {
 		System.out.println("displayConverter default constructor");
@@ -62,12 +66,16 @@ public class ConverterView extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		Converter model = new Converter(); // detangle this mess from view
-		ConverterController controller = new ConverterController();
-		GridPane gridPane = new GridPane();
-
-		ToggleGroup toggleGroup = new ToggleGroup();
+		model = new Converter(); // detangle this mess from view
+		controller = new ConverterController(model);
+		gridPane = new GridPane();
+		toggleGroup = new ToggleGroup();
+		english = new TextField();
+		metric = new TextField();
+		eToM = new Button("english to metric");
+		mToE = new Button("metric to english");
+		labelA = new Label();
+		labelB = new Label();
 		temperature = new RadioButton("Temperature");
 		temperature.setToggleGroup(toggleGroup);
 		temperature.setSelected(true);
@@ -78,24 +86,24 @@ public class ConverterView extends Application {
 
 		displayGrid(gridPane, english, metric, eToM, mToE, labelA, labelB);
 
-		Scene scene = new Scene(gridPane, 400, 400);
+		scene = new Scene(gridPane, 400, 400);
 
 		primaryStage.setTitle("English to Metric Converter");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
 		// initialize application with temperature conversion as default selection
-		RadioButton initialToggle = (RadioButton) toggleGroup.getSelectedToggle();
-		String initVal = initialToggle.getText();
-		controller.setConversion(model, initVal);
+		initialToggle = (RadioButton) toggleGroup.getSelectedToggle();
+		initVal = initialToggle.getText();
+		controller.setConversion(model, initVal, english, metric, eToM, mToE, labelA, labelB);
 
 		// listen for radio button selection
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
-				RadioButton chk = (RadioButton) t1.getToggleGroup().getSelectedToggle();
-				String conversion = chk.getText();
-				controller.setConversion(model, conversion);
+				chk = (RadioButton) t1.getToggleGroup().getSelectedToggle();
+				conversion = chk.getText();
+				controller.setConversion(model, conversion, english, metric, eToM, mToE, labelA, labelB);
 			}
 		});
 

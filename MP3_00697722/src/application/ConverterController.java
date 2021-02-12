@@ -2,9 +2,7 @@ package application;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 
 //public class ConverterController extends Application {
 public class ConverterController {
@@ -12,6 +10,10 @@ public class ConverterController {
 	private ConverterView view;
 
 	public ConverterController() {
+	}
+
+	public ConverterController(Converter model) {
+		this.model = model;
 	}
 
 	public ConverterController(Converter model, ConverterView view) {
@@ -67,22 +69,23 @@ public class ConverterController {
 		model.setKilograms(kilograms);
 	}
 
-	TextField english = new TextField();
-	TextField metric = new TextField();
-	Button eToM = new Button("english to metric");
-	Button mToE = new Button("metric to english");
-	Label labelA = new Label();
-	Label labelB = new Label();
-
-	RadioButton temperature, distance, weight;
-	ToggleGroup toggleGroup;
+//	TextField english = new TextField();
+//	TextField metric = new TextField();
+//	Button eToM = new Button("english to metric");
+//	Button mToE = new Button("metric to english");
+//	Label labelA = new Label();
+//	Label labelB = new Label();
+//
+//	RadioButton temperature, distance, weight;
+//	ToggleGroup toggleGroup;
 
 	/**
 	 * Selects conversion formula based on radio button selection
 	 * 
 	 * @param conversion
 	 */
-	public void setConversion(Converter model, String selection) {
+	public void setConversion(Converter model, String selection, TextField english, TextField metric, Button eToM,
+			Button mToE, Label labelA, Label labelB) {
 		switch (selection) {
 		default:
 			labelA.setText("Fahrenheit");
@@ -99,7 +102,6 @@ public class ConverterController {
 			labelB.setText("Kilograms");
 			convertWeight(model, eToM, mToE, english, metric);
 			break;
-
 		}
 	}
 

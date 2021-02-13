@@ -11,17 +11,15 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class ConverterView {
-	// add encapsulation on view layer
-	GridPane gridPane;
-	ToggleGroup toggleGroup;
-	TextField english, metric;
-	Button eToM, mToE;
-	Label labelA, labelB;
-	RadioButton temperature, distance, weight;
-	Scene scene;
-	RadioButton initialToggle;
-	String initVal;
-	RadioButton chk;
+	private GridPane gridPane;
+	private ToggleGroup toggleGroup;
+	private TextField english, metric;
+	private Button eToM, mToE;
+	private Label labelA, labelB;
+	private RadioButton temperature, distance, weight;
+	private Scene scene;
+	private RadioButton initialToggle;
+	private String initVal;
 	private String selection;
 
 	public String getSelection() {

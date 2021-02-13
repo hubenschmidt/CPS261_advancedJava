@@ -12,7 +12,7 @@ import javafx.scene.control.ToggleGroup;
 public class ConverterController {
 	private Converter model;
 	private ConverterView view;
-	RadioButton chk;
+	private RadioButton chk;
 
 	public ConverterController() {
 	}

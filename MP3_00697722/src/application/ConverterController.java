@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 
-//public class ConverterController extends Application {
 public class ConverterController {
 	private Converter model;
 	private ConverterView view;
@@ -75,16 +74,6 @@ public class ConverterController {
 		model.setKilograms(kilograms);
 	}
 
-//	TextField english = new TextField();
-//	TextField metric = new TextField();
-//	Button eToM = new Button("english to metric");
-//	Button mToE = new Button("metric to english");
-//	Label labelA = new Label();
-//	Label labelB = new Label();
-//
-//	RadioButton temperature, distance, weight;
-//	ToggleGroup toggleGroup;
-
 	/**
 	 * Selects conversion formula based on radio button selection
 	 * 
@@ -119,7 +108,6 @@ public class ConverterController {
 	 */
 	public void handleToggleGroupEvents(ToggleGroup toggleGroup, ConverterController controller, String selection,
 			TextField english, TextField metric, Button eToM, Button mToE, Label labelA, Label labelB) {
-
 		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
 			@Override
 			public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {

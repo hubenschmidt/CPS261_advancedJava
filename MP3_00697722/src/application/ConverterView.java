@@ -11,6 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class ConverterView {
+	// add encapsulation on view layer
 	GridPane gridPane;
 	ToggleGroup toggleGroup;
 	TextField english, metric;

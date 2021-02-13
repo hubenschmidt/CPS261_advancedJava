@@ -10,7 +10,7 @@ public class Main extends Application {
 			Converter model = new Converter();
 			ConverterView view = new ConverterView();
 			ConverterController controller = new ConverterController(model, view);
-			view.displayGraphicalUserInterface(primaryStage, model, controller);
+			view.displayGraphicalUserInterface(primaryStage, controller);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

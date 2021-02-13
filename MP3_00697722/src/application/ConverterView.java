@@ -1,21 +1,16 @@
 package application;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class ConverterView {
-//	Converter model;
-//	ConverterController controller;
 	GridPane gridPane;
 	ToggleGroup toggleGroup;
 	TextField english, metric;
@@ -26,14 +21,14 @@ public class ConverterView {
 	RadioButton initialToggle;
 	String initVal;
 	RadioButton chk;
-	String conversion;
+	private String selection;
 
-	public String getConversion() {
-		return conversion;
+	public String getSelection() {
+		return selection;
 	}
 
-	public void setConversion(String conversion) {
-		this.conversion = conversion;
+	public void setSelection(String selection) {
+		this.selection = selection;
 	}
 
 	/**
@@ -65,26 +60,6 @@ public class ConverterView {
 	}
 
 	/**
-	 * listens for radio button selection
-	 * 
-	 * @param toggleGroup
-	 * @param converter
-	 */
-	public void handleToggleGroupEvents(ToggleGroup toggleGroup, ConverterController controller, Converter model) {
-
-		toggleGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
-			@Override
-			public void changed(ObservableValue<? extends Toggle> ov, Toggle t, Toggle t1) {
-				chk = (RadioButton) t1.getToggleGroup().getSelectedToggle();
-//				conversion = chk.getText();
-				setConversion(chk.getText());
-				conversion = getConversion();
-				controller.setConversion(model, conversion, english, metric, eToM, mToE, labelA, labelB);
-			}
-		});
-	}
-
-	/**
 	 * initializes and displays GUI elements
 	 * 
 	 * @param gridPane
@@ -95,10 +70,7 @@ public class ConverterView {
 	 * @param labelA
 	 * @param labelB
 	 */
-	public void displayGraphicalUserInterface(Stage primaryStage, Converter model, ConverterController controller)
-			throws Exception {
-		model = new Converter(); // detangle this mess from view
-		controller = new ConverterController(model); // detangle this mess from view
+	public void displayGraphicalUserInterface(Stage primaryStage, ConverterController controller) throws Exception {
 		gridPane = new GridPane();
 		toggleGroup = new ToggleGroup();
 		english = new TextField();
@@ -122,9 +94,8 @@ public class ConverterView {
 		initialToggle = (RadioButton) toggleGroup.getSelectedToggle(); // initialize application with temperature
 																		// conversion as default selection
 		initVal = initialToggle.getText();
-		controller.setConversion(model, initVal, english, metric, eToM, mToE, labelA, labelB);
-		handleToggleGroupEvents(toggleGroup, controller, model); // listen for events
-//		handleToggleGroupEvents(toggleGroup); // listen for events
-//		controller.setConversion(model, conversion, english, metric, eToM, mToE, labelA, labelB);
+		controller.setConversion(initVal, english, metric, eToM, mToE, labelA, labelB);
+		controller.handleToggleGroupEvents(toggleGroup, controller, selection, english, metric, eToM, mToE, labelA,
+				labelB); // listen for events
 	}
 }

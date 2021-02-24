@@ -1,8 +1,11 @@
-package cardgame;
+
+package cardgame.view;
 
 import java.util.Scanner;
 
-public class CardGameView {
+import cardgame.controller.CardGameController;
+
+public class ViewCLI implements View {
 	CardGameController controller;
 	Scanner keyboard = new Scanner(System.in);
 
@@ -11,7 +14,7 @@ public class CardGameView {
 	}
 
 	public void displayPlayerName() {
-		System.out.println(controller.player.getName());
+		System.out.println(controller.getPlayer().getName());
 	}
 
 	public void promptFlip() {

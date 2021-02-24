@@ -1,29 +1,31 @@
 package cardgame;
 
-public class Main {
-	public static void main(String[] args) {
-		Deck deck = new Deck();
-		CardGameView view = new CardGameView();
-		Player player = new Player("User1");
-		CardGameController controller = new CardGameController(view, deck, player);
-		view.setController(controller);
+import cardgame.controller.CardGameController;
+import cardgame.model.Deck;
+import cardgame.model.Player;
+import cardgame.view.ViewCLI;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
-		controller.run();
+public class Main extends Application {
+	@Override
+	public void start(Stage primaryStage) {
+		try {
+			Deck deck = new Deck();
+			ViewCLI view = new ViewCLI();
+			Player player = new Player("User1");
+			CardGameController controller = new CardGameController(view, deck, player);
+			view.setController(controller);
+			controller.run();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-}
 
-//public class Main extends Application {
-//	@Override
-//	public void start(Stage primaryStage) {
-//		try {
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
-//
-//	public static void main(String[] args) {
-//		launch(args);
-//
-//	}
-//}
+	public static void main(String[] args) {
+		launch(args);
+
+	}
+
+}

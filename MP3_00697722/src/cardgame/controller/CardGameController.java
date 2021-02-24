@@ -1,24 +1,25 @@
-package cardgame;
+package cardgame.controller;
 
-import java.util.ArrayList;
+import cardgame.model.Card;
+import cardgame.model.Deck;
+import cardgame.model.Player;
+import cardgame.view.ViewCLI;
 
 public class CardGameController {
 	enum State {
 		AddPlayers, CardsDealt, CardsRevealed, EmptyDeck;
 	}
 
-	Deck deck;
-	Player player;
-	ArrayList<Player> players;
-	CardGameView view;
-	int cardCounter;
-	State state;
+	private Deck deck;
+	private Player player;
+	private ViewCLI view;
+	private int cardCounter;
+	private State state;
 
-	public CardGameController(CardGameView view, Deck deck, Player player) {
+	public CardGameController(ViewCLI view, Deck deck, Player player) {
 		this.view = view;
 		this.deck = deck;
-		this.player = player;
-//		addPlayer(player);
+		this.setPlayer(player);
 		state = State.AddPlayers;
 	}
 
@@ -42,17 +43,11 @@ public class CardGameController {
 		}
 	}
 
-//	public void addPlayer(Player player) {
-//		if (state == state.AddPlayers) {
-//			players.add(player);
-//		}
-//	}
-
 	public void startGame() {
 		if (state != State.CardsDealt) {
 
 			for (int i = 0; i < 4; i++) { // deal 4 cards
-				player.addCardToHand(deck.removeTopCardFromDeck());
+				getPlayer().addCardToHand(deck.removeTopCardFromDeck());
 			}
 			this.cardCounter += 4;
 			state = State.CardsDealt;
@@ -65,7 +60,7 @@ public class CardGameController {
 
 	public void flipCards() {
 		for (int i = 0; i < 4; i++) {
-			Card card = player.getCard(i);
+			Card card = getPlayer().getCard(i);
 			card.flip();
 			view.showCardForPlayer(card.getRank().toString(), card.getSuit().toString());
 		}
@@ -73,10 +68,18 @@ public class CardGameController {
 	}
 
 	public void resetHand() {
-		player.clearHand();
+		getPlayer().clearHand();
 	}
 
 	public void reshuffleDeck() {
 		deck = new Deck();
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 }

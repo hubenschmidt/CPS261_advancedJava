@@ -1,4 +1,4 @@
-package cardgame;
+package cardgame.model;
 
 public class Player {
 	String name;

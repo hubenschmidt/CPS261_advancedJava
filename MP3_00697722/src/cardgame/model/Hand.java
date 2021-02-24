@@ -1,4 +1,4 @@
-package cardgame;
+package cardgame.model;
 
 import java.util.ArrayList;
 

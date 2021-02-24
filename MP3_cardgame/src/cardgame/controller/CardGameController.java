@@ -3,7 +3,7 @@ package cardgame.controller;
 import cardgame.model.Card;
 import cardgame.model.Deck;
 import cardgame.model.Player;
-import cardgame.view.ViewCLI;
+import cardgame.view.ViewJavaFX;
 
 public class CardGameController {
 	enum State {
@@ -12,12 +12,20 @@ public class CardGameController {
 
 	private Deck deck;
 	private Player player;
-	private ViewCLI view;
+//	private ViewCLI viewCLI;
+	private ViewJavaFX viewJavaFX;
 	private int cardCounter;
 	private State state;
+//
+//	public CardGameController(ViewCLI view, Deck deck, Player player) {
+//		this.viewCLI = view;
+//		this.deck = deck;
+//		this.setPlayer(player);
+//		state = State.AddPlayers;
+//	}
 
-	public CardGameController(ViewCLI view, Deck deck, Player player) {
-		this.view = view;
+	public CardGameController(ViewJavaFX view, Deck deck, Player player) {
+		this.viewJavaFX = view;
 		this.deck = deck;
 		this.setPlayer(player);
 		state = State.AddPlayers;
@@ -27,17 +35,22 @@ public class CardGameController {
 		while (true) {
 			switch (state) {
 			case AddPlayers:
-				view.displayPlayerName();
+//				viewCLI.displayPlayerName();
+				viewJavaFX.displayGUI();
+				viewJavaFX.displayPlayerName();
 				startGame();
 				break;
 			case CardsDealt:
-				view.promptFlip();
+//				viewCLI.promptFlip();
+				viewJavaFX.promptFlip();
 				break;
 			case CardsRevealed:
-				view.promptForNewGame();
+//				viewCLI.promptForNewGame();
+				viewJavaFX.promptForNewGame();
 				break;
 			case EmptyDeck:
-				view.promptToReshuffleDeck();
+//				viewCLI.promptToReshuffleDeck();
+				viewJavaFX.promptToReshuffleDeck();
 				break;
 			}
 		}
@@ -62,7 +75,8 @@ public class CardGameController {
 		for (int i = 0; i < 4; i++) {
 			Card card = getPlayer().getCard(i);
 			card.flip();
-			view.showCardForPlayer(card.getRank().toString(), card.getSuit().toString());
+//			viewCLI.showCardForPlayer(card.getRank().toString(), card.getSuit().toString());
+			viewJavaFX.showCardForPlayer(card.getRank().toString(), card.getSuit().toString());
 		}
 		state = State.CardsRevealed;
 	}

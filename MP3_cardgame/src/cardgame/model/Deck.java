@@ -8,10 +8,11 @@ public class Deck {
 	ArrayList<Card> cards;
 
 	public Deck() {
+		System.out.println("Initializing deck");
 		this.cards = new ArrayList<Card>();
 		for (Rank rank : Rank.values()) {
 			for (Suit suit : Suit.values()) {
-				System.out.println("Initializing deck. Create card: [" + rank + " " + suit + "]");
+//				System.out.println("Initializing deck. Create card: [" + rank + " " + suit + "]");
 				cards.add(new Card(rank, suit));
 			}
 		}

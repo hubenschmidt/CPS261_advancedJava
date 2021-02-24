@@ -23,6 +23,7 @@ public class CardGameView {
 	public void promptForNewGame() {
 		System.out.println("Press enter to deal again");
 		keyboard.nextLine();
+		controller.resetGame();
 		controller.startGame();
 	}
 

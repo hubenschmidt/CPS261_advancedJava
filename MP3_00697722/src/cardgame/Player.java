@@ -21,8 +21,8 @@ public class Player {
 		return hand.getCard(i);
 	}
 
-	public Card removeCard() {
-		return hand.removeCard();
+	public void clearHand() {
+		hand.clearHand();
 	}
 
 }

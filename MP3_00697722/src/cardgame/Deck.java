@@ -8,7 +8,7 @@ public class Deck {
 	ArrayList<Card> cards;
 
 	public Deck() {
-		cards = new ArrayList<Card>();
+		this.cards = new ArrayList<Card>();
 		for (Rank rank : Rank.values()) {
 			for (Suit suit : Suit.values()) {
 				System.out.println("Initializing deck. Create card: [" + rank + " " + suit + "]");
@@ -16,15 +16,18 @@ public class Deck {
 			}
 		}
 
-		shuffle();
+//		shuffle();
 
 	}
 
 	public void shuffle() {
+		System.out.println("Shuffling deck");
 		Random random = new Random();
-		for (int i = 0; i < cards.size(); i++) {
-			Collections.swap(cards, i, random.nextInt(cards.size()));
+		for (int i = 0; i < this.cards.size(); i++) {
+			Collections.swap(this.cards, i, random.nextInt(this.cards.size()));
+			System.out.println("%" + cards.get(i).getRank() + " " + cards.get(i).getSuit() + "%");
 		}
+
 	};
 
 	public Card removeTopCard() {

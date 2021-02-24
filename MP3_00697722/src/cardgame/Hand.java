@@ -7,7 +7,6 @@ public class Hand {
 
 	public Hand() {
 		cards = new ArrayList<Card>();
-		System.out.println(cards);
 	}
 
 	public void addCard(Card c) {
@@ -18,8 +17,8 @@ public class Hand {
 		return cards.get(i);
 	}
 
-	public Card removeCard() {
-		return cards.remove(0);
+	public void clearHand() {
+		cards.clear();
 	}
 
 }

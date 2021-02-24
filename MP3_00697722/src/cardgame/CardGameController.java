@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CardGameController {
 	enum State {
-		AddPlayers, CardsDealt;
+		AddPlayers, CardsDealt, CardsRevealed;
 	}
 
 	Deck deck;
@@ -31,6 +31,8 @@ public class CardGameController {
 			case CardsDealt:
 				view.promptFlip();
 				break;
+			case CardsRevealed:
+				view.promptForNewGame();
 			}
 		}
 	}
@@ -43,22 +45,30 @@ public class CardGameController {
 
 	public void startGame() {
 		if (state != State.CardsDealt) {
+			// shuffle deck
 			deck.shuffle();
-
 			// deal 4 cards
 			for (int i = 0; i < 4; i++) {
 				player.addCardToHand(deck.removeTopCard());
 			}
-
 			state = State.CardsDealt;
 		}
 
 	}
 
 	public void flipCards() {
-		Card card = player.getCard(0);
-		card.flip();
-		view.showCardForPlayer(card.getRank().toString(), card.getSuit().toString());
+		for (int i = 0; i < 4; i++) {
+			Card card = player.getCard(i);
+			card.flip();
+			view.showCardForPlayer(card.getRank().toString(), card.getSuit().toString());
+		}
+		state = State.CardsRevealed;
+	}
+
+	public void resetGame() {
+		deck = new Deck(); // instead of creating a new deck, now try to add deal cards until deck runs
+							// out.
+		player.clearHand();
 	}
 
 }

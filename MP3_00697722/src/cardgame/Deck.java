@@ -1,4 +1,4 @@
-package cards;
+package cardgame;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,12 +11,13 @@ public class Deck {
 		cards = new ArrayList<Card>();
 		for (Rank rank : Rank.values()) {
 			for (Suit suit : Suit.values()) {
-				System.out.println("Creating card: [" + rank + " " + suit + "]");
+				System.out.println("Initializing deck. Create card: [" + rank + " " + suit + "]");
 				cards.add(new Card(rank, suit));
 			}
 		}
 
 		shuffle();
+
 	}
 
 	public void shuffle() {
@@ -29,9 +30,9 @@ public class Deck {
 	public Card removeTopCard() {
 		return cards.remove(0);
 	}
-
-	public void returnCardToDeck(Card c) {
-		cards.add(c);
-	}
+//
+//	public void returnCardToDeck(Card c) {
+//		cards.add(c);
+//	}
 
 }

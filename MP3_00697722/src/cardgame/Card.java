@@ -1,4 +1,4 @@
-package cards;
+package cardgame;
 
 public class Card {
 	Rank rank;

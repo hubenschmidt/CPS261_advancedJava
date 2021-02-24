@@ -1,4 +1,4 @@
-package cards;
+package cardgame;
 
 public enum Suit {
 	DIAMONDS(1), HEARTS(2), SPADES(3), CLUBS(4);

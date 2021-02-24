@@ -4,20 +4,21 @@ import java.util.ArrayList;
 
 public class CardGameController {
 	enum State {
-		AddPlayers, CardsDealt, CardsRevealed;
+		AddPlayers, CardsDealt, CardsRevealed, EmptyDeck;
 	}
 
 	Deck deck;
 	Player player;
 	ArrayList<Player> players;
 	CardGameView view;
+	int cardCounter;
 	State state;
 
 	public CardGameController(CardGameView view, Deck deck, Player player) {
 		this.view = view;
 		this.deck = deck;
 		this.player = player;
-		addPlayer(player);
+//		addPlayer(player);
 		state = State.AddPlayers;
 	}
 
@@ -33,27 +34,33 @@ public class CardGameController {
 				break;
 			case CardsRevealed:
 				view.promptForNewGame();
+				break;
+			case EmptyDeck:
+				view.promptToReshuffleDeck();
+				break;
 			}
 		}
 	}
 
-	public void addPlayer(Player player) {
-		if (state == state.AddPlayers) {
-			players.add(player);
-		}
-	}
+//	public void addPlayer(Player player) {
+//		if (state == state.AddPlayers) {
+//			players.add(player);
+//		}
+//	}
 
 	public void startGame() {
 		if (state != State.CardsDealt) {
-			// shuffle deck
-			deck.shuffle();
-			// deal 4 cards
-			for (int i = 0; i < 4; i++) {
-				player.addCardToHand(deck.removeTopCard());
+
+			for (int i = 0; i < 4; i++) { // deal 4 cards
+				player.addCardToHand(deck.removeTopCardFromDeck());
 			}
+			this.cardCounter += 4;
 			state = State.CardsDealt;
 		}
-
+		if (this.cardCounter >= 52) { // if all cards are dealt,
+			this.cardCounter = 0; // reset counter;
+			state = State.EmptyDeck;
+		}
 	}
 
 	public void flipCards() {
@@ -65,10 +72,11 @@ public class CardGameController {
 		state = State.CardsRevealed;
 	}
 
-	public void resetGame() {
-		deck = new Deck(); // instead of creating a new deck, now try to add deal cards until deck runs
-							// out.
+	public void resetHand() {
 		player.clearHand();
 	}
 
+	public void reshuffleDeck() {
+		deck = new Deck();
+	}
 }

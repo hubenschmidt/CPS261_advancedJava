@@ -16,8 +16,7 @@ public class Deck {
 			}
 		}
 
-//		shuffle();
-
+		shuffle(); // shuffle deck upon initialization
 	}
 
 	public void shuffle() {
@@ -25,17 +24,12 @@ public class Deck {
 		Random random = new Random();
 		for (int i = 0; i < this.cards.size(); i++) {
 			Collections.swap(this.cards, i, random.nextInt(this.cards.size()));
-			System.out.println("%" + cards.get(i).getRank() + " " + cards.get(i).getSuit() + "%");
+//			System.out.println("%" + cards.get(i).getRank() + " " + cards.get(i).getSuit() + "%");
 		}
 
 	};
 
-	public Card removeTopCard() {
+	public Card removeTopCardFromDeck() {
 		return cards.remove(0);
 	}
-//
-//	public void returnCardToDeck(Card c) {
-//		cards.add(c);
-//	}
-
 }

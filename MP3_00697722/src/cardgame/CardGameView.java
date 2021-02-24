@@ -23,7 +23,14 @@ public class CardGameView {
 	public void promptForNewGame() {
 		System.out.println("Press enter to deal again");
 		keyboard.nextLine();
-		controller.resetGame();
+		controller.resetHand();
+		controller.startGame();
+	}
+
+	public void promptToReshuffleDeck() {
+		System.out.println("Deck is empty. Press enter to shuffle again.");
+		keyboard.nextLine();
+		controller.reshuffleDeck();
 		controller.startGame();
 	}
 

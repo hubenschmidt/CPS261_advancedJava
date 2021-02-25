@@ -1,28 +1,62 @@
 package cardgame.view;
 
 import cardgame.controller.CardGameController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+//class ImageStore {
+//	static Image cardBack;
+//	static HashMap<String, Image> cardFaces;
+//}
+
+class Card extends ImageView {
+	private boolean revealed = false;
+	private int card_number;
+	private Image card_back;
+	private Image card_front;
+
+	public Card(int card_number) {
+		super();
+		this.card_number = card_number;
+		card_back = new Image("card/backCard.png");
+		super.setImage(getCardImage());
+	}
+
+	public Image getCardImage() {
+		if (!revealed) {
+			return card_back;
+		}
+		return card_front;
+	}
+}
 
 public class ViewJavaFX {
 	CardGameController controller;
-	GridPane gridPane;
 
-	private ToggleGroup toggleGroup;
-	private TextField english, metric;
-	private Button eToM, mToE;
-	private Label labelA, labelB;
-	private RadioButton temperature, distance, weight;
+	Text instructions = new Text("Click the cards");
+	Group row_of_cards = new Group();
+//	Image cardBack = new Image("");
+
+	BorderPane border;
+	HBox hbox;
+	VBox vbox;
+
+	GridPane gridPane;
+	private Stage primaryStage;
+	private Button buttonDealCards, buttonReshuffleDeck;
 	private Scene scene;
-	private RadioButton initialToggle;
-	private String initVal;
 	private String selection;
 
 	public void setController(CardGameController controller) {
@@ -34,6 +68,8 @@ public class ViewJavaFX {
 	}
 
 	public void promptFlip() {
+		System.out.println("Press return to flip cards");
+		controller.flipCards();
 	}
 
 	public void promptForNewGame() {
@@ -45,18 +81,6 @@ public class ViewJavaFX {
 	public void showCardForPlayer(String rank, String suit) {
 	};
 
-	public void displayGrid(GridPane gridPane) {
-		gridPane.setVgap(5);
-		gridPane.setHgap(5);
-
-	}
-
-	public void displayGUI() {
-		gridPane = new GridPane();
-		displayGrid(gridPane);
-
-	}
-
 	public String getSelection() {
 		return selection;
 	}
@@ -65,70 +89,44 @@ public class ViewJavaFX {
 		this.selection = selection;
 	}
 
-	/**
-	 * builds GUI grid
-	 * 
-	 * @param gridPane
-	 * @param english
-	 * @param metric
-	 * @param eToM
-	 * @param mToE
-	 * @param labelA
-	 * @param labelB
-	 */
-	public void displayGrid(GridPane gridPane, TextField english, TextField metric, Button eToM, Button mToE,
-			Label labelA, Label labelB) {
+	public void buildGrid(GridPane gridPane, Button eToM, Button mToE) {
 		gridPane.setVgap(5);
 		gridPane.setHgap(5);
 		gridPane.setAlignment(Pos.CENTER);
-		gridPane.add(labelA, 0, 0);
-		gridPane.add(english, 0, 1);
-		gridPane.add(labelB, 1, 0);
-		gridPane.add(metric, 1, 1);
-		gridPane.add(eToM, 0, 2);
-		gridPane.add(mToE, 1, 2);
-		gridPane.add(new Label("Select: "), 0, 3);
-		gridPane.add(temperature, 1, 3);
-		gridPane.add(distance, 1, 4);
-		gridPane.add(weight, 1, 5);
+		gridPane.add(buttonDealCards, 0, 2);
+		gridPane.add(buttonReshuffleDeck, 1, 2);
+
 	}
 
-	/**
-	 * initializes and displays GUI elements
-	 * 
-	 * @param gridPane
-	 * @param english
-	 * @param metric
-	 * @param eToM
-	 * @param mToE
-	 * @param labelA
-	 * @param labelB
-	 */
-	public void displayGraphicalUserInterface(Stage primaryStage, CardGameController controller) throws Exception {
+	public void dealCardsButton() {
+		buttonDealCards.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				controller.startGame();
+
+			}
+		});
+	}
+
+	public void displayGUI() {
+//		File tempFile = new File("card/1.png");
+//		boolean exists = tempFile.exists();
+//		System.out.println(exists);
+
+		primaryStage = new Stage();
 		gridPane = new GridPane();
-//		toggleGroup = new ToggleGroup();
-//		english = new TextField();
-//		metric = new TextField();
-//		eToM = new Button("english to metric");
-//		mToE = new Button("metric to english");
-//		labelA = new Label();
-//		labelB = new Label();
-//		temperature = new RadioButton("Temperature");
-//		temperature.setToggleGroup(toggleGroup);
-//		temperature.setSelected(true);
-//		distance = new RadioButton("Distance");
-//		distance.setToggleGroup(toggleGroup);
-//		weight = new RadioButton("Weight");
-//		weight.setToggleGroup(toggleGroup);
+		buttonDealCards = new Button("deal cards");
+		buttonReshuffleDeck = new Button("reshuffle deck");
 		scene = new Scene(gridPane, 800, 800);
-//		displayGrid(gridPane, english, metric, eToM, mToE, labelA, labelB);
+		buildGrid(gridPane, buttonDealCards, buttonReshuffleDeck);
 		primaryStage.setTitle("Card Game");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-//		initialToggle = (RadioButton) toggleGroup.getSelectedToggle(); // initialize application with temperature
-//																		// conversion as default selection
-//		initVal = initialToggle.getText();
+		dealCardsButton();
 
+		Group cardGroup = new Group();
+		cardGroup.setManaged(false);
+//		cardGroup.getChildren().addAll()
 	}
 
 }

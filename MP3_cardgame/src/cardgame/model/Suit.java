@@ -1,7 +1,7 @@
 package cardgame.model;
 
 public enum Suit {
-	DIAMONDS(1), HEARTS(2), SPADES(3), CLUBS(4);
+	CLUBS(1), DIAMONDS(2), HEARTS(3), SPADES(4);
 
 	int suit;
 

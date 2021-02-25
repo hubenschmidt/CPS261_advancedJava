@@ -18,13 +18,13 @@ public class ViewCLI implements View {
 	}
 
 	public void promptFlip() {
-		System.out.println("Press enter to reveal cards");
+		System.out.println("Press return to flip cards");
 		keyboard.nextLine();
 		controller.flipCards();
 	}
 
 	public void promptForNewGame() {
-		System.out.println("Press enter to deal again");
+		System.out.println("Press return to deal again");
 		keyboard.nextLine();
 		controller.resetHand();
 		controller.startGame();

@@ -16,13 +16,6 @@ public class CardGameController {
 	private ViewJavaFX viewJavaFX;
 	private int cardCounter;
 	private State state;
-//
-//	public CardGameController(ViewCLI view, Deck deck, Player player) {
-//		this.viewCLI = view;
-//		this.deck = deck;
-//		this.setPlayer(player);
-//		state = State.AddPlayers;
-//	}
 
 	public CardGameController(ViewJavaFX view, Deck deck, Player player) {
 		this.viewJavaFX = view;
@@ -32,11 +25,11 @@ public class CardGameController {
 	}
 
 	public void run() {
+
 		while (true) {
 			switch (state) {
 			case AddPlayers:
 //				viewCLI.displayPlayerName();
-				viewJavaFX.displayGUI();
 				viewJavaFX.displayPlayerName();
 				startGame();
 				break;
@@ -57,15 +50,15 @@ public class CardGameController {
 	}
 
 	public void startGame() {
+		System.out.println("Start game");
 		if (state != State.CardsDealt) {
-
 			for (int i = 0; i < 4; i++) { // deal 4 cards
 				getPlayer().addCardToHand(deck.removeTopCardFromDeck());
 			}
 			this.cardCounter += 4;
 			state = State.CardsDealt;
 		}
-		if (this.cardCounter >= 52) { // if all cards are dealt,
+		if (this.cardCounter >= 54) { // if all cards are dealt,
 			this.cardCounter = 0; // reset counter;
 			state = State.EmptyDeck;
 		}

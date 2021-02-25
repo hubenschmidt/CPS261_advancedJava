@@ -6,15 +6,27 @@ import java.util.Random;
 
 public class Deck {
 	ArrayList<Card> cards;
+	int index = 1;
 
 	public Deck() {
 		System.out.println("Initializing deck");
 		this.cards = new ArrayList<Card>();
+
 		for (Rank rank : Rank.values()) {
 			for (Suit suit : Suit.values()) {
-//				System.out.println("Initializing deck. Create card: [" + rank + " " + suit + "]");
-				cards.add(new Card(rank, suit));
+				cards.add(new Card(rank, suit, index++));
 			}
+		}
+
+		// add jokers
+		cards.add(new Card("RED", "JOKER", index++));
+		cards.add(new Card("BLACK", "JOKER", index++));
+
+		for (int i = 0; i < this.cards.size(); i++) {
+
+			System.out.println("Initializing deck. Create card: [" + cards.get(i).getRank() + " "
+					+ cards.get(i).getSuit() + " " + cards.get(i).getJoker() + " " + cards.get(i).getJokerColor() + " "
+					+ cards.get(i).getIndex() + "]");
 		}
 
 		shuffle(); // shuffle deck upon initialization
@@ -25,9 +37,9 @@ public class Deck {
 		Random random = new Random();
 		for (int i = 0; i < this.cards.size(); i++) {
 			Collections.swap(this.cards, i, random.nextInt(this.cards.size()));
-//			System.out.println("%" + cards.get(i).getRank() + " " + cards.get(i).getSuit() + "%");
+//			System.out.println("% " + cards.get(i).getRank() + " " + cards.get(i).getSuit() + " "
+//					+ cards.get(i).getIndex() + " %");
 		}
-
 	};
 
 	public Card removeTopCardFromDeck() {

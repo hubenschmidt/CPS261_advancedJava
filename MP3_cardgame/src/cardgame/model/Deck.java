@@ -19,8 +19,8 @@ public class Deck {
 		}
 
 		// add jokers
-//		cards.add(new Card("RED", "JOKER", index++));
-//		cards.add(new Card("BLACK", "JOKER", index++));
+		cards.add(new Card("RED", "JOKER", index++));
+		cards.add(new Card("BLACK", "JOKER", index++));
 
 		for (int i = 0; i < this.cards.size(); i++) {
 

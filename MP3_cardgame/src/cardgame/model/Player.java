@@ -17,8 +17,8 @@ public class Player {
 		hand.addCard(c);
 	}
 
-	public Card getCard(int i) {
-		return hand.getCard(i);
+	public Hand getHand() {
+		return hand;
 	}
 
 	public void clearHand() {

@@ -1,9 +1,10 @@
 package cardgame.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Hand {
-	ArrayList<Card> cards;
+	List<Card> cards;
 
 	public Hand() {
 		cards = new ArrayList<Card>();
@@ -13,8 +14,12 @@ public class Hand {
 		cards.add(c);
 	}
 
-	public Card getCard(int i) {
-		return cards.get(i);
+//	public Card getCard(int i) {
+//		return cards.get(i);
+//	}
+
+	public List<Card> getCards() {
+		return cards;
 	}
 
 	public void clearHand() {

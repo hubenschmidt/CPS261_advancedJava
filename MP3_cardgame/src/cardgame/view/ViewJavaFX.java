@@ -7,8 +7,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -48,7 +49,7 @@ public class ViewJavaFX {
 	VBox vbox;
 
 	GridPane gridPane;
-	FlowPane flowPane;
+	Group root;
 	private Stage primaryStage;
 	private Button buttonDealCards, buttonReshuffleDeck;
 	private Scene scene;
@@ -74,9 +75,20 @@ public class ViewJavaFX {
 	public void promptToReshuffleDeck() {
 	};
 
-	public void displayCardsFaceDown(int index) { // remember, View should have no direct knowledge of Model
-//		controller.setCardFront(new Image("card_images/" + index + ".png"));
-//		controller.setCardFront(new Image("card_images/45.png"));
+	public void displayCardsFaceDown(Image cardBack) {
+
+		System.out.println("display");
+		ImageView iv1 = new ImageView();
+		iv1.setImage(cardBack);
+		Group root = new Group();
+//		Scene scene = new Scene(root);
+//		scene.setFill(Color.BLACK);
+		HBox box = new HBox();
+		box.getChildren().add(iv1);
+//		box.getChildren().add(iv2);
+//		box.getChildren().add(iv3);
+		root.getChildren().add(box);
+		System.out.println(cardBack.getClass().getName());
 
 	}
 
@@ -116,10 +128,6 @@ public class ViewJavaFX {
 	}
 
 	public void displayGUI() {
-//		File tempFile = new File("card/1.png");
-//		boolean exists = tempFile.exists();
-//		System.out.println(exists);
-
 		primaryStage = new Stage();
 		gridPane = new GridPane();
 		buttonDealCards = new Button("deal cards");
@@ -130,11 +138,6 @@ public class ViewJavaFX {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		dealCardsButton();
-//		dealCards(4);
-
-		Group cardGroup = new Group();
-		cardGroup.setManaged(false);
-//		cardGroup.getChildren().addAll()
 	}
 
 }

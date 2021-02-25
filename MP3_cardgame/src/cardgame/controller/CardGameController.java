@@ -52,12 +52,10 @@ public class CardGameController {
 				System.out
 						.println(card.getIndex() + " " + card.getRank() + " " + card.getSuit() + " " + card.isFaceUp());
 
+				// this retrieves images from image folder and matches to card index;
 				card.setCardFront(new Image("card_images/" + card.getIndex() + ".png"));
 				card.setCardBack(new Image("card_images/back.png"));
-//				setCardFront(front_card);
-//				setCardFront(new Image("card_images/" + card.getIndex() + ".png"));
-//
-//				viewJavaFX.displayCardsFaceDown(card.getIndex());
+				viewJavaFX.displayCardsFaceDown(card.getCardBack());
 			}
 			this.cardCounter += 4;
 			state = State.CardsDealt;

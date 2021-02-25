@@ -19,7 +19,7 @@ public class Main extends Application {
 			viewJavaFX.setController(controller);
 			controller.run();
 
-			viewJavaFX.displayGUI();
+//			viewJavaFX.displayGUI();
 //			viewJavaFX.displayGUI(primaryStage);
 //			viewJavaFX.displayGraphicalUserInterface(primaryStage, controller);
 		} catch (Exception e) {

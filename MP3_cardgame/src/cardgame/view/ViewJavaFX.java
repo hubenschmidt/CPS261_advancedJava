@@ -74,6 +74,12 @@ public class ViewJavaFX {
 	public void promptToReshuffleDeck() {
 	};
 
+	public void displayCardsFaceDown(int index) { // remember, View should have no direct knowledge of Model
+//		controller.setCardFront(new Image("card_images/" + index + ".png"));
+//		controller.setCardFront(new Image("card_images/45.png"));
+
+	}
+
 //	public void showCardForPlayer(String rank, String suit, int index) {
 	public void showCardForPlayer(int index) {
 //		System.out.println(index);

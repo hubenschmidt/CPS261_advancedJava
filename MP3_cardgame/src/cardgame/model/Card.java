@@ -9,8 +9,8 @@ public class Card {
 	String color;
 	String joker;
 	boolean faceUp;
-	private Image cardFront;
-	private Image cardBack;
+	Image cardFront;
+	Image cardBack;
 
 	public Card(Rank r, Suit s, int i) {
 		rank = r;
@@ -60,7 +60,7 @@ public class Card {
 	}
 
 	public void setCardFront(Image cardFront) {
-		this.cardFront = cardFront;
+//		this.cardFront = cardFront;
 	}
 
 	public Image getCardBack() {

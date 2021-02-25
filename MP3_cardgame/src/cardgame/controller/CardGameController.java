@@ -3,8 +3,6 @@ package cardgame.controller;
 import cardgame.model.Card;
 import cardgame.model.Deck;
 import cardgame.model.Player;
-import cardgame.model.Rank;
-import cardgame.model.Suit;
 import cardgame.view.ViewJavaFX;
 import javafx.scene.image.Image;
 
@@ -42,26 +40,7 @@ public class CardGameController {
 		case EmptyDeck:
 			viewJavaFX.promptToReshuffleDeck();
 			break;
-
 		}
-//JavaFX does not appear to be compatible with infinite loop
-//		while (true) {
-//			switch (state) {
-//			case AddPlayers:
-////				viewJavaFX.displayPlayerName();
-//				startGame();
-//				break;
-//			case CardsDealt:
-//				viewJavaFX.promptFlip();
-//				break;
-//			case CardsRevealed:
-//				viewJavaFX.promptForNewGame();
-//				break;
-//			case EmptyDeck:
-//				viewJavaFX.promptToReshuffleDeck();
-//				break;
-//			}
-//		}
 	}
 
 	public void startGame() {
@@ -69,8 +48,16 @@ public class CardGameController {
 		if (state != State.CardsDealt) {
 			for (int i = 0; i < 4; i++) { // deal 4 cards
 				getPlayer().addCardToHand(deck.removeTopCardFromDeck());
+				Card card = getPlayer().getCard(i);
+				System.out
+						.println(card.getIndex() + " " + card.getRank() + " " + card.getSuit() + " " + card.isFaceUp());
 
-//				viewJavaFX.displayCardsFaceDown();
+				card.setCardFront(new Image("card_images/" + card.getIndex() + ".png"));
+				card.setCardBack(new Image("card_images/back.png"));
+//				setCardFront(front_card);
+//				setCardFront(new Image("card_images/" + card.getIndex() + ".png"));
+//
+//				viewJavaFX.displayCardsFaceDown(card.getIndex());
 			}
 			this.cardCounter += 4;
 			state = State.CardsDealt;
@@ -94,8 +81,8 @@ public class CardGameController {
 		for (int i = 0; i < 4; i++) {
 			Card card = getPlayer().getCard(i);
 			card.flip();
+			System.out.println(card.getIndex() + " " + card.getRank() + " " + card.getSuit() + " " + card.isFaceUp());
 //			viewJavaFX.showCardForPlayer(card.getIndex());
-			System.out.println(card.getIndex() + " " + card.getRank() + " " + card.getSuit());
 		}
 		state = State.CardsRevealed;
 		run(); // checks state change. JavaFX incompatible with infinite loop?
@@ -117,28 +104,28 @@ public class CardGameController {
 		this.player = player;
 	}
 
-	public void setCardFront(Image cardFront) {
-		card.setCardFront(cardFront);
-	}
-
-	public Image getCardFront() {
-		return card.getCardFront();
-	}
-
-	public void setCardBack(Image cardBack) {
-		card.setCardBack(cardBack);
-	}
-
-	public Image getCardBack() {
-		return card.getCardBack();
-	}
-
-	public Rank getCardRank() {
-		return card.getRank();
-	}
-
-	public Suit getCardSuit() {
-		return card.getSuit();
-	}
+//	public void setCardFront(Image cardFront) {
+//		card.setCardFront(cardFront);
+//	}
+//
+//	public Image getCardFront() {
+//		return card.getCardFront();
+//	}
+//
+//	public void setCardBack(Image cardBack) {
+//		card.setCardBack(cardBack);
+//	}
+//
+//	public Image getCardBack() {
+//		return card.getCardBack();
+//	}
+//
+//	public Rank getCardRank() {
+//		return card.getRank();
+//	}
+//
+//	public Suit getCardSuit() {
+//		return card.getSuit();
+//	}
 
 }

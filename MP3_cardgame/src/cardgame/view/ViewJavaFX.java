@@ -10,40 +10,38 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-//class ImageStore {
-//	static Image cardBack;
-//	static HashMap<String, Image> cardFaces;
+//class CardViewable extends ImageView {
+////	private boolean revealed = false;
+//	private int card_number;
+//	private Image card_back;
+//	private Image card_front;
+//
+//	public CardViewable(int card_number) {
+//		super();
+//		this.card_number = card_number;
+//		card_back = new Image("card/backCard.png");
+//		super.setImage(getCardImage());
+//	}
+//
+//	public Image getCardImage() {
+//		if (!revealed) {
+//			return card_back;
+//		}
+//		return card_front;
+//	}
 //}
 
-class Card extends ImageView {
-	private boolean revealed = false;
-	private int card_number;
-	private Image card_back;
-	private Image card_front;
-
-	public Card(int card_number) {
-		super();
-		this.card_number = card_number;
-		card_back = new Image("card/backCard.png");
-		super.setImage(getCardImage());
-	}
-
-	public Image getCardImage() {
-		if (!revealed) {
-			return card_back;
-		}
-		return card_front;
-	}
-}
-
-public class ViewJavaFX {
+public class ViewJavaFX extends ImageView {
 	CardGameController controller;
+
+	private Image card_front;
 
 	Text instructions = new Text("Click the cards");
 	Group row_of_cards = new Group();
@@ -54,6 +52,7 @@ public class ViewJavaFX {
 	VBox vbox;
 
 	GridPane gridPane;
+	FlowPane flowPane;
 	private Stage primaryStage;
 	private Button buttonDealCards, buttonReshuffleDeck;
 	private Scene scene;
@@ -64,7 +63,7 @@ public class ViewJavaFX {
 	}
 
 	public void displayPlayerName() {
-		System.out.println(controller.getPlayer().getName());
+//		System.out.println(controller.getPlayer().getName());
 	}
 
 	public void promptFlip() {
@@ -78,7 +77,13 @@ public class ViewJavaFX {
 	public void promptToReshuffleDeck() {
 	};
 
-	public void showCardForPlayer(String rank, String suit) {
+//	public void showCardForPlayer(String rank, String suit, int index) {
+	public void showCardForPlayer(int index) {
+//		System.out.println(index);
+//		this.card_front = new Image("card_images/" + index + ".png");
+//
+//		super.setImage(card_front);
+
 	};
 
 	public String getSelection() {
@@ -123,6 +128,7 @@ public class ViewJavaFX {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		dealCardsButton();
+//		dealCards(4);
 
 		Group cardGroup = new Group();
 		cardGroup.setManaged(false);

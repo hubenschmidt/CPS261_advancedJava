@@ -17,8 +17,9 @@ public class Main extends Application {
 			Player player = new Player("User1");
 			CardGameController controller = new CardGameController(viewJavaFX, deck, player);
 			viewJavaFX.setController(controller);
+			controller.run();
+
 			viewJavaFX.displayGUI();
-//			controller.run();
 //			viewJavaFX.displayGUI(primaryStage);
 //			viewJavaFX.displayGraphicalUserInterface(primaryStage, controller);
 		} catch (Exception e) {

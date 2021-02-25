@@ -12,7 +12,6 @@ public class CardGameController {
 
 	private Deck deck;
 	private Player player;
-//	private ViewCLI viewCLI;
 	private ViewJavaFX viewJavaFX;
 	private int cardCounter;
 	private State state;
@@ -25,28 +24,41 @@ public class CardGameController {
 	}
 
 	public void run() {
+		switch (state) {
+		case AddPlayers:
+//	viewJavaFX.displayPlayerName();
+			startGame();
+			break;
+		case CardsDealt:
 
-		while (true) {
-			switch (state) {
-			case AddPlayers:
-//				viewCLI.displayPlayerName();
-				viewJavaFX.displayPlayerName();
-				startGame();
-				break;
-			case CardsDealt:
-//				viewCLI.promptFlip();
-				viewJavaFX.promptFlip();
-				break;
-			case CardsRevealed:
-//				viewCLI.promptForNewGame();
-				viewJavaFX.promptForNewGame();
-				break;
-			case EmptyDeck:
-//				viewCLI.promptToReshuffleDeck();
-				viewJavaFX.promptToReshuffleDeck();
-				break;
-			}
+			viewJavaFX.promptFlip();
+			break;
+		case CardsRevealed:
+			viewJavaFX.promptForNewGame();
+			break;
+		case EmptyDeck:
+			viewJavaFX.promptToReshuffleDeck();
+			break;
+
 		}
+//JavaFX does not appear to be compatible with infinite loop
+//		while (true) {
+//			switch (state) {
+//			case AddPlayers:
+////				viewJavaFX.displayPlayerName();
+//				startGame();
+//				break;
+//			case CardsDealt:
+//				viewJavaFX.promptFlip();
+//				break;
+//			case CardsRevealed:
+//				viewJavaFX.promptForNewGame();
+//				break;
+//			case EmptyDeck:
+//				viewJavaFX.promptToReshuffleDeck();
+//				break;
+//			}
+//		}
 	}
 
 	public void startGame() {
@@ -57,10 +69,12 @@ public class CardGameController {
 			}
 			this.cardCounter += 4;
 			state = State.CardsDealt;
+			run(); // checks state change. JavaFX incompatible with infinite loop?
 		}
 		if (this.cardCounter >= 54) { // if all cards are dealt,
 			this.cardCounter = 0; // reset counter;
 			state = State.EmptyDeck;
+			run(); // checks state change. JavaFX incompatible with infinite loop?
 		}
 	}
 
@@ -68,10 +82,10 @@ public class CardGameController {
 		for (int i = 0; i < 4; i++) {
 			Card card = getPlayer().getCard(i);
 			card.flip();
-//			viewCLI.showCardForPlayer(card.getRank().toString(), card.getSuit().toString());
-			viewJavaFX.showCardForPlayer(card.getRank().toString(), card.getSuit().toString());
+			viewJavaFX.showCardForPlayer(card.getIndex());
 		}
 		state = State.CardsRevealed;
+		run(); // checks state change. JavaFX incompatible with infinite loop?
 	}
 
 	public void resetHand() {
@@ -89,4 +103,5 @@ public class CardGameController {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+
 }

@@ -14,7 +14,7 @@ public class ViewCLI implements View {
 	}
 
 	public void displayPlayerName() {
-		System.out.println(controller.getPlayer().getName());
+//		System.out.println(controller.getPlayer().getName());
 	}
 
 	public void promptFlip() {

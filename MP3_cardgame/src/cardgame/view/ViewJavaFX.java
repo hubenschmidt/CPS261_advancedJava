@@ -1,9 +1,10 @@
 package cardgame.view;
 
+import java.util.List;
+
 import cardgame.controller.CardGameController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,36 +14,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-//class CardViewable extends ImageView {
-////	private boolean revealed = false;
-//	private int card_number;
-//	private Image card_back;
-//	private Image card_front;
-//
-//	public CardViewable(int card_number) {
-//		super();
-//		this.card_number = card_number;
-//		card_back = new Image("card/backCard.png");
-//		super.setImage(getCardImage());
-//	}
-//
-//	public Image getCardImage() {
-//		if (!revealed) {
-//			return card_back;
-//		}
-//		return card_front;
-//	}
-//}
 
 public class ViewJavaFX {
 	CardGameController controller;
 
 	Text instructions = new Text("Click the cards");
 	Group row_of_cards = new Group();
-//	Image cardBack = new Image("");
 
 	BorderPane border;
 	HBox hbox;
@@ -53,7 +33,6 @@ public class ViewJavaFX {
 	private Stage primaryStage;
 	private Button buttonDealCards, buttonReshuffleDeck;
 	private Scene scene;
-	private String selection;
 
 	public void setController(CardGameController controller) {
 		this.controller = controller;
@@ -75,20 +54,19 @@ public class ViewJavaFX {
 	public void promptToReshuffleDeck() {
 	};
 
-	public void displayCardsFaceDown(Image cardBack) {
+	public void displayCardsFaceDown(List<Image> cards) {
 
 		System.out.println("display");
 		ImageView iv1 = new ImageView();
-		iv1.setImage(cardBack);
+		iv1.setImage(cards.get(0));
 		Group root = new Group();
-//		Scene scene = new Scene(root);
-//		scene.setFill(Color.BLACK);
+		Scene scene = new Scene(root);
+		scene.setFill(Color.BLACK);
 		HBox box = new HBox();
 		box.getChildren().add(iv1);
 //		box.getChildren().add(iv2);
 //		box.getChildren().add(iv3);
 		root.getChildren().add(box);
-		System.out.println(cardBack.getClass().getName());
 
 	}
 
@@ -99,23 +77,6 @@ public class ViewJavaFX {
 //		controller.setCardFront(new Image("card_images/" + index + ".png"));
 
 	};
-
-	public String getSelection() {
-		return selection;
-	}
-
-	public void setSelection(String selection) {
-		this.selection = selection;
-	}
-
-	public void buildGrid(GridPane gridPane, Button eToM, Button mToE) {
-		gridPane.setVgap(5);
-		gridPane.setHgap(5);
-		gridPane.setAlignment(Pos.CENTER);
-		gridPane.add(buttonDealCards, 0, 2);
-		gridPane.add(buttonReshuffleDeck, 1, 2);
-
-	}
 
 	public void dealCardsButton() {
 		buttonDealCards.setOnAction(new EventHandler<ActionEvent>() {
@@ -129,15 +90,22 @@ public class ViewJavaFX {
 
 	public void displayGUI() {
 		primaryStage = new Stage();
-		gridPane = new GridPane();
+//		gridPane = new GridPane();
 		buttonDealCards = new Button("deal cards");
-		buttonReshuffleDeck = new Button("reshuffle deck");
-		scene = new Scene(gridPane, 800, 800);
-		buildGrid(gridPane, buttonDealCards, buttonReshuffleDeck);
+//		buttonReshuffleDeck = new Button("reshuffle deck");
+//		scene = new Scene(gridPane, 800, 800);
+//		gridPane.setVgap(5);
+//		gridPane.setHgap(5);
+//		gridPane.setAlignment(Pos.CENTER);
+//		gridPane.add(buttonDealCards, 0, 2);
+//		gridPane.add(buttonReshuffleDeck, 1, 2);
+
 		primaryStage.setTitle("Card Game");
-		primaryStage.setScene(scene);
+//		primaryStage.setScene(scene);
 		primaryStage.show();
 		dealCardsButton();
+		displayCardsFaceDown(controller.getCards());
+
 	}
 
 }

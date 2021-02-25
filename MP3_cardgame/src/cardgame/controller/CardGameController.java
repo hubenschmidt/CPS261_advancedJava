@@ -1,5 +1,8 @@
 package cardgame.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cardgame.model.Card;
 import cardgame.model.Deck;
 import cardgame.model.Player;
@@ -17,6 +20,7 @@ public class CardGameController {
 	private ViewJavaFX viewJavaFX;
 	private int cardCounter;
 	private State state;
+	List<Image> cards = new ArrayList<>();
 
 	public CardGameController(ViewJavaFX view, Deck deck, Player player) {
 		this.viewJavaFX = view;
@@ -55,7 +59,8 @@ public class CardGameController {
 				// this retrieves images from image folder and matches to card index;
 				card.setCardFront(new Image("card_images/" + card.getIndex() + ".png"));
 				card.setCardBack(new Image("card_images/back.png"));
-				viewJavaFX.displayCardsFaceDown(card.getCardBack());
+
+				cards.add(card.getCardBack());
 			}
 			this.cardCounter += 4;
 			state = State.CardsDealt;
@@ -102,28 +107,8 @@ public class CardGameController {
 		this.player = player;
 	}
 
-//	public void setCardFront(Image cardFront) {
-//		card.setCardFront(cardFront);
-//	}
-//
-//	public Image getCardFront() {
-//		return card.getCardFront();
-//	}
-//
-//	public void setCardBack(Image cardBack) {
-//		card.setCardBack(cardBack);
-//	}
-//
-//	public Image getCardBack() {
-//		return card.getCardBack();
-//	}
-//
-//	public Rank getCardRank() {
-//		return card.getRank();
-//	}
-//
-//	public Suit getCardSuit() {
-//		return card.getSuit();
-//	}
+	public List<Image> getCards() {
+		return cards;
+	}
 
 }

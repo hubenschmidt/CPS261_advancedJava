@@ -7,8 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
@@ -38,10 +36,8 @@ import javafx.stage.Stage;
 //	}
 //}
 
-public class ViewJavaFX extends ImageView {
+public class ViewJavaFX {
 	CardGameController controller;
-
-	private Image card_front;
 
 	Text instructions = new Text("Click the cards");
 	Group row_of_cards = new Group();
@@ -68,6 +64,7 @@ public class ViewJavaFX extends ImageView {
 
 	public void promptFlip() {
 		System.out.println("Press return to flip cards");
+		// button to flip cards goes here
 		controller.flipCards();
 	}
 
@@ -80,9 +77,8 @@ public class ViewJavaFX extends ImageView {
 //	public void showCardForPlayer(String rank, String suit, int index) {
 	public void showCardForPlayer(int index) {
 //		System.out.println(index);
-//		this.card_front = new Image("card_images/" + index + ".png");
-//
-//		super.setImage(card_front);
+
+//		controller.setCardFront(new Image("card_images/" + index + ".png"));
 
 	};
 

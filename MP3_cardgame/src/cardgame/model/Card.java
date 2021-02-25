@@ -1,5 +1,7 @@
 package cardgame.model;
 
+import javafx.scene.image.Image;
+
 public class Card {
 	Rank rank;
 	Suit suit;
@@ -7,6 +9,8 @@ public class Card {
 	String color;
 	String joker;
 	boolean faceUp;
+	private Image cardFront;
+	private Image cardBack;
 
 	public Card(Rank r, Suit s, int i) {
 		rank = r;
@@ -49,6 +53,22 @@ public class Card {
 	public boolean flip() {
 		faceUp = !faceUp;
 		return faceUp;
+	}
+
+	public Image getCardFront() {
+		return cardFront;
+	}
+
+	public void setCardFront(Image cardFront) {
+		this.cardFront = cardFront;
+	}
+
+	public Image getCardBack() {
+		return cardBack;
+	}
+
+	public void setCardBack(Image cardBack) {
+		this.cardBack = cardBack;
 	}
 
 }

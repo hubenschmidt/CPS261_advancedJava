@@ -39,7 +39,6 @@ public class CardGameController {
 	public void dealCards() {
 		// deal cards to players by getting hand from player. // send this
 		// to the application
-
 		for (int i = 0; i < game.getCardsPerHand(); i++) { // depending on the number of cards per hand
 			for (Player p : game.getPlayers()) { // for each player in the list of players,
 				p.addCardToHand(game.getDeck().removeTopCardFromDeck()); // distribute top card from deck to player
@@ -47,14 +46,10 @@ public class CardGameController {
 		}
 
 		for (Player p : game.getPlayers()) {
-
 			for (Card c : p.getHand().getCards()) { // for each card in Hand,
 				System.out.println(c.getRank() + " " + c.getSuit()); // display the Rank and Suit
-
 			}
-
 		}
-
 	}
 
 	public void flipCards() {

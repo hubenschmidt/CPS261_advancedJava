@@ -68,12 +68,10 @@ public class CardGameController {
 		this.cards = cards;
 	}
 
-	public void flipCard() {
-
-	}
-
 	public void resetHand() {
-//		player.clearHand();
+		for (Player p : game.getPlayers()) {
+			p.getHand().clearHand();
+		}
 	}
 
 	public void reshuffleDeck() {

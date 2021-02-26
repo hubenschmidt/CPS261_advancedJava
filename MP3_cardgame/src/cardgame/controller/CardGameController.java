@@ -13,13 +13,25 @@ public class CardGameController {
 	}
 
 	private Game game;
+	private List<Card> cards;
 	private State state;
+	private String test;
 
 	public CardGameController(int cardsPerHand, ArrayList<Player> players) {
 		this.game = new Game(cardsPerHand, players); // controller instantiates new Game
-		state = State.AddPlayers;
+		this.cards = new ArrayList<>();
+		this.state = State.AddPlayers;
+		this.test = "testing";
 		run(); // automatically run game when controller is instantiated
 
+	}
+
+	public String getTest() {
+		return test;
+	}
+
+	public void setTest(String test) {
+		this.test = test;
 	}
 
 	public void run() {
@@ -37,9 +49,10 @@ public class CardGameController {
 		}
 	}
 
-	public List<Card> dealCards() {
+	public void dealCards() {
 		// deal cards to players by getting hand from player. // send this
 		// to the application
+		System.out.println("dealCards() called");
 		for (int i = 0; i < game.getCardsPerHand(); i++) { // depending on the number of cards per hand
 			for (Player p : game.getPlayers()) { // for each player in the list of players,
 				p.addCardToHand(game.getDeck().removeTopCardFromDeck()); // distribute top card from deck to player
@@ -53,8 +66,16 @@ public class CardGameController {
 				cards.add(c);
 			}
 		}
+		setCards(cards);
 		state = State.CardsDealt;
+	}
+
+	public List<Card> getCards() {
 		return cards;
+	}
+
+	public void setCards(List<Card> cards) {
+		this.cards = cards;
 	}
 
 	public void flipCards() {

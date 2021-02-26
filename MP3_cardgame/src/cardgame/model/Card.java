@@ -1,8 +1,10 @@
 package cardgame.model;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class Card {
+public class Card extends ImageView {
+
 	private Rank rank;
 	private Suit suit;
 	private String joker;
@@ -13,23 +15,28 @@ public class Card {
 	private Image cardFront;
 
 	public Card(Rank r, Suit s, int i) {
+		super();
 		this.rank = r;
 		this.suit = s;
 		this.index = i;
 		this.faceUp = false;
 		this.cardBack = new Image("card_images/" + this.index + ".png");
 		this.cardFront = new Image("card_images/back.png");
+		super.setImage(cardBack);
+		super.setImage(cardFront);
 
 	}
 
 	public Card(String joker, String jokerColor, int i) {
+		super();
 		this.joker = joker;
 		this.jokerColor = jokerColor;
 		this.index = i;
 		this.faceUp = false;
 		this.cardBack = new Image("card_images/" + this.index + ".png");
 		this.cardFront = new Image("card_images/back.png");
-
+		super.setImage(cardBack);
+		super.setImage(cardFront);
 	}
 
 	public Rank getRank() {

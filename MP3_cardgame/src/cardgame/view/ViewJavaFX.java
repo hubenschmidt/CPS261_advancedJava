@@ -1,14 +1,14 @@
 package cardgame.view;
 
 import cardgame.controller.CardGameController;
-import cardgame.model.Card;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
@@ -22,13 +22,16 @@ public class ViewJavaFX implements View {
 	Scene scene;
 	Text initialInstructions;
 	Group cardsRow;
+	FlowPane flowPane;
 	Button btnDealCards;
 	Button btnShuffleDeck;
 	HBox paneForButtons;
 	BorderPane borderPane;
+	ImageView imageView;
 
-	public void setController(CardGameController controller) {
+	public ViewJavaFX(CardGameController controller) {
 		this.controller = controller;
+
 	}
 
 	public void displayPlayerName() {
@@ -61,29 +64,48 @@ public class ViewJavaFX implements View {
 	}
 
 	public void displayGUI(Stage primaryStage) {
+
 		primaryStage.setTitle("ViewJavaFX.java");
 		stackPane = new StackPane();
 		initialInstructions = new Text("Click the cards after dealing.");
 		cardsRow = new Group();
+
 		btnDealCards = new Button("Deal");
 		btnShuffleDeck = new Button("Shuffle");
-		btnDealCards.setOnAction((ActionEvent e) -> {
-			if (initialInstructions != null) {
-				stackPane.getChildren().remove(initialInstructions);
-				initialInstructions = null;
-			}
 
-			cardsRow.getChildren().clear();
+		System.out.println(controller.getCards().size());
+		System.out.println(controller.getTest());
 
-			for (int i = 0; i < controller.dealCards().size(); i++) {
-				Card new_card = controller.dealCards().get(i);
-				System.out.println(new_card);
+//		for (Card card : controller.dealCards()) {
+//			System.out.println(card);
+//
+//
+//		}
 
+//		for (int i = 0; i < controller.dealCards().size(); i++) {
+//			System.out.println(controller.dealCards().get(i));
+//			cardsRow.getChildren().add(controller.dealCards().get(i));
+//		}
+
+//		btnDealCards.setOnAction((ActionEvent e) -> {
+//			if (initialInstructions != null) {
+//				stackPane.getChildren().remove(initialInstructions);
+//				initialInstructions = null;
+//			}
+//
+//			cardsRow.getChildren().clear();
+//
+////			for (Card card : controller.dealCards()) {
+////
+////				cardsRow.getChildren().add(card);
+////			}
+//
+//			for (int i = 0; i < controller.dealCards().size(); i++) {
+//				System.out.println(controller.dealCards().get(i));
 //				cardsRow.getChildren().add(controller.dealCards().get(i));
-
-			}
-
-		});
+//			}
+//
+//		});
 
 		HBox paneForButtons = new HBox(16);// space between buttons is 16
 		paneForButtons.getChildren().addAll(btnDealCards, btnShuffleDeck);

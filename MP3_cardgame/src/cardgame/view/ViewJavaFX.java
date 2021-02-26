@@ -1,6 +1,7 @@
 package cardgame.view;
 
 import cardgame.controller.CardGameController;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -73,39 +74,20 @@ public class ViewJavaFX implements View {
 		btnDealCards = new Button("Deal");
 		btnShuffleDeck = new Button("Shuffle");
 
-		System.out.println(controller.getCards().size());
-		System.out.println(controller.getTest());
+		btnDealCards.setOnAction((ActionEvent e) -> {
+			if (initialInstructions != null) {
+				stackPane.getChildren().remove(initialInstructions);
+				initialInstructions = null;
+			}
 
-//		for (Card card : controller.dealCards()) {
-//			System.out.println(card);
-//
-//
-//		}
+			cardsRow.getChildren().clear();
 
-//		for (int i = 0; i < controller.dealCards().size(); i++) {
-//			System.out.println(controller.dealCards().get(i));
-//			cardsRow.getChildren().add(controller.dealCards().get(i));
-//		}
+			for (int i = 0; i < controller.getCards().size(); i++) {
+				System.out.println(controller.getCards().get(i));
+				cardsRow.getChildren().add(controller.getCards().get(i));
+			}
 
-//		btnDealCards.setOnAction((ActionEvent e) -> {
-//			if (initialInstructions != null) {
-//				stackPane.getChildren().remove(initialInstructions);
-//				initialInstructions = null;
-//			}
-//
-//			cardsRow.getChildren().clear();
-//
-////			for (Card card : controller.dealCards()) {
-////
-////				cardsRow.getChildren().add(card);
-////			}
-//
-//			for (int i = 0; i < controller.dealCards().size(); i++) {
-//				System.out.println(controller.dealCards().get(i));
-//				cardsRow.getChildren().add(controller.dealCards().get(i));
-//			}
-//
-//		});
+		});
 
 		HBox paneForButtons = new HBox(16);// space between buttons is 16
 		paneForButtons.getChildren().addAll(btnDealCards, btnShuffleDeck);
@@ -114,7 +96,7 @@ public class ViewJavaFX implements View {
 		borderPane = new BorderPane();
 		borderPane.setBottom(paneForButtons);
 		initialInstructions.setFont(new Font(24));
-		stackPane.getChildren().addAll(borderPane, initialInstructions);
+		stackPane.getChildren().addAll(borderPane, initialInstructions, cardsRow);
 		scene = new Scene(stackPane, 860, 600);
 
 		primaryStage.setScene(scene);

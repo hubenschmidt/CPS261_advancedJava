@@ -3,27 +3,33 @@ package cardgame.model;
 import javafx.scene.image.Image;
 
 public class Card {
-	Rank rank;
-	Suit suit;
-	int index;
-	String color;
-	String joker;
+	private Rank rank;
+	private Suit suit;
+	private String joker;
+	private String jokerColor;
+	private int index;
 	boolean faceUp;
-	Image cardFront;
-	Image cardBack;
+	private Image cardBack;
+	private Image cardFront;
 
 	public Card(Rank r, Suit s, int i) {
-		rank = r;
-		suit = s;
-		index = i;
-		faceUp = false;
+		this.rank = r;
+		this.suit = s;
+		this.index = i;
+		this.faceUp = false;
+		this.cardBack = new Image("card_images/" + this.index + ".png");
+		this.cardFront = new Image("card_images/back.png");
+
 	}
 
-	public Card(String color, String joker, int i) {
-		this.color = color;
+	public Card(String joker, String jokerColor, int i) {
 		this.joker = joker;
+		this.jokerColor = jokerColor;
 		this.index = i;
-		faceUp = false;
+		this.faceUp = false;
+		this.cardBack = new Image("card_images/" + this.index + ".png");
+		this.cardFront = new Image("card_images/back.png");
+
 	}
 
 	public Rank getRank() {
@@ -39,7 +45,7 @@ public class Card {
 	}
 
 	public String getJokerColor() {
-		return color;
+		return jokerColor;
 	}
 
 	public int getIndex() {

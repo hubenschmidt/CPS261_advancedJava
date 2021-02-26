@@ -27,13 +27,13 @@ public class CardGameController {
 			dealCards();
 			break;
 		case CardsDealt:
+//			displayCards();
 			break;
 		case CardsRevealed:
 			break;
 		case EmptyDeck:
 			break;
 		}
-
 	}
 
 	public void dealCards() {
@@ -45,9 +45,12 @@ public class CardGameController {
 			}
 		}
 
+		state = State.CardsDealt;
+
 		for (Player p : game.getPlayers()) {
 			for (Card c : p.getHand().getCards()) { // for each card in Hand,
-				System.out.println(c.getRank() + " " + c.getSuit()); // display the Rank and Suit
+				System.out.println(c.getRank() + " " + c.getSuit() + " " + c.getCardBack()); // display the Rank and
+				// Suit
 			}
 		}
 	}

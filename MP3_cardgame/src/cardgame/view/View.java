@@ -7,6 +7,8 @@ public interface View {
 
 	public void displayPlayerName();
 
+	public void displayCards();
+
 	public void promptFlip();
 
 	public void promptForNewGame();

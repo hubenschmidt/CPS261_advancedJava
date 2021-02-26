@@ -48,10 +48,13 @@ public class ViewJavaFX implements View {
 				stackPane.getChildren().remove(initialInstructions);
 				initialInstructions = null;
 			}
-
 			cardsRow.getChildren().clear();
 
+			controller.dealCards();
+
 			for (int i = 0; i < controller.getCards().size(); i++) {
+
+				// set card position
 				int card_width = controller.getCards().get(i).getWidth();
 				double position_x = 100 + (card_width + 25) * i;
 				double position_y = 100;
@@ -60,6 +63,7 @@ public class ViewJavaFX implements View {
 				// workaround for accessing counter variable inside inner class:
 				final int inner_i = i;
 
+				// when clicking cards
 				controller.getCards().get(i).setOnMouseClicked(new EventHandler<Event>() {
 					@Override
 					public void handle(Event e) {
@@ -78,30 +82,34 @@ public class ViewJavaFX implements View {
 				});
 
 				cardsRow.getChildren().add(controller.getCards().get(i));
+
 			}
 		});
 	}
 
-	public void displayCards() {
+	public void shuffleDeck() {
 
-	}
+		btnShuffleDeck.setOnAction((ActionEvent e) -> {
 
-	public void promptFlip() {
-		// TODO Auto-generated method stub
+//			cardsRow.getChildren().clear();
+//			cardsRow.getChildren().add(controller.getCards())
+			for (int i = 0; i < controller.getCards().size(); i++) {
 
+				if (controller.getCards().get(i).isFaceUp()) {
+					controller.getCards().get(i).setFaceDown();// set all cards to face down;
+					controller.getCards().get(i).setImage(controller.getCards().get(i).getCardBack());
+
+				}
+
+				controller.reshuffleDeck(); // dealer shuffles deck four times // add logic to riffle and cut the
+				// deck
+
+//				cardsRow.getChildren().add(controller.getCards().get(i));
+			}
+		});
 	}
 
 	public void promptForNewGame() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void promptToReshuffleDeck() {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void showCardForPlayer(String rank, String suit) {
 		// TODO Auto-generated method stub
 
 	}
@@ -118,10 +126,11 @@ public class ViewJavaFX implements View {
 		btnShuffleDeck = new Button("Shuffle");
 
 		dealCardsToPlayers();
+		shuffleDeck();
 
-		btnShuffleDeck.setOnAction((ActionEvent e) -> {
-			controller.reshuffleDeck();
-		});
+//		btnShuffleDeck.setOnAction((ActionEvent e) -> {
+//			controller.reshuffleDeck();
+//		});
 
 		HBox paneForButtons = new HBox(16);// space between buttons is 16
 		paneForButtons.getChildren().addAll(btnDealCards, btnShuffleDeck);

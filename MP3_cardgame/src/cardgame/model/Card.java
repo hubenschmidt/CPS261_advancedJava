@@ -85,6 +85,10 @@ public class Card extends ImageView {
 		this.height = height;
 	}
 
+	public void setFaceDown() {
+		this.faceUp = false;
+	}
+
 	public boolean isFaceUp() {
 		return faceUp;
 	}

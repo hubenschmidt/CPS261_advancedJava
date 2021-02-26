@@ -37,8 +37,8 @@ public class Deck {
 		Random random = new Random();
 		for (int i = 0; i < this.cards.size(); i++) {
 			Collections.swap(this.cards, i, random.nextInt(this.cards.size()));
-//			System.out.println("% " + cards.get(i).getRank() + " " + cards.get(i).getSuit() + " "
-//					+ cards.get(i).getIndex() + " %");
+			System.out.println("% " + cards.get(i).getRank() + " " + cards.get(i).getSuit() + " "
+					+ cards.get(i).getIndex() + " %");
 		}
 	};
 

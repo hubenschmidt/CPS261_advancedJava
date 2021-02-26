@@ -20,7 +20,7 @@ public class CardGameController {
 		this.game = new Game(cardsPerHand, players); // controller instantiates new Game
 		this.cards = new ArrayList<>();
 		this.state = State.AddPlayers;
-		run(); // automatically run game when controller is instantiated
+//		run(); // automatically run game when controller is instantiated
 
 	}
 

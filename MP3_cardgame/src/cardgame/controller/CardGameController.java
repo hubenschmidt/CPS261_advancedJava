@@ -68,7 +68,7 @@ public class CardGameController {
 		this.cards = cards;
 	}
 
-	public void flipCards() {
+	public void flipCard() {
 
 	}
 
@@ -77,6 +77,6 @@ public class CardGameController {
 	}
 
 	public void reshuffleDeck() {
-//		deck = new Deck();
+		game.getDeck().shuffle();
 	}
 }

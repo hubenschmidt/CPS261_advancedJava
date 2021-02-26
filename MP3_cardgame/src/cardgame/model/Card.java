@@ -24,13 +24,13 @@ public class Card extends ImageView {
 		this.width = 72;
 		this.height = 96;
 		this.faceUp = false;
-		this.cardBack = new Image("card_images/" + this.index + ".png");
-		this.cardFront = new Image("card_images/backCard.png");
-		super.setImage(cardBack);
-		super.setImage(cardFront);
-
-		super.setPreserveRatio(false); // aspect ratio
-		super.setSmooth(true); // aspect ratio
+		this.cardBack = new Image("card_images/backCard.png");
+		this.cardFront = new Image("card_images/" + this.index + ".png");
+		super.setImage(setImageForImageView());
+//		super.setImage(cardFront);
+//		super.setPreserveRatio(false); // aspect ratio
+//		super.setSmooth(true); // aspect ratio
+		super.setPickOnBounds(true); // to respond to mouse clicks
 
 	}
 
@@ -42,13 +42,13 @@ public class Card extends ImageView {
 		this.width = 72;
 		this.height = 96;
 		this.faceUp = false;
-		this.cardBack = new Image("card_images/" + this.index + ".png");
-		this.cardFront = new Image("card_images/back.png");
-		super.setImage(cardBack);
-		super.setImage(cardFront);
-
-		super.setPreserveRatio(false); // aspect ratio
-		super.setSmooth(true); // aspect ratio
+		this.cardBack = new Image("card_images/backCard.png");
+		this.cardFront = new Image("card_images/" + this.index + ".png");
+		super.setImage(setImageForImageView());
+//		super.setImage(cardFront);
+//		super.setPreserveRatio(false); // aspect ratio
+//		super.setSmooth(true); // aspect ratio
+		super.setPickOnBounds(true); // to respond to mouse clicks
 	}
 
 	public Rank getRank() {
@@ -100,16 +100,15 @@ public class Card extends ImageView {
 		return cardFront;
 	}
 
-	public void setCardFront(Image cardFront) {
-//		this.cardFront = cardFront;
-	}
-
 	public Image getCardBack() {
 		return cardBack;
 	}
 
-	public void setCardBack(Image cardBack) {
-		this.cardBack = cardBack;
+	public Image setImageForImageView() {
+		if (faceUp) {
+			return getCardFront();
+		}
+		return getCardBack();
 	}
 
 	public void set_card_position(double position_x, double position_y) {

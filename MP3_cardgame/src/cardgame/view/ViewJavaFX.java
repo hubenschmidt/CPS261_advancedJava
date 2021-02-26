@@ -2,6 +2,8 @@ package cardgame.view;
 
 import cardgame.controller.CardGameController;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -70,6 +72,7 @@ public class ViewJavaFX implements View {
 		stackPane = new StackPane();
 		initialInstructions = new Text("Click the cards after dealing.");
 		cardsRow = new Group();
+		cardsRow.setManaged(true); // automatic layout enabled for cards
 
 		btnDealCards = new Button("Deal");
 		btnShuffleDeck = new Button("Shuffle");
@@ -83,18 +86,37 @@ public class ViewJavaFX implements View {
 			cardsRow.getChildren().clear();
 
 			for (int i = 0; i < controller.getCards().size(); i++) {
-
 				int card_width = controller.getCards().get(i).getWidth();
-				int card_height = controller.getCards().get(i).getHeight();
-				double position_x = 40 + (card_width + 20) * i;
-				double position_y = 50;
-
+				double position_x = 100 + (card_width + 25) * i;
+				double position_y = 100;
 				controller.getCards().get(i).set_card_position(position_x, position_y);
 
-				System.out.println(controller.getCards().get(i));
+				// workaround for accessing counter variable inside inner class:
+				final int inner_i = i;
+
+				controller.getCards().get(i).setOnMouseClicked(new EventHandler() {
+					@Override
+					public void handle(Event e) {
+						controller.getCards().get(inner_i).flip();
+						System.out.println(controller.getCards().get(inner_i).isFaceUp());
+
+						if (controller.getCards().get(inner_i).isFaceUp()) {
+
+							controller.getCards().get(inner_i)
+									.setImage(controller.getCards().get(inner_i).getCardFront());
+
+						}
+						;
+
+					}
+				});
+
 				cardsRow.getChildren().add(controller.getCards().get(i));
 			}
+		});
 
+		btnShuffleDeck.setOnAction((ActionEvent e) -> {
+			controller.reshuffleDeck();
 		});
 
 		HBox paneForButtons = new HBox(16);// space between buttons is 16
@@ -106,6 +128,26 @@ public class ViewJavaFX implements View {
 		initialInstructions.setFont(new Font(24));
 		stackPane.getChildren().addAll(borderPane, initialInstructions, cardsRow);
 		scene = new Scene(stackPane, 860, 600);
+
+//		scene.setOnMouseClicked((e) -> {
+//			double clicked_x = e.getSceneX();
+//			double clicked_y = e.getSceneY();
+//			
+//			
+//			for (int i = 0; i < cardsRow.getChildren().size(); i++) {
+//				if (cardsRow.getChildren().contains()))
+//			}
+//
+////			if (cardsRow.getChildren().size() == controller.getCards().size()) {
+////				for (Node cardAsNode : cardsRow.getChildren()) {
+////					Card cardInRow = (Card) cardAsNode;
+////					if (cardInRow.contains_point(clicked_x, clicked_y)) {
+////						cardsRow.flip();
+////					}
+////				}
+////			}
+//
+//		});
 
 		primaryStage.setScene(scene);
 		primaryStage.show();

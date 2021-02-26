@@ -100,13 +100,15 @@ public class ViewJavaFX implements View {
 						controller.getCards().get(inner_i).flip();
 						System.out.println(controller.getCards().get(inner_i).isFaceUp());
 
+						// if card becomes face up on mouse click, flip card and display front
 						if (controller.getCards().get(inner_i).isFaceUp()) {
-
 							controller.getCards().get(inner_i)
 									.setImage(controller.getCards().get(inner_i).getCardFront());
-
+							// else if card becomes face down on mouse click, flip card and display back
+						} else if (!controller.getCards().get(inner_i).isFaceUp()) {
+							controller.getCards().get(inner_i)
+									.setImage(controller.getCards().get(inner_i).getCardBack());
 						}
-						;
 
 					}
 				});

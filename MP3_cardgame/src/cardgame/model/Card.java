@@ -27,7 +27,6 @@ public class Card extends ImageView {
 		this.cardBack = new Image("card_images/backCard.png");
 		this.cardFront = new Image("card_images/" + this.index + ".png");
 		super.setImage(setImageForImageView());
-//		super.setImage(cardFront);
 //		super.setPreserveRatio(false); // aspect ratio
 //		super.setSmooth(true); // aspect ratio
 		super.setPickOnBounds(true); // to respond to mouse clicks
@@ -45,7 +44,6 @@ public class Card extends ImageView {
 		this.cardBack = new Image("card_images/backCard.png");
 		this.cardFront = new Image("card_images/" + this.index + ".png");
 		super.setImage(setImageForImageView());
-//		super.setImage(cardFront);
 //		super.setPreserveRatio(false); // aspect ratio
 //		super.setSmooth(true); // aspect ratio
 		super.setPickOnBounds(true); // to respond to mouse clicks

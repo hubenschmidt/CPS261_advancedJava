@@ -1,6 +1,7 @@
 package cardgame.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cardgame.model.Card;
 import cardgame.model.Game;
@@ -36,7 +37,7 @@ public class CardGameController {
 		}
 	}
 
-	public void dealCards() {
+	public List<Card> dealCards() {
 		// deal cards to players by getting hand from player. // send this
 		// to the application
 		for (int i = 0; i < game.getCardsPerHand(); i++) { // depending on the number of cards per hand
@@ -45,14 +46,15 @@ public class CardGameController {
 			}
 		}
 
-		state = State.CardsDealt;
+		List<Card> cards = new ArrayList<>();
 
 		for (Player p : game.getPlayers()) {
-			for (Card c : p.getHand().getCards()) { // for each card in Hand,
-				System.out.println(c.getRank() + " " + c.getSuit() + " " + c.getCardBack()); // display the Rank and
-				// Suit
+			for (Card c : p.getHand().getCards()) {
+				cards.add(c);
 			}
 		}
+		state = State.CardsDealt;
+		return cards;
 	}
 
 	public void flipCards() {

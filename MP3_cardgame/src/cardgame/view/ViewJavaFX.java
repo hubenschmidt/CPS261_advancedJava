@@ -83,6 +83,14 @@ public class ViewJavaFX implements View {
 			cardsRow.getChildren().clear();
 
 			for (int i = 0; i < controller.getCards().size(); i++) {
+
+				int card_width = controller.getCards().get(i).getWidth();
+				int card_height = controller.getCards().get(i).getHeight();
+				double position_x = 40 + (card_width + 20) * i;
+				double position_y = 50;
+
+				controller.getCards().get(i).set_card_position(position_x, position_y);
+
 				System.out.println(controller.getCards().get(i));
 				cardsRow.getChildren().add(controller.getCards().get(i));
 			}

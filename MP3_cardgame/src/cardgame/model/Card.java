@@ -9,6 +9,8 @@ public class Card extends ImageView {
 	private Suit suit;
 	private String joker;
 	private String jokerColor;
+	private int width;
+	private int height;
 	private int index;
 	boolean faceUp;
 	private Image cardBack;
@@ -19,11 +21,16 @@ public class Card extends ImageView {
 		this.rank = r;
 		this.suit = s;
 		this.index = i;
+		this.width = 72;
+		this.height = 96;
 		this.faceUp = false;
 		this.cardBack = new Image("card_images/" + this.index + ".png");
-		this.cardFront = new Image("card_images/back.png");
+		this.cardFront = new Image("card_images/backCard.png");
 		super.setImage(cardBack);
 		super.setImage(cardFront);
+
+		super.setPreserveRatio(false); // aspect ratio
+		super.setSmooth(true); // aspect ratio
 
 	}
 
@@ -32,11 +39,16 @@ public class Card extends ImageView {
 		this.joker = joker;
 		this.jokerColor = jokerColor;
 		this.index = i;
+		this.width = 72;
+		this.height = 96;
 		this.faceUp = false;
 		this.cardBack = new Image("card_images/" + this.index + ".png");
 		this.cardFront = new Image("card_images/back.png");
 		super.setImage(cardBack);
 		super.setImage(cardFront);
+
+		super.setPreserveRatio(false); // aspect ratio
+		super.setSmooth(true); // aspect ratio
 	}
 
 	public Rank getRank() {
@@ -57,6 +69,22 @@ public class Card extends ImageView {
 
 	public int getIndex() {
 		return index;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	public boolean isFaceUp() {
@@ -82,6 +110,11 @@ public class Card extends ImageView {
 
 	public void setCardBack(Image cardBack) {
 		this.cardBack = cardBack;
+	}
+
+	public void set_card_position(double position_x, double position_y) {
+		setX(position_x);
+		setY(position_y);
 	}
 
 }

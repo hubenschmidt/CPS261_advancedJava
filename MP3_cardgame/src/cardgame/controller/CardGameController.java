@@ -15,23 +15,13 @@ public class CardGameController {
 	private Game game;
 	private List<Card> cards;
 	private State state;
-	private String test;
 
 	public CardGameController(int cardsPerHand, ArrayList<Player> players) {
 		this.game = new Game(cardsPerHand, players); // controller instantiates new Game
 		this.cards = new ArrayList<>();
 		this.state = State.AddPlayers;
-		this.test = "testing";
 		run(); // automatically run game when controller is instantiated
 
-	}
-
-	public String getTest() {
-		return test;
-	}
-
-	public void setTest(String test) {
-		this.test = test;
 	}
 
 	public void run() {

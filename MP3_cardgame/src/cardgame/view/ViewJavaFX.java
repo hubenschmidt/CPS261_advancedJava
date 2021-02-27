@@ -91,7 +91,7 @@ public class ViewJavaFX implements View {
 
 		btnShuffleDeck.setOnAction((ActionEvent e) -> {
 
-//			cardsRow.getChildren().clear();
+			cardsRow.getChildren().clear();
 //			cardsRow.getChildren().add(controller.getCards())
 			for (int i = 0; i < controller.getCards().size(); i++) {
 

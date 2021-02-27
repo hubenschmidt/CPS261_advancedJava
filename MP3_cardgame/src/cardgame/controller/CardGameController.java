@@ -40,9 +40,16 @@ public class CardGameController {
 	}
 
 	public void dealCards() {
+
 		// deal cards to players by getting hand from player. // send this
 		// to the application
 		System.out.println("dealCards() called");
+		resetHand();
+
+		System.out.println("cards.size() before clear" + " " + cards.size());
+		System.out.println("this.cards.size() when dealCards() called" + " " + this.cards.size());
+		cards.clear();
+		System.out.println("cards.size() after clear" + " " + cards.size());
 		for (int i = 0; i < game.getCardsPerHand(); i++) { // depending on the number of cards per hand
 			for (Player p : game.getPlayers()) { // for each player in the list of players,
 				p.addCardToHand(game.getDeck().removeTopCardFromDeck()); // distribute top card from deck to player
@@ -51,12 +58,34 @@ public class CardGameController {
 
 		List<Card> cards = new ArrayList<>();
 
+		if (cards.size() == game.getCardsPerHand()) {
+
+			for (Player p : game.getPlayers()) {
+
+				int counter = 0;
+
+				for (Card c : p.getHand().getCards()) {
+
+					cards.set(counter++, c);
+				}
+			}
+
+		}
+
 		for (Player p : game.getPlayers()) {
+
 			for (Card c : p.getHand().getCards()) {
+
 				cards.add(c);
 			}
 		}
+
+		System.out.println("cards.size() before setting object property" + " " + cards.size());
+//		clearCards();
+		System.out.println("this.cards.size() before setting object property" + " " + this.cards.size());
+//		clearCards();
 		setCards(cards);
+		System.out.println("this.cards.size() after setting object property" + " " + this.cards.size());
 		state = State.CardsDealt;
 	}
 
@@ -68,8 +97,14 @@ public class CardGameController {
 		this.cards = cards;
 	}
 
+	public void clearCards() {
+		cards.clear();
+	}
+
 	public void resetHand() {
+		System.out.println("reset Hand called");
 		for (Player p : game.getPlayers()) {
+
 			p.getHand().clearHand();
 		}
 	}

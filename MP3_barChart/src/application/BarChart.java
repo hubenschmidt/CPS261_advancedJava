@@ -1,48 +1,50 @@
 package application;
 
-import java.io.FileInputStream;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
 
 class BarChart {
 
-	Map<String, Integer> goals;
-	Scanner fin;
+	String filePath = "mp3_hockey_stats.txt";
+	HashMap<String, Integer> map;
+	String line;
 
-	public BarChart() {
+	BufferedReader reader;
 
-		goals = new HashMap<String, Integer>();
+	public BarChart() throws IOException {
 
 	}
 
-	void getFile() {
+	void processFile() throws IOException {
+		map = new HashMap<String, Integer>();
 		try {
-			fin = new Scanner(new FileInputStream("mp3_hockey_stats.txt"));
+			reader = new BufferedReader(new FileReader(filePath));
+
+			// process title
+			line = reader.readLine();
+			System.out.println("firstline is " + line);
+
+			// process data
+			while ((line = reader.readLine()) != null) {
+				String[] parts = line.split(",", 2);
+				if (parts.length >= 2) {
+					String key = parts[0];
+					String value = parts[1];
+					map.put(key, Integer.parseInt(value));
+				}
+			}
+
+			System.out.println(map);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if (fin != null)
-				fin.close();
+			if (reader != null) {
+				reader.close();
+			}
 		}
-
-//		try {
-//			fn = new Scanner(new FileInputStream("mp3_hockey_stats.txt"));
-//
-//			while (fn.hasNext()) {
-//				goals.put(fileIn.next(), fileIn.nextInt());
-//				fileIn.next(); // Clear scanner
-//			}
-//		} catch (FileNotFoundException e) {
-//			scoreBoard.put("Error: File Not Found", 0);
-//		} finally {
-//			if (fileIn != null) {
-//				fileIn.close();
-//			}
-//		}
-//		getHighScore();
 
 	}
 

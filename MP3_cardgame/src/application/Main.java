@@ -15,12 +15,18 @@ public class Main extends Application {
 			ArrayList<Player> players = new ArrayList<>();
 			Player p1 = new Player("William");
 			players.add(p1);
-//			Player p2 = new Player("Joe");
-//			players.add(p2);
+			Player p2 = new Player("Joe");
+			players.add(p2);
 			int cardsPerHand = 4;
 			CardGameController controller = new CardGameController(cardsPerHand, players);
 			ViewJavaFX viewJavaFX = new ViewJavaFX(controller);
-			viewJavaFX.displayGUI(primaryStage);
+
+			if (controller.getState() != null) {
+				System.out.println(controller.getState().toString());
+				viewJavaFX.displayGUI(primaryStage);
+
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

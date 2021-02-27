@@ -43,6 +43,10 @@ public class Deck {
 	};
 
 	public Card removeTopCardFromDeck() {
-		return cards.remove(0);
+		if (cards.size() > 0) {
+			return cards.remove(0);
+		}
+		return null;
+
 	}
 }

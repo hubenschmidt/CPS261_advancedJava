@@ -1,9 +1,11 @@
 package cardgame.view;
 
+import javafx.scene.text.Text;
+
 public interface View {
 
 	public void displayPlayerName();
 
-	public void promptForNewGame();
+	public Text promptForNewGame();
 
 }

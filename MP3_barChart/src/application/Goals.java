@@ -4,9 +4,10 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -16,19 +17,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 class Goals {
-
 	String filePath = "mp3_hockey_stats.txt";
-	HashMap<String, Integer> map;
+	LinkedHashMap<String, Integer> map;
 	String line;
 	String title;
 	BufferedReader reader;
-//	BarChart barChart;
-//	CategoryAxis yAxis;
-//	NumberAxis xAxis;
-//	XYChart.Series dataSeries1;
 
 	void processFile() throws IOException {
-		map = new HashMap<String, Integer>();
+		map = new LinkedHashMap<String, Integer>();
 		try {
 			reader = new BufferedReader(new FileReader(filePath));
 
@@ -55,49 +51,39 @@ class Goals {
 	}
 
 	void displayChart(Stage primaryStage) {
-//		primaryStage.setTitle(title);
-//
-//		xAxis = new NumberAxis();
-//		xAxis.setLabel("Goals");
-//
-//		yAxis = new CategoryAxis();
-//		yAxis.setLabel("Teams");
-
-//		xAxis.setTickLabelRotation(90);
-
-		primaryStage.setTitle("BarChart Experiments");
+		primaryStage.setTitle(title);
 
 		CategoryAxis xAxis = new CategoryAxis();
-		xAxis.setLabel("Devices");
+		xAxis.setLabel("Teams");
 
 		NumberAxis yAxis = new NumberAxis();
-		yAxis.setLabel("Visits");
+		yAxis.setLabel("Goals");
 
 		BarChart barChart = new BarChart(yAxis, xAxis);
+		barChart.setLegendVisible(false);
 
 		XYChart.Series dataSeries1 = new XYChart.Series();
-		dataSeries1.setName("2014");
+		dataSeries1.setName("2018-2019");
 
 		for (Map.Entry mapElement : map.entrySet()) {
 			String key = (String) mapElement.getKey();
-
 			Integer value = (Integer) mapElement.getValue();
-
 			dataSeries1.getData().add(new XYChart.Data(value, key));
+			System.out.println(value + " : " + key);
 		}
 
 		barChart.getData().add(dataSeries1);
 
+		for (Node n : barChart.lookupAll(".default-color0.chart-bar")) {
+			n.setStyle("-fx-bar-fill: rgb(69,156,218)");
+		}
+
 		VBox vbox = new VBox(barChart);
-
-		Scene scene = new Scene(vbox, 400, 200);
-
+		Scene scene = new Scene(vbox);
 		primaryStage.setScene(scene);
 		primaryStage.setHeight(300);
-		primaryStage.setWidth(1200);
-
+		primaryStage.setWidth(500);
 		primaryStage.show();
-
 	}
 
 }

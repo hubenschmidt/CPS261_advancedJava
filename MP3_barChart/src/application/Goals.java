@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
@@ -21,6 +22,10 @@ class Goals {
 	String line;
 	String title;
 	BufferedReader reader;
+//	BarChart barChart;
+//	CategoryAxis yAxis;
+//	NumberAxis xAxis;
+//	XYChart.Series dataSeries1;
 
 	void processFile() throws IOException {
 		map = new HashMap<String, Integer>();
@@ -49,34 +54,49 @@ class Goals {
 		}
 	}
 
-	void displayChart(Stage stage) {
-		stage.setTitle(title);
+	void displayChart(Stage primaryStage) {
+//		primaryStage.setTitle(title);
+//
+//		xAxis = new NumberAxis();
+//		xAxis.setLabel("Goals");
+//
+//		yAxis = new CategoryAxis();
+//		yAxis.setLabel("Teams");
 
-		NumberAxis xAxis = new NumberAxis();
-		xAxis.setLabel("Goals");
+//		xAxis.setTickLabelRotation(90);
 
-		CategoryAxis yAxis = new CategoryAxis();
-		yAxis.setLabel("Teams");
+		primaryStage.setTitle("BarChart Experiments");
 
-		xAxis.setTickLabelRotation(90);
+		CategoryAxis xAxis = new CategoryAxis();
+		xAxis.setLabel("Devices");
 
-		BarChart barChart = new BarChart(xAxis, yAxis);
+		NumberAxis yAxis = new NumberAxis();
+		yAxis.setLabel("Visits");
 
-		XYChart.Series dataSeries1 = new XYChart.Series<>();
-		dataSeries1.setName("2018-2019 season");
+		BarChart barChart = new BarChart(yAxis, xAxis);
 
-//		dataSeries1.getData().add("Test", 1);
+		XYChart.Series dataSeries1 = new XYChart.Series();
+		dataSeries1.setName("2014");
+
+		for (Map.Entry mapElement : map.entrySet()) {
+			String key = (String) mapElement.getKey();
+
+			Integer value = (Integer) mapElement.getValue();
+
+			dataSeries1.getData().add(new XYChart.Data(value, key));
+		}
+
+		barChart.getData().add(dataSeries1);
 
 		VBox vbox = new VBox(barChart);
+
 		Scene scene = new Scene(vbox, 400, 200);
 
-		stage.setScene(scene);
-		stage.setHeight(300);
-		stage.setWidth(1200);
+		primaryStage.setScene(scene);
+		primaryStage.setHeight(300);
+		primaryStage.setWidth(1200);
 
-		stage.show();
-
-//		bc.setTitle("Country Summary");
+		primaryStage.show();
 
 	}
 

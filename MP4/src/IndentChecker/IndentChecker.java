@@ -51,6 +51,7 @@ public class IndentChecker {
 
 	public void checkIndentation(String fileName) throws IOException {
 		// Clear the stack
+		indentStack.clear();
 		Scanner s = null;
 		LineNumberReader r = new LineNumberReader(new FileReader(fileName));
 		String l;
@@ -61,7 +62,7 @@ public class IndentChecker {
 				s = new Scanner(l);
 
 				while (s.hasNext()) {
-					System.out.println("Line " + r.getLineNumber() + ": " + s.next());
+					System.out.println("Line " + r.getLineNumber() + ": " + s.nextLine());
 				}
 			}
 

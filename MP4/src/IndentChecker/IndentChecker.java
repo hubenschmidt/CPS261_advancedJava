@@ -21,31 +21,44 @@ public class IndentChecker {
 			char c = line.charAt(i);
 			boolean d = Character.isWhitespace(c);
 			if (!d) {
-				return c;
+				return i;
 			}
 		}
 		return -1;
+
 	}
 
 	private void processLine(String line, int lineNumber) {
+		System.out.println("Line " + lineNumber + ": " + line);
 		int index = findFirstNonBlank(line);
+
 		// Skip blank lines ... i.e. return immediately
-		if (index == -1)
+		if (index == -1) {
 			return;
+		}
+
+//		System.out.println("The stack is: " + indentStack);
+
 		// If the stack is empty, then push this index onto the stack and return
-		if (indentStack.size() == 0) {
+		if (indentStack.empty()) {
 			indentStack.push(index);
 			return;
 		}
 // If this index > than the top of the stack, then push this index onto the stack and return
-		// Pop off all Indentation indexes > index
 		if (index > indentStack.peek()) {
 			indentStack.push(index);
+			return;
 		}
+
+		// Pop off all Indentation indexes > index
+		while (indentStack.peek() > index) {
+			indentStack.pop();
+		}
+
 		// At his point the top of the stack should match the current index. If it
 // doesn't throw a BadIndentationException. In the error message, include the source Line Number
 		if (indentStack.peek() != index) {
-			throw new BadIndentationException("Err: line " + lineNumber);
+			throw new BadIndentationException("indentation error found on line " + lineNumber + ".");
 		}
 	}
 
@@ -62,15 +75,11 @@ public class IndentChecker {
 				s = new Scanner(l);
 
 				while (s.hasNext()) {
-					System.out.println("Line " + r.getLineNumber() + ": " + s.nextLine());
+//					System.out.println("Line " + r.getLineNumber() + ": " + s.nextLine());
+					processLine(s.nextLine(), r.getLineNumber());
 				}
 			}
-
-		}
-
-		catch (
-
-		BadIndentationException error) {
+		} catch (BadIndentationException error) {
 			System.out.println(error);
 		} catch (FileNotFoundException e) {
 			System.out.println("Can't open file:" + fileName);

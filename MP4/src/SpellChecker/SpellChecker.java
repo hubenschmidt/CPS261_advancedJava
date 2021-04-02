@@ -2,14 +2,16 @@ package SpellChecker;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.TreeSet;
 
 public class SpellChecker {
 	// We could have also used TreeSet for the dictionary
 	private HashSet<String> dictionary = new HashSet<String>();
-	private TreeSet<String> miss_spelled_words = new TreeSet<String>();
+	private TreeSet<String> misspelledWords = new TreeSet<String>();
 
 	public SpellChecker(String fileName) throws FileNotFoundException {
 		// Add all of the words from "dictionary.txt" to the dictionary HashSet
@@ -34,38 +36,78 @@ public class SpellChecker {
 		System.out.println("======== Spell checking " + fileName + " =========");
 
 		// Clear miss_spelled_words
-		miss_spelled_words.clear();
+		misspelledWords.clear();
 
-		String line;
+		String line, word;
+		ArrayList<String> tokens = new ArrayList<String>();
 
 		try {
-			Scanner textFile = new Scanner(new File(fileName));
+			Scanner sc = new Scanner(new File(fileName));
 
 			// Read in each line from "fileName" // L
+			while (sc.hasNextLine()) {
+				line = sc.nextLine();
 
-			while (textFile.hasNextLine()) {
-				// get a line from text file
-				line = textFile.nextLine();
-				System.out.println(line);
+				// For each line, break the line into words using the following StringTokenizer
+				StringTokenizer st = new StringTokenizer(line, " \t,.;:-%'\"");
+				// or if you want to use split method
+				while (st.hasMoreTokens()) {
+					// lower case each word obtained from the StringTokenizer
+					word = st.nextToken().toLowerCase();
+					// skip (SELECT) word if the first character is not a letter
+					if (Character.isLetter(word.charAt(0))) {
+						// Skip over (SELECT) word if it can (CANT) be found in either dictionary, or
+						// miss_spelled_words
+						if (!dictionary.contains(word)) {
+							if (!misspelledWords.contains(word)) {
+								if (!tokens.contains(word)) {
+									// add to set to make unique
+									tokens.add(word);
+
+//									System.out.println(word);
+									System.out.println(tokens);
+
+									// If word ends with 's', then try the singular version of the word in the
+									// dictionary and miss_spelled_words ... skip if found (SELECT IF FOUND)
+									if (word.charAt(word.length() - 1) == 's') {
+
+										word = word.substring(0, word.length() - 1);
+
+										if (!dictionary.contains(word)) {
+											if (!misspelledWords.contains(word)) {
+												if (!tokens.contains(word)) {
+													// add to set to make unique
+													tokens.add(word);
+
+//													System.out.println(word);
+													System.out.println(tokens);
+//													System.out.println(word);
+
+												}
+
+											}
+
+										}
+
+									}
+
+								}
+
+							}
+						}
+					}
+
+				}
+
 			}
 
-			textFile.close();
+			sc.close();
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 
 		}
 
-		// For each line, break the line into words using the following StringTokenizer
-		// StringTokenizer st = new StringTokenizer(line, " \t,.;:-%'\"");
-		// or if you want to use split method
-		// String[] words = line.split(" +|\\p{Punct}");
-
-		// lower case each word obtained from the StringTokenizer
-		// skip word if the first character is not a letter
-		// Skip over word if it can be found in either dictionary, or miss_spelled_words
-		// If word ends with 's', then try the singular version of the word in the
-		// dictionary and miss_spelled_words ... skip if found
 		// Print line containing miss-spelled word(make sure you only print it once if
 		// multiple miss-spelled words are found on this line)
 		// Ask the user if he wants the word added to the dictionary or the miss-spelled

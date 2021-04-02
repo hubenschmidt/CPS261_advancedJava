@@ -22,10 +22,6 @@ public class SpellChecker {
 
 			textFile.close();
 
-			for (String str : dictionary) {
-				System.out.println(str + " ");
-			}
-
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 
@@ -34,10 +30,31 @@ public class SpellChecker {
 	}
 
 	public void checkSpelling(String fileName) throws FileNotFoundException {
+
 		System.out.println("======== Spell checking " + fileName + " =========");
+
 		// Clear miss_spelled_words
 		miss_spelled_words.clear();
-		// Read in each line from "fileName"
+
+		String line;
+
+		try {
+			Scanner textFile = new Scanner(new File(fileName));
+
+			// Read in each line from "fileName" // L
+
+			while (textFile.hasNextLine()) {
+				// get a line from text file
+				line = textFile.nextLine();
+				System.out.println(line);
+			}
+
+			textFile.close();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+
+		}
 
 		// For each line, break the line into words using the following StringTokenizer
 		// StringTokenizer st = new StringTokenizer(line, " \t,.;:-%'\"");

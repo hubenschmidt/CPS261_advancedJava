@@ -46,7 +46,7 @@ public class SpellChecker {
 		misspelledWords.clear();
 
 		String line, word;
-//		ArrayList<String> tokens = new ArrayList<String>();
+
 		int counter = 0;
 
 		try {
@@ -69,7 +69,6 @@ public class SpellChecker {
 						if (!dictionary.contains(word)) {
 							if (!misspelledWords.containsValue(word)) {
 
-//								if (!tokens.contains(word)) {
 								// add to set to make unique
 								misspelledWords.put(counter, word);
 								counter++;
@@ -82,20 +81,15 @@ public class SpellChecker {
 
 									if (!dictionary.contains(word)) {
 										if (!misspelledWords.containsValue(word)) {
-//												if (!tokens.contains(word)) {
 											// add to set to make unique
 											misspelledWords.put(counter, word);
 											counter++;
-
-//												}
-
 										}
 
 									}
 
 								}
 
-//								}
 							}
 						}
 					}
@@ -104,6 +98,7 @@ public class SpellChecker {
 
 			}
 
+			// iterating over key-value pairs derived from LinkedHashSet
 			Iterator it = s.iterator();
 
 			while (it.hasNext()) {
@@ -118,7 +113,6 @@ public class SpellChecker {
 			// close scanner, print misspelled words list and clear.
 			if (!sc.hasNextLine()) {
 				sc.close();
-
 			}
 
 		} catch (FileNotFoundException e) {
@@ -128,7 +122,7 @@ public class SpellChecker {
 
 	}
 
-	public boolean userPrompt(Iterator<String> itr, int key, String value) {
+	public void userPrompt(Iterator<String> itr, int key, String value) {
 		Scanner kb = new Scanner(System.in);
 		char dictionarySelection = 'Y';
 		char misSpelledWordsSelection = 'Y';
@@ -156,7 +150,6 @@ public class SpellChecker {
 		System.out.println("     Number of words in dictionary: " + dictionary.size());
 		System.out.println();
 
-		return true;
 	}
 
 	public void dumpMisspelled() {

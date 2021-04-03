@@ -78,7 +78,7 @@ public class SpellChecker {
 		misspelledWords.clear();
 
 		String line, word;
-		boolean sentry = false;
+		boolean displayUserPrompt = false;
 
 		int counter = 0;
 
@@ -96,9 +96,10 @@ public class SpellChecker {
 				while (st.hasMoreTokens()) {
 					// lower case each word obtained from the StringTokenizer
 					word = st.nextToken().toLowerCase();
-					// skip (SELECT) word if the first character is not a letter
+
+					// (SELECT) word if the first character is not a letter
 					if (Character.isLetter(word.charAt(0))) {
-						// Skip over (SELECT) word if it can (CANT) be found in either dictionary, or
+						// (SELECT) word if it (CANT) be found in either dictionary, or
 						// miss_spelled_words
 						if (!dictionary.contains(word)) {
 							if (!misspelledWords.contains(word)) {
@@ -107,10 +108,10 @@ public class SpellChecker {
 								auditLines.add(word);
 								counter++;
 
-								sentry = true;
+								displayUserPrompt = true;
 
 								// If word ends with 's', then try the singular version of the word in the
-								// dictionary and miss_spelled_words ... skip if found (SELECT IF FOUND)
+								// dictionary and miss_spelled_words ... (SELECT IF FOUND)
 								if (word.charAt(word.length() - 1) == 's') {
 
 									word = word.substring(0, word.length() - 1);
@@ -121,7 +122,7 @@ public class SpellChecker {
 											auditLines.add(word);
 											counter++;
 
-											sentry = true;
+											displayUserPrompt = true;
 										}
 
 									}
@@ -135,8 +136,8 @@ public class SpellChecker {
 				}
 
 				// iterate over ArrayList, prompting user per element.
-				if (sentry) {
-					System.out.println(counter + ": " + line);
+				if (displayUserPrompt == true) {
+					System.out.println("line " + counter + ": " + line);
 					for (String el : auditLines) {
 						promptUser(el);
 

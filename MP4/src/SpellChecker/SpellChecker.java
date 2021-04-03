@@ -4,22 +4,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.TreeSet;
 
 public class SpellChecker {
 	// We could have also used TreeSet for the dictionary
 	private HashSet<String> dictionary = new HashSet<String>();
-	// LinkedHashSet preserves insertion order for processing
-	private LinkedHashMap<Integer, String> misspelledWords = new LinkedHashMap<Integer, String>();
-
-	private Set s = misspelledWords.entrySet();
-	private ArrayList<String> verifiedMisspelledWords = new ArrayList<String>();
+	private TreeSet<String> misspelledWords = new TreeSet<String>();
+	ArrayList<String> auditLines = new ArrayList<>();
+	HashSet<String> checkWords = new HashSet<String>();
 
 	public SpellChecker(String fileName) throws FileNotFoundException {
 		// Add all of the words from "dictionary.txt" to the dictionary HashSet
@@ -39,14 +33,52 @@ public class SpellChecker {
 
 	}
 
+	public void promptUser(String word) {
+
+		Scanner kb = new Scanner(System.in);
+
+		char dictionarySelection = 'Y';
+		char misSpelledWordsSelection = 'Y';
+
+		if (!checkWords.contains(word)) {
+			System.out.println();
+			System.out.println(word + " is not in the dictionary. Add to dictionary? (Y/N)");
+			dictionarySelection = kb.nextLine().toUpperCase().charAt(0);
+
+			if (dictionarySelection == 'Y') {
+				dictionary.add(word);
+				checkWords.add(word);
+
+			} else if (dictionarySelection == 'N') {
+				System.out.println("Add " + word + " to misspelled words list? (Y/N)");
+				misSpelledWordsSelection = kb.nextLine().toUpperCase().charAt(0);
+
+				if (misSpelledWordsSelection == 'Y') {
+					misspelledWords.add(word);
+					checkWords.add(word);
+					System.out.println("     Verified misspelled words list: " + misspelledWords);
+				}
+
+			} else {
+				System.out.println("Please enter a valid choice.");
+			}
+
+			System.out.println("     Number of words in dictionary: " + dictionary.size());
+			System.out.println();
+
+		}
+
+	}
+
 	public void checkSpelling(String fileName) throws FileNotFoundException {
 
 		System.out.println("======== Spell checking " + fileName + " =========");
 
-		// Clear miss_spelled_words
+		// Clear misspelledWords
 		misspelledWords.clear();
 
 		String line, word;
+		boolean sentry = false;
 
 		int counter = 0;
 
@@ -56,7 +88,6 @@ public class SpellChecker {
 			// Read in each line from "fileName" // L
 			while (sc.hasNextLine()) {
 				line = sc.nextLine();
-				System.out.println(line);
 
 				// For each line, break the line into words using the following StringTokenizer
 				StringTokenizer st = new StringTokenizer(line, " \t,.;:-%'\"");
@@ -70,11 +101,13 @@ public class SpellChecker {
 						// Skip over (SELECT) word if it can (CANT) be found in either dictionary, or
 						// miss_spelled_words
 						if (!dictionary.contains(word)) {
-							if (!misspelledWords.containsValue(word)) {
+							if (!misspelledWords.contains(word)) {
 
 								// add to set to make unique
-								misspelledWords.put(counter, word);
+								auditLines.add(word);
 								counter++;
+
+								sentry = true;
 
 								// If word ends with 's', then try the singular version of the word in the
 								// dictionary and miss_spelled_words ... skip if found (SELECT IF FOUND)
@@ -83,10 +116,12 @@ public class SpellChecker {
 									word = word.substring(0, word.length() - 1);
 
 									if (!dictionary.contains(word)) {
-										if (!misspelledWords.containsValue(word)) {
-											// add to set to make unique
-											misspelledWords.put(counter, word);
+										if (!misspelledWords.contains(word)) {
+
+											auditLines.add(word);
 											counter++;
+
+											sentry = true;
 										}
 
 									}
@@ -99,17 +134,15 @@ public class SpellChecker {
 
 				}
 
-			}
+				// iterate over ArrayList, prompting user per element.
+				if (sentry) {
+					System.out.println(counter + ": " + line);
+					for (String el : auditLines) {
+						promptUser(el);
 
-			// iterating over key-value pairs derived from LinkedHashSet
-			Iterator it = s.iterator();
-
-			while (it.hasNext()) {
-
-				Map.Entry<Integer, String> entry = (Entry<Integer, String>) it.next();
-				int key = entry.getKey();
-				String value = entry.getValue();
-				userPrompt(it, key, value);
+					}
+				}
+				auditLines.clear();
 
 			}
 
@@ -125,41 +158,11 @@ public class SpellChecker {
 
 	}
 
-	public void userPrompt(Iterator<String> itr, int key, String value) {
-		Scanner kb = new Scanner(System.in);
-		char dictionarySelection = 'Y';
-		char misSpelledWordsSelection = 'Y';
-
-		System.out.println();
-		System.out.println(value + " is not in the dictionary. Add to dictionary? (Y/N)");
-		dictionarySelection = kb.nextLine().toUpperCase().charAt(0);
-
-		if (dictionarySelection == 'Y') {
-			dictionary.add(value);
-
-		} else if (dictionarySelection == 'N') {
-			System.out.println("Add " + value + " to misspelled words list? (Y/N)");
-			misSpelledWordsSelection = kb.nextLine().toUpperCase().charAt(0);
-
-			if (misSpelledWordsSelection == 'Y') {
-				verifiedMisspelledWords.add(value);
-				System.out.println("     Verified misspelled words list: " + verifiedMisspelledWords);
-			}
-
-		} else {
-			System.out.println("Please enter a valid choice.");
-		}
-
-		System.out.println("     Number of words in dictionary: " + dictionary.size());
-		System.out.println();
-
-	}
-
 	public void dumpMisspelled() {
 		// Print out the miss-spelled words
 		System.out.println("End of file has been reached.");
-		System.out.println("     Verified misspelled words list: " + verifiedMisspelledWords);
-		verifiedMisspelledWords.clear();
+		System.out.println("     Verified misspelled words list: " + misspelledWords);
+		System.out.println();
 
 	}
 

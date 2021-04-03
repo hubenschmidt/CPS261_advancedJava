@@ -4,14 +4,21 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.StringTokenizer;
-import java.util.TreeSet;
 
 public class SpellChecker {
 	// We could have also used TreeSet for the dictionary
 	private HashSet<String> dictionary = new HashSet<String>();
-	private TreeSet<String> misspelledWords = new TreeSet<String>();
+	// LinkedHashSet preserves insertion order for processing
+	private LinkedHashMap<Integer, String> misspelledWords = new LinkedHashMap<Integer, String>();
+	private Set s = misspelledWords.entrySet();
+	private ArrayList<String> verifiedMisspelledWords = new ArrayList<String>();
 
 	public SpellChecker(String fileName) throws FileNotFoundException {
 		// Add all of the words from "dictionary.txt" to the dictionary HashSet
@@ -39,7 +46,8 @@ public class SpellChecker {
 		misspelledWords.clear();
 
 		String line, word;
-		ArrayList<String> tokens = new ArrayList<String>();
+//		ArrayList<String> tokens = new ArrayList<String>();
+		int counter = 0;
 
 		try {
 			Scanner sc = new Scanner(new File(fileName));
@@ -59,33 +67,27 @@ public class SpellChecker {
 						// Skip over (SELECT) word if it can (CANT) be found in either dictionary, or
 						// miss_spelled_words
 						if (!dictionary.contains(word)) {
-							if (!misspelledWords.contains(word)) {
-								if (!tokens.contains(word)) {
-									// add to set to make unique
-									tokens.add(word);
+							if (!misspelledWords.containsValue(word)) {
 
-//									System.out.println(word);
-									System.out.println(tokens);
+//								if (!tokens.contains(word)) {
+								// add to set to make unique
+								misspelledWords.put(counter, word);
+								counter++;
 
-									// If word ends with 's', then try the singular version of the word in the
-									// dictionary and miss_spelled_words ... skip if found (SELECT IF FOUND)
-									if (word.charAt(word.length() - 1) == 's') {
+								// If word ends with 's', then try the singular version of the word in the
+								// dictionary and miss_spelled_words ... skip if found (SELECT IF FOUND)
+								if (word.charAt(word.length() - 1) == 's') {
 
-										word = word.substring(0, word.length() - 1);
+									word = word.substring(0, word.length() - 1);
 
-										if (!dictionary.contains(word)) {
-											if (!misspelledWords.contains(word)) {
-												if (!tokens.contains(word)) {
-													// add to set to make unique
-													tokens.add(word);
+									if (!dictionary.contains(word)) {
+										if (!misspelledWords.containsValue(word)) {
+//												if (!tokens.contains(word)) {
+											// add to set to make unique
+											misspelledWords.put(counter, word);
+											counter++;
 
-//													System.out.println(word);
-													System.out.println(tokens);
-//													System.out.println(word);
-
-												}
-
-											}
+//												}
 
 										}
 
@@ -93,6 +95,7 @@ public class SpellChecker {
 
 								}
 
+//								}
 							}
 						}
 					}
@@ -103,16 +106,56 @@ public class SpellChecker {
 
 			sc.close();
 
+			Iterator it = s.iterator();
+
+			while (it.hasNext()) {
+
+				Map.Entry<Integer, String> entry = (Entry<Integer, String>) it.next();
+				int key = entry.getKey();
+				String value = entry.getValue();
+				userPrompt(it, key, value);
+
+			}
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 
 		}
 
-		// Print line containing miss-spelled word(make sure you only print it once if
-		// multiple miss-spelled words are found on this line)
-		// Ask the user if he wants the word added to the dictionary or the miss-spelled
-		// words and add word as specified by the user
+	}
 
+	public boolean userPrompt(Iterator<String> itr, int key, String value) {
+		Scanner kb = new Scanner(System.in);
+		char dictionarySelection = 'Y';
+		char misSpelledWordsSelection = 'Y';
+
+		System.out.println();
+		System.out.println(value + " is not in the dictionary. Add to dictionary? (Y/N)");
+		dictionarySelection = kb.nextLine().toUpperCase().charAt(0);
+
+		if (dictionarySelection == 'Y') {
+			dictionary.add(value);
+
+//			System.out.println("* Verified misspelled words list: " + verifiedMisspelledWords);
+//			System.out.println("* Number of words in dictionary: " + dictionary.size());
+
+		} else if (dictionarySelection == 'N') {
+			System.out.println("Add " + value + " to misspelled words list? (Y/N)");
+			misSpelledWordsSelection = kb.nextLine().toUpperCase().charAt(0);
+
+			if (misSpelledWordsSelection == 'Y') {
+				verifiedMisspelledWords.add(value);
+				System.out.println("     Verified misspelled words list: " + verifiedMisspelledWords);
+			}
+
+		} else {
+			System.out.println("Please enter a valid choice.");
+		}
+
+		System.out.println("     Number of words in dictionary: " + dictionary.size());
+		System.out.println();
+
+		return true;
 	}
 
 	public void dump_miss_spelled_words() {

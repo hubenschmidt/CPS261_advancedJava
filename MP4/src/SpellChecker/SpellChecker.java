@@ -17,6 +17,7 @@ public class SpellChecker {
 	private HashSet<String> dictionary = new HashSet<String>();
 	// LinkedHashSet preserves insertion order for processing
 	private LinkedHashMap<Integer, String> misspelledWords = new LinkedHashMap<Integer, String>();
+
 	private Set s = misspelledWords.entrySet();
 	private ArrayList<String> verifiedMisspelledWords = new ArrayList<String>();
 
@@ -58,6 +59,7 @@ public class SpellChecker {
 
 				// For each line, break the line into words using the following StringTokenizer
 				StringTokenizer st = new StringTokenizer(line, " \t,.;:-%'\"");
+
 				// or if you want to use split method
 				while (st.hasMoreTokens()) {
 					// lower case each word obtained from the StringTokenizer
@@ -95,6 +97,8 @@ public class SpellChecker {
 					}
 
 				}
+
+				System.out.println(line);
 
 			}
 

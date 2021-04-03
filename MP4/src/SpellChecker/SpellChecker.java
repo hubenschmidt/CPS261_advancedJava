@@ -56,6 +56,7 @@ public class SpellChecker {
 			// Read in each line from "fileName" // L
 			while (sc.hasNextLine()) {
 				line = sc.nextLine();
+				System.out.println(line);
 
 				// For each line, break the line into words using the following StringTokenizer
 				StringTokenizer st = new StringTokenizer(line, " \t,.;:-%'\"");
@@ -97,8 +98,6 @@ public class SpellChecker {
 					}
 
 				}
-
-				System.out.println(line);
 
 			}
 

@@ -104,8 +104,6 @@ public class SpellChecker {
 
 			}
 
-			sc.close();
-
 			Iterator it = s.iterator();
 
 			while (it.hasNext()) {
@@ -114,6 +112,12 @@ public class SpellChecker {
 				int key = entry.getKey();
 				String value = entry.getValue();
 				userPrompt(it, key, value);
+
+			}
+
+			// close scanner, print misspelled words list and clear.
+			if (!sc.hasNextLine()) {
+				sc.close();
 
 			}
 
@@ -136,9 +140,6 @@ public class SpellChecker {
 		if (dictionarySelection == 'Y') {
 			dictionary.add(value);
 
-//			System.out.println("* Verified misspelled words list: " + verifiedMisspelledWords);
-//			System.out.println("* Number of words in dictionary: " + dictionary.size());
-
 		} else if (dictionarySelection == 'N') {
 			System.out.println("Add " + value + " to misspelled words list? (Y/N)");
 			misSpelledWordsSelection = kb.nextLine().toUpperCase().charAt(0);
@@ -158,8 +159,11 @@ public class SpellChecker {
 		return true;
 	}
 
-	public void dump_miss_spelled_words() {
+	public void dumpMisspelled() {
 		// Print out the miss-spelled words
+		System.out.println("End of file has been reached.");
+		System.out.println("     Verified misspelled words list: " + verifiedMisspelledWords);
+		verifiedMisspelledWords.clear();
 
 	}
 
@@ -170,7 +174,7 @@ public class SpellChecker {
 
 			for (int i = 0; i < args.length; i++) {
 				spellCheck.checkSpelling(args[i]);
-				spellCheck.dump_miss_spelled_words();
+				spellCheck.dumpMisspelled();
 			}
 		} catch (
 

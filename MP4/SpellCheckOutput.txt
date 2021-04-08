@@ -1,0 +1,290 @@
+======== Spell checking CPS261_JH6_Russia.txt =========
+line 3: The nation's history began with that of the East Slavs, who emerged as a recognizable group in Europe between the 3rd and 8th centuries AD.
+
+slavs is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113813
+
+
+slav is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113814
+
+
+europe is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113815
+
+line 6:  Founded and ruled by a Varangian warrior elite and their descendants, the medieval state of Rus arose in the 9th century. 
+
+varangian is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113816
+
+
+rus is not in the dictionary. Add to dictionary? (Y/N)
+n
+Add rus to misspelled words list? (Y/N)
+y
+     Verified misspelled words list: [rus]
+     Number of words in dictionary: 113816
+
+
+ru is not in the dictionary. Add to dictionary? (Y/N)
+n
+Add ru to misspelled words list? (Y/N)
+y
+     Verified misspelled words list: [ru, rus]
+     Number of words in dictionary: 113816
+
+line 10:  In 988 it adopted Orthodox Christianity from the Byzantine Empire, beginning the synthesis of Byzantine and Slavic cultures 
+
+christianity is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113817
+
+
+byzantine is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113818
+
+
+slavic is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113819
+
+line 11:  that defined Russian culture for the next millennium. Rus  ultimately disintegrated into a number of smaller states; 
+
+russian is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113820
+
+line 11:  most of the Rus lands were overrun by the Mongol invasion and became tributaries of the nomadic Golden Horde. 
+line 12:  The Grand Duchy of Moscow gradually reunified the surrounding Russian principalities, achieved independence from the 
+
+moscow is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113821
+
+line 13:  Golden Horde, and came to dominate the cultural and political legacy of Kievan Rus. By the 18th century, the nation had greatly 
+
+kievan is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113822
+
+line 13:  expanded through conquest, annexation, and exploration to become the Russian Empire, which was the third largest empire in history, 
+line 15:  stretching from Poland in Europe to Alaska in North America.
+
+poland is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113823
+
+
+america is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113824
+
+line 16: Following the Russian Revolution, the Russian Soviet Federative Socialist Republic became the largest and leading constituent of the 
+
+federative is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113825
+
+line 18: Soviet Union, the world's first constitutionally socialist state and a recognized superpower, which played a decisive role in the 
+
+constitutionally is not in the dictionary. Add to dictionary? (Y/N)
+n
+Add constitutionally to misspelled words list? (Y/N)
+y
+     Verified misspelled words list: [constitutionally, ru, rus]
+     Number of words in dictionary: 113825
+
+
+superpower is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113826
+
+line 19: Allied victory in World War II. The Soviet era saw some of the most significant technological achievements of the 20th century, 
+
+ii is not in the dictionary. Add to dictionary? (Y/N)
+n
+Add ii to misspelled words list? (Y/N)
+y
+     Verified misspelled words list: [constitutionally, ii, ru, rus]
+     Number of words in dictionary: 113826
+
+line 20: including the world's first spacecraft, and the first astronaut. Following the dissolution of the Soviet Union in 1991, the Russian SFSR 
+
+sfsr is not in the dictionary. Add to dictionary? (Y/N)
+n
+Add sfsr to misspelled words list? (Y/N)
+n
+     Number of words in dictionary: 113826
+
+line 21: reconstituted itself as the Russian Federation and is recognized as the continuing legal personality of the Union state.
+
+reconstituted is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113827
+
+line 23: The Russian economy ranks as the eighth largest by nominal GDP and sixth largest by purchasing power parity. Russia's extensive mineral 
+
+gdp is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113828
+
+
+russia is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113829
+
+line 23: and energy resources, the largest reserves in the world, have made it one of the largest producers of oil and natural gas globally.
+line 23:  The country is one of the five recognized nuclear weapons states and possesses the largest stockpile of weapons of mass destruction.
+line 25:  Russia is a great power and a permanent member of the United Nations Security Council, a member of the G8, G20, the Council of Europe, 
+
+g8 is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113830
+
+
+g20 is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113831
+
+line 29:  the Asia-Pacific Economic Cooperation, the Shanghai Cooperation Organisation, the Eurasian Economic Community, the Organisation for 
+
+asia is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113832
+
+
+organisation is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113833
+
+
+eurasian is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113834
+
+line 29:  Security and Cooperation in Europe (OSCE), and the World Trade Organisation (WTO) and the leading member of the Commonwealth of 
+line 29:  Independent States.
+End of file has been reached.
+     Verified misspelled words list: [constitutionally, ii, ru, rus]
+
+======== Spell checking CPS261_JH6_Ukraine.txt =========
+line 1:  The territory of Ukraine was first inhabited at least 44,000 years ago, with the country being a candidate site 
+
+ukraine is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113835
+
+line 3: for both the domestication of the horse  and for the origins of the Indo-European language family.
+
+indo is not in the dictionary. Add to dictionary? (Y/N)
+n
+Add indo to misspelled words list? (Y/N)
+n
+     Number of words in dictionary: 113835
+
+
+european is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113836
+
+line 3: In the Middle Ages, the area became a key center of East Slavic culture, as epitomized by the powerful 
+line 3: state of Kievan . Following its fragmentation in the 13th century, Ukraine was contested, ruled and divided by a variety of powers. 
+line 3: A Cossack republic emerged and prospered during the 17th and 18th centuries, but Ukraine remained otherwise divided until its consolidation 
+line 3: into a Soviet republic in the 20th century, becoming an independent nation-state only in 1991.
+line 4: Ukraine has long been a global breadbasket due to its extensive, fertile farmlands. As of 2011, it was the world's third-largest 
+
+breadbasket is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113837
+
+line 4: grain exporter with that year's harvest being much larger than average. Ukraine is one of ten most attractive agricultural land 
+line 4: acquisition regions. Additionally, the country has a well-developed manufacturing sector, particularly in the area of 
+line 4: aerospace and industrial equipment.
+line 4: Ukraine is a unitary state composed of 24 oblasts (provinces), one autonomous republic (Crimea) and two cities with special status: 
+line 6: Kiev, its capital and largest city and Sevastopol, which houses the Russian Black Sea Fleet under a leasing agreement. 
+
+kiev is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113838
+
+
+sevastopol is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113839
+
+line 6: Ukraine is a republic under a semi-presidential system with separate legislative, executive, and judicial branches. 
+line 6: Since the dissolution of the Soviet Union, Ukraine continues to maintain the second-largest military in Europe, after that of Russia,
+line 7:  when reserves and paramilitary personnel are taken into account.
+
+paramilitary is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113840
+
+line 9: The country is home to 44.6 million people, 77.8% of whom are ethnic Ukrainians, with sizable minorities of 
+
+ukrainians is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113841
+
+
+ukrainian is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113842
+
+line 17: ethnic Russians (17%), Belarusians, Tatars and Romanians. Ukrainian is the official language of Ukraine; its alphabet is Cyrillic. 
+
+russians is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113843
+
+
+belarusians is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113844
+
+
+belarusian is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113845
+
+
+tatars is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113846
+
+
+tatar is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113847
+
+
+romanians is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113848
+
+
+romanian is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113849
+
+
+cyrillic is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113850
+
+line 17: Russian is also widely spoken. The dominant religion in the country is Eastern Orthodox Christianity, which has strongly influenced 
+line 17: Ukrainian architecture, literature and music.
+line 18: The name Ukraine means "borderland". "The Ukraine" was once the usual form in English but since the Declaration of 
+
+borderland is not in the dictionary. Add to dictionary? (Y/N)
+y
+     Number of words in dictionary: 113851
+
+line 18: Independence of Ukraine, the English-speaking world has largely stopped using the definite article.
+End of file has been reached.
+     Verified misspelled words list: []

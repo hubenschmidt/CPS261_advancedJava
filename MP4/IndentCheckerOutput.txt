@@ -1,0 +1,89 @@
+Processing file: CPS261_JH6_ProperlyIndented.txt
+Line 2: void func1()
+Line 3: {
+Line 4:     int j,i=0;
+Line 5:     if (i> 0)
+Line 6:     {
+Line 7:         j=i+1;
+Line 8:     }
+Line 9: }
+Line 10: void func2()
+Line 11: {
+Line 12:     int j,i=0;
+Line 13:     for(i=0; i < 10; i++)
+Line 14:     {  // Next lines are blank
+Line 17:         if (j ==i )
+Line 18:            if (i % 5 == 0)
+Line 19:               j=i;
+Line 20:         j +=1;
+Line 21:     }
+Line 22: }
+Processing file: CPS261_JH6_ProperlyIndented2.txt
+Line 1: class Test
+Line 2: {
+Line 3:     // This is a meaningless piece of code 
+Line 4:     // Don't try to make any sense out of it.
+Line 6:     String sWord;
+Line 7:     int index=3;
+Line 9:     public void test(int x, int y)
+Line 10:     {
+Line 11:         int x2=1, y2=2;
+Line 13:         if (x == x2)
+Line 14:         {
+Line 15:             if (y==y2)
+Line 16:             {
+Line 17:                 if (x == y2)
+Line 18:                 {
+Line 19:                     if ( x2 == index)
+Line 20:                     {
+Line 21:                         sWord ="abc";
+Line 22:                     }
+Line 23:                 }
+Line 24:             }
+Line 25:         }
+Line 26:     }
+Line 27: }
+Processing file: CPS261_JH6_NotIndentedProperly.txt
+Line 1: void func1()
+Line 2: {
+Line 3:     int j,i=0;
+Line 4:     if (i> 0)
+Line 5:     {
+Line 6:         j=i+1;
+Line 7:       }
+IndentChecker.BadIndentationException: indentation error found on line 7.
+Processing file: CPS261_JH6_NotIndentedProperly2.txt
+Line 1: void func2()
+Line 2: {
+Line 3:     int j,i=0;
+Line 4:     for(i=0; i < 10; i++)
+Line 5:     {  // Next lines are blank
+Line 8:         if (j ==i )
+Line 9:            if (i % 5 == 0)
+Line 10:               j=i;
+Line 11:          j +=1; // This is the first line that is improperly indented
+IndentChecker.BadIndentationException: indentation error found on line 11.
+Processing file: CPS261_JH6_NotIndentedProperly3.txt
+Line 1: class Test
+Line 2: {
+Line 3:     // This is a meaningless piece of code 
+Line 4:     // Don't try to make any sense out of it.
+Line 6:     String sWord;
+Line 7:     int index=3;
+Line 9:     public void test(int x, int y)
+Line 10:     {
+Line 11:         int x2=1, y2=2;
+Line 13:         if (x == x2)
+Line 14:         {
+Line 15:             if (y==y2)
+Line 16:             {
+Line 17:                 if (x == y2)
+Line 18:                 {
+Line 19:                     if ( x2 == index)
+Line 20:                     {
+Line 21:                         sWord ="abc";
+Line 22:                     }
+Line 23:                 }
+Line 24:             }
+Line 25:          }
+IndentChecker.BadIndentationException: indentation error found on line 25.

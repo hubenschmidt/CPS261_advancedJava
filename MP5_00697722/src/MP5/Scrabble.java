@@ -32,6 +32,7 @@ class ScrabbleWord {
 	public String toString() {
 		return word + ": " + score;
 	}
+
 }
 
 public class Scrabble {
@@ -80,7 +81,6 @@ public class Scrabble {
 	/*
 	 * lambda functions that compute values using stream aggregate operations
 	 */
-
 	public static int computeScrabbleScore(String word) {
 		return word
 		        .toLowerCase()
@@ -106,23 +106,18 @@ public class Scrabble {
 	}
 
 	public static List<ScrabbleWord> computeWordsAboveAverage(Scrabble scrabble) {
-
 		return computeWordValue(words.length)
 		        .stream()
 		        .filter(el -> el.getScore() > scrabble.getAverageScore())
 		        .collect(Collectors.toList());
+	}
 
-//		Arrays.stream(words) // compare sequence elements by scrabbleScore
-//		        .sorted((e1, e2) -> computeScrabbleScore(e2) - computeScrabbleScore(e1))
-////		        .filter(e -> (e.value() > getAverageScore()))
-//		        .forEach(System.out::println);
-//		;
+	public static List<ScrabbleWord> computeWordsBelowAverage(Scrabble scrabble) {
 
-//		scoreMap
-//		        .entrySet()
-//		        .stream()
-//		        .filter(e -> (e.getValue() > averageScore))
-//		        .forEach(System.out::println);
+		return computeWordValue(words.length)
+		        .stream()
+		        .filter(el -> el.getScore() < scrabble.getAverageScore())
+		        .collect(Collectors.toList());
 	}
 
 	public static void main(String[] args) {
@@ -139,8 +134,10 @@ public class Scrabble {
 		computeWordValue(3).forEach(System.out::println);
 		scrabble.setAverageScore(computeAverageScrabbleWordValue());
 		System.out.println("\nAverage scrabble value is: " + scrabble.getAverageScore());
-		System.out.println("Words above average:");
-		computeWordsAboveAverage(scrabble).forEach(System.out::println);
+		System.out.println("\nWords below average:");
+		System.out.println(computeWordsBelowAverage(scrabble));
+		System.out.println("\nWords above average:");
+		System.out.println(computeWordsAboveAverage(scrabble));
 	}
 
 }

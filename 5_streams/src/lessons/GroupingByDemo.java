@@ -19,8 +19,8 @@ public class GroupingByDemo {
 		System.out.println(myMap);
 
 		int[] intArr = { 1, 1, 2, 5, 6, 5, 5, 5, 2, 4, 8, 4 };
-//		IntStream.of(intArr).boxed().collect(Collectors.groupingBy(e -> e))
-//				.forEach((k, v) -> System.out.println(k + ":" + v));
+		IntStream.of(intArr).boxed().collect(Collectors.groupingBy(e -> e))
+				.forEach((k, v) -> System.out.println(k + ":" + v));
 		IntStream.of(intArr).boxed().collect(Collectors.groupingBy(e -> e, Collectors.counting()))
 				.forEach((k, v) -> System.out.println(k + ":" + v));
 	}

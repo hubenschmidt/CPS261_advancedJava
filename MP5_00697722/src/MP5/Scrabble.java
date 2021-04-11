@@ -30,13 +30,22 @@ class ScrabbleWord {
 
 	@Override
 	public String toString() {
-		return "Scrabble score [word =" + word + ", score=" + score + "]";
+		return word + ": " + score;
 	}
 }
 
 public class Scrabble {
 	static Map<Character, Integer> letterValues = new HashMap();
 	static String[] words = { "Java", "program", "list", "string", "unix", "hours", "syntax", "error" };
+	private double averageScore;
+
+	public double getAverageScore() {
+		return averageScore;
+	}
+
+	public void setAverageScore(double averageScore) {
+		this.averageScore = averageScore;
+	}
 
 	public static void setLetterValues() {
 		letterValues.put('a', 1);
@@ -68,45 +77,70 @@ public class Scrabble {
 
 	}
 
-	public static int getScrabbleScore(String word) {
+	/*
+	 * lambda functions that compute values using stream aggregate operations
+	 */
+
+	public static int computeScrabbleScore(String word) {
 		return word
 		        .toLowerCase()
 		        .chars() // returns an instance of IntStream
-		        .map(e -> letterValues.get((char) e)) // cast IntStream object to char, use as key to get value
+		        .map(el -> letterValues.get((char) el)) // cast IntStream object to char, use as key to get value
 		        .sum(); // summarize result
 	}
 
-	public static List<ScrabbleWord> getTopThreeWords() {
+	public static List<ScrabbleWord> computeWordValue(int threshold) {
 		return Arrays.stream(words) // compare sequence elements by scrabbleScore
-		        .sorted((e1, e2) -> getScrabbleScore(e2) - getScrabbleScore(e1))
-		        .limit(3) // based on matching criteria,
-		        .map(e -> new ScrabbleWord(e, getScrabbleScore(e))) // create new instance of scrabbleWord object.
+		        .sorted((el1, el2) -> computeScrabbleScore(el2) - computeScrabbleScore(el1))
+		        .limit(threshold) // based on matching criteria,
+		        .map(el -> new ScrabbleWord(el, computeScrabbleScore(el))) // create new instance of scrabbleWord
+		                                                                   // object.
 		        .collect(Collectors.toList()); // seems to invoke toString() @Override on ScrabbleWord
 	}
 
-	public static double getAverageScrabbleWordValue() {
-		System.out.println("\nAverage value of Scrabble words is: ");
+	public static double computeAverageScrabbleWordValue() {
 		double average = Stream.of(words)
-		        .mapToInt(e -> getScrabbleScore(e)).average().orElse(0.0);
+		        .mapToInt(el -> computeScrabbleScore(el)).average().orElse(0.0);
 		return average;
 
 	}
 
+	public static List<ScrabbleWord> computeWordsAboveAverage(Scrabble scrabble) {
+
+		return computeWordValue(words.length)
+		        .stream()
+		        .filter(el -> el.getScore() > scrabble.getAverageScore())
+		        .collect(Collectors.toList());
+
+//		Arrays.stream(words) // compare sequence elements by scrabbleScore
+//		        .sorted((e1, e2) -> computeScrabbleScore(e2) - computeScrabbleScore(e1))
+////		        .filter(e -> (e.value() > getAverageScore()))
+//		        .forEach(System.out::println);
+//		;
+
+//		scoreMap
+//		        .entrySet()
+//		        .stream()
+//		        .filter(e -> (e.getValue() > averageScore))
+//		        .forEach(System.out::println);
+	}
+
 	public static void main(String[] args) {
-
-		// initializes game
+		// initialize game
+		Scrabble scrabble = new Scrabble();
 		setLetterValues();
-
 		/*
 		 * Note to self: using functional programming with object oriented programming
 		 * to interact with a database. Since the lambda function returns objects,
 		 * instead of printing at terminal operation using forEach(e->sysout), could
 		 * also persist ScrabbleWord objects to db.
 		 */
-		getTopThreeWords().forEach(System.out::println);
-
-		System.out.println(getAverageScrabbleWordValue());
-
+		System.out.println("Top three words are: ");
+		computeWordValue(3).forEach(System.out::println);
+		scrabble.setAverageScore(computeAverageScrabbleWordValue());
+		System.out.println("\nAverage scrabble value is: " + scrabble.getAverageScore());
+		System.out.println("Words above average:");
+		computeWordsAboveAverage(scrabble).forEach(System.out::println);
 	}
 
 }

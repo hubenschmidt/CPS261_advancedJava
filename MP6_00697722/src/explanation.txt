@@ -1,0 +1,23 @@
+In your own words compare the different behaviors of the three runs of your code(sync vs nosync, method sync vs block sync), and explain why it happened:
+
+William Hubenschmidt
+CPS261 MP6
+
+Synchronization vs. Non-synchronization:
+-------------------------------------------------------
+When the program is run, a new thread is created, the increaseSum() method is called, the thread is put to sleep for 100ms, the thread wakes up, updates the sum variable, and prints the result.
+
+In the program, the System.out.println(Thread.currentThread().getName() + " sum is: " + sum); method returns a reference to the currently executing thread object, as well as the sum total. In effect, this region of code is a read operation.  
+
+When MySum.increaseSum() method is called, the program writes the sum variable after waiting 100ms. In effect, this region of code is a write operation.
+
+When the increaseSum() method is called without synchronization, the thread names and sum total appears to be random, because the read and write operations for 100 threads are being executed at the same time. In effect, the work that the program needs to do in updating the sum variable and reporting the results corresponding to the current thread, is not distinguishable from the execution schedule and the instructions coded within the increaseSum() method.
+
+Synchronization in java controls the access of multiple threads to a shared resource. So when we use the synchronization keyword, we tell the threads to complete the read and write operations in sequential order, as the individual threads are created by the program.  Thus, the 100ms window created by the Thread.sleep() method causes the read and write operations to happen for each thread, 100ms apart, instead of execute for every thread, within a 100ms timeframe. As a result of synchronization, the program prints the thread names and sum total in the order that the threads and sum variable are created, written, updated, and read. 
+
+Method Synchronization vs. Block Synchronization
+-------------------------------------------------------
+When adding the synchronization keyword to the method declaration, we tell the program to utilize synchronization for all code within the entire method body. If there are any lines of code that are not used to access a shared resource, method synchronization would block other concurrent threads from executing those lines of code until the current thread is finished executing. 
+
+Block synchronization allows for greater precision when we define what regions of code should be subject to thread synchronization. In the MySum program, when block synchronization is utilized, the program runs 100x faster, because we have isolated the thread synchronization to just the write and read operation.  The program can have 100 threads execute the Thread.sleep(100) method at the same time, as it maintains the sequential order of updating the sum variable and reporting the result.
+

@@ -3,19 +3,17 @@ package SyncSum;
 class MySum {
     static int sum = 0;
 
-//    synchronized private static void increaseSum() { // method sync
+//    synchronized static void increaseSum() { // method sync
+
     public void increaseSum() {
 	try {
-
+	    Thread.sleep(100);
 	    /*
 	     * use with method sync or with unsynchronized demo:
 	     */
-//	    Thread.sleep(100);
 //	    sum++;
 //	    System.out.println(Thread.currentThread().getName() + " sum is: " + sum);
-
 	    synchronized (this) { // block sync
-		Thread.sleep(100);
 		sum++;
 		System.out.println(Thread.currentThread().getName() + " sum is: " + sum);
 	    }

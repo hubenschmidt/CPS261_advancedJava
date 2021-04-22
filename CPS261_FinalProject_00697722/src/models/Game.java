@@ -63,7 +63,6 @@ public class Game {
     /*
      * if you roll a 1, then roundScore resets and it is player 2's turn
      */
-
     public void roll() {
 	die.roll();
 	int top = die.getTop();
@@ -74,6 +73,10 @@ public class Game {
 	}
     }
 
+    /*
+     * if player is satisfied with round score, adds to total score, and switches
+     * turns to other player.
+     */
     public void hold() {
 	activePlayer.saveScore();
 	newTurn();

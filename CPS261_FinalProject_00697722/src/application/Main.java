@@ -1,19 +1,40 @@
 package application;
 
+import java.util.ArrayList;
+
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import models.Game;
+import models.Player;
+import views.ViewJavaFX;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
 	try {
-	    BorderPane root = new BorderPane();
-	    Scene scene = new Scene(root, 400, 400);
-	    scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-	    primaryStage.setScene(scene);
-	    primaryStage.show();
+	    ArrayList<Player> players = new ArrayList<>();
+	    Player p1 = new Player("William", 0, 0);
+	    players.add(p1);
+	    Player p2 = new Player("Jen", 0, 0);
+	    players.add(p2);
+	    Game game = new Game(players);
+
+//		PigGameController controller = new PigGameController(cardsPerHand, players);
+//		ViewJavaFX viewJavaFX = new ViewJavaFX(controller);
+	    ViewJavaFX viewJavaFX = new ViewJavaFX();
+	    viewJavaFX.displayGUI(primaryStage);
+
+//	    if (controller.getState() != null) {
+//		System.out.println(controller.getState().toString());
+//		viewJavaFX.displayGUI(primaryStage);
+//
+//	}
+
+//	    BorderPane root = new BorderPane();
+//	    Scene scene = new Scene(root, 400, 400);
+//
+//	    primaryStage.setScene(scene);
+//	    primaryStage.show();
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}

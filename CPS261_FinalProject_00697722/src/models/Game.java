@@ -13,7 +13,6 @@ public class Game {
 	this.die = new Die(6, 1);
 	this.players = players;
 	this.activePlayer = players.get(0);
-
     }
 
     public Die getDie() {
@@ -40,9 +39,9 @@ public class Game {
 	this.activePlayer = activePlayer;
     }
 
-    public boolean gameOver() {
-	return activePlayer.getTotal() >= 100;
-    }
+//    public boolean gameOver() {
+//	return activePlayer.getTotal() >= 100;
+//    }
 
     public boolean playerOneTurn() {
 	return activePlayer == getPlayers().get(0);
@@ -65,9 +64,9 @@ public class Game {
      */
     public void roll() {
 	die.roll();
-	int top = die.getTop();
-	activePlayer.updateTurn(top);
-	if (top == 1) {
+	int face = die.getFace();
+	activePlayer.updateRound(face);
+	if (face == 1) {
 	    activePlayer.resetRoundScore();
 	    newTurn();
 	}
@@ -80,7 +79,7 @@ public class Game {
     public void hold() {
 	activePlayer.saveScore();
 	newTurn();
-	die.setTop(1);
+	die.setFace(1);
     }
 
 }

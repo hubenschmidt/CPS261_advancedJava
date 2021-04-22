@@ -2,14 +2,11 @@ package models;
 
 public class Die {
     private int sides;
-    private int top;
+    private int face;
 
-//    public Die() {
-//    }
-
-    public Die(int sides, int top) {
+    public Die(int sides, int face) {
 	this.sides = sides;
-	this.top = top;
+	this.face = face;
 
     }
 
@@ -17,24 +14,22 @@ public class Die {
 	return sides;
     }
 
-    public int getTop() {
-	return top;
+    public int getFace() {
+	return face;
     }
 
     public void setSides(int sides) {
 	this.sides = sides;
     }
 
-    public void setTop(int top) {
-	if (top > 0 && top <= sides) {
-	    this.top = top;
+    public void setFace(int top) {
+	if (top > 0 && face <= sides) {
+	    this.face = face;
 	}
     }
 
     public void roll() {
-	top = 1 + (int) (Math.random() * sides); // cast from double to int in view of physical constraints of a die
-	System.out.println(top);
-
+	face = 1 + (int) (Math.random() * sides); // cast from double to int in view of physical constraints of a die
     }
 
 }

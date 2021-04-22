@@ -16,7 +16,11 @@ public class Player {
     }
 
     public int getRoundScore() {
-	return roundScore;
+	if (total < 100) {
+	    return roundScore;
+	} else {
+	    return -1;
+	}
     }
 
     public int getTotal() {
@@ -31,17 +35,13 @@ public class Player {
 	roundScore = 0;
     }
 
-    public void updateTurn(int roll) {
+    public void updateRound(int roll) {
 	roundScore += roll;
     }
 
     public void saveScore() {
 	total += roundScore;
 	resetRoundScore();
-    }
-
-    public static void main(String[] args) {
-
     }
 
 }

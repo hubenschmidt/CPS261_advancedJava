@@ -1,21 +1,16 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.stage.Stage;
 import models.Game;
 import models.Player;
 import views.ViewJavaFX;
 
-//View: "Hey, controller, the user just told me he wants item 4 deleted."
-//Controller: "Hmm, having checked his credentials, he is allowed to do that... Hey, model, I want you to get item 4 and do whatever you do to delete it."
-//Model: "Item 4... got it. It's deleted. Back to you, Controller."
-//Controller: "Here, I'll collect the new set of data. Back to you, view."
-//View: "Cool, I'll show the new set to the user now."
-
 public class GameController {
     public enum State {
-	AddPlayers
+	Initialized, GameOver
     }
 
     private Game game;
@@ -26,7 +21,7 @@ public class GameController {
     public GameController(ArrayList<Player> players) {
 	this.game = new Game(players);
 	System.out.println(players.get(0).getName() + " " + players.get(1).getName());
-	this.state = State.AddPlayers;
+	this.state = State.Initialized;
     }
 
     /*
@@ -49,19 +44,37 @@ public class GameController {
     }
 
     /*
-     * changes game state
+     * controller state
      */
     public void run() {
 	switch (state) {
-	case AddPlayers:
+	case Initialized:
 	    view.displayGUI(stage);
 	    break;
-
+//	case GameOver:
+//	    System.out.println("game over");
+//	    break;
+	// view.displayPig();
+	// reset game
 	}
     }
 
-    public void roll() {
+    public int roll() {
 	game.roll();
+	return game.getDie().getFace();
+    }
+
+    public int hold() {
+	game.hold();
+	return game.getActivePlayer().getTotal();
+    }
+
+    public Player getActivePlayer() {
+	return game.getActivePlayer();
+    }
+
+    public List<Player> getPlayers() {
+	return game.getPlayers();
     }
 
 }

@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -23,36 +22,94 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ViewJavaFX {
-    GameController controller;
-    StackPane stackPane;
-    Scene scene;
-    Text initialInstructions;
-    Text playerName1;
-    Text playerName2;
-    FlowPane flowPane;
-    Button btnRoll;
-    Button btnHold;
-    HBox paneForButtons;
-    HBox paneForNames;
-    BorderPane borderPane;
-    ImageView imageView;
-    VBox vbox1;
-    VBox vbox2;
-    Label label1;
-    Label label2;
-    VBox leftSplit;
-    VBox rightSplit;
-    HBox instructionsBox;
-    SplitPane split;
+    private GameController controller;
+    private StackPane stackPane;
+    private Scene scene;
+
+    private Text playerName1;
+    private Text playerName2;
+
+    private Button btnRoll = new Button("Roll");
+    private Button btnHold = new Button("Hold");
+    private HBox paneForButtons;
+    private HBox paneForNames;
+    private BorderPane borderPane;
+
+    private VBox vbox1;
+    private VBox vbox2;
+    private Label label1;
+    private Label label2;
+    private VBox leftSplit;
+    private VBox rightSplit;
+
+    private SplitPane split;
+    private TextField roundScore1 = new TextField();
+    private Label roundScoreLabel1;
+    private TextField total1 = new TextField();
+    private ImageView die = new ImageView();
+    // Creating a Grid Pane
+    GridPane gridPane1 = new GridPane();
+
+    // Creating TextFields for scores
+    private TextField roundScore2 = new TextField();
+    private TextField total2 = new TextField();
+
+    private Button btnRestart = new Button("Restart");
+    private Button btnHistory = new Button("Check History");
 
     public ViewJavaFX(GameController controller) {
 	this.controller = controller;
     }
 
-    public void rollDice() {
+    public void rollDie() {
 	btnRoll.setOnAction((ActionEvent e) -> {
-	    controller.roll();
+	    int face = controller.roll();
+	    refreshData();
+	    refreshDie(face);
 	});
+    }
+
+    public void holdRound() {
+	btnHold.setOnAction((ActionEvent e) -> {
+	    controller.hold();
+	    refreshData();
+	});
+    }
+
+    public void refreshData() {
+	int roundScoreP1 = controller.getPlayers().get(0).getRoundScore();
+	int totalScoreP1 = controller.getPlayers().get(0).getTotal();
+	int roundScoreP2 = controller.getPlayers().get(1).getRoundScore();
+	int totalScoreP2 = controller.getPlayers().get(1).getTotal();
+
+	if (controller.getState().toString() == "Initialized") {
+	    if (totalScoreP1 >= 100 || totalScoreP2 >= 100) {
+		gameOver(true);
+
+	    } else {
+		roundScore1.setText("" + roundScoreP1);
+		total1.setText("" + totalScoreP1);
+		roundScore2.setText("" + roundScoreP2);
+		total2.setText("" + totalScoreP2);
+	    }
+	}
+    }
+
+    public void refreshDie(int face) {
+	die.setImage(new Image("images/dice" + face + ".png"));
+    }
+
+    public void gameOver(boolean gameOver) {
+	btnRoll.setDisable(gameOver); // disable buttons
+	btnHold.setDisable(gameOver);
+	die.setImage(null); // clear image
+	die.setImage(new Image("images/pig.jpg"));
+	btnRestart.setMinWidth(460); // activate buttons
+	btnHistory.setMinWidth(460);
+	paneForButtons.getChildren().remove(btnRoll);
+	paneForButtons.getChildren().remove(btnHold);
+	paneForButtons.getChildren().addAll(btnRestart, btnHistory);
+
     }
 
     /**
@@ -62,19 +119,14 @@ public class ViewJavaFX {
      */
 
     public void displayGUI(Stage primaryStage) {
+
 	primaryStage.setTitle("A Game of Pig");
 	stackPane = new StackPane();
 	split = new SplitPane();
 
-	Image image = new Image("/images/dice1.png");
-	ImageView die = new ImageView();
-	die.setImage(image);
-
 	// build buttons
-	btnRoll = new Button("Roll");
-	btnHold = new Button("Hold");
-	btnRoll.setMinWidth(100);
-	btnHold.setMinWidth(100);
+	btnRoll.setMinWidth(460);
+	btnHold.setMinWidth(460);
 
 	// build player names
 	playerName1 = new Text(controller.getGame().getPlayers().get(0).getName());
@@ -100,8 +152,6 @@ public class ViewJavaFX {
 	borderPane.setBottom(paneForButtons);
 	borderPane.setLeft(paneForNames);
 
-	rollDice();
-
 	// build player labels on left
 	label1 = new Label("Player 1");
 	label1.setTextFill(Color.web("#1F51FF"));
@@ -110,17 +160,12 @@ public class ViewJavaFX {
 	label1.setFont(new Font(24));
 
 	// Creating Labels for scores
-	Label roundScoreLabel1 = new Label("Round score");
+	roundScoreLabel1 = new Label("Round score");
 	roundScoreLabel1.setTextFill(Color.web("#d3d3d3"));
 	Label totalLabel1 = new Label("Total");
 	totalLabel1.setTextFill(Color.web("#d3d3d3"));
 
 	// Creating TextFields for scores
-	TextField roundScore1 = new TextField();
-	TextField total1 = new TextField();
-
-	// Creating a Grid Pane
-	GridPane gridPane1 = new GridPane();
 
 	// Setting size for the pane
 	gridPane1.setMinSize(400, 200);
@@ -156,10 +201,6 @@ public class ViewJavaFX {
 	Label totalLabel2 = new Label("Total");
 	totalLabel2.setTextFill(Color.web("black"));
 
-	// Creating TextFields for scores
-	TextField roundScore2 = new TextField();
-	TextField total2 = new TextField();
-
 	// Creating a Grid Pane
 	GridPane gridPane2 = new GridPane();
 
@@ -194,6 +235,9 @@ public class ViewJavaFX {
 	primaryStage.setScene(scene);
 	primaryStage.setResizable(false);
 	primaryStage.show();
+
+	rollDie();
+	holdRound();
 
     }
 

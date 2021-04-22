@@ -39,10 +39,6 @@ public class Game {
 	this.activePlayer = activePlayer;
     }
 
-//    public boolean gameOver() {
-//	return activePlayer.getTotal() >= 100;
-//    }
-
     public boolean playerOneTurn() {
 	return activePlayer == getPlayers().get(0);
     }

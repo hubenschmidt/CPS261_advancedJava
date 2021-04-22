@@ -83,9 +83,8 @@ public class ViewJavaFX {
 	int totalScoreP2 = controller.getPlayers().get(1).getTotal();
 
 	if (controller.getState().toString() == "Initialized") {
-	    if (totalScoreP1 >= 100 || totalScoreP2 >= 100) {
+	    if (totalScoreP1 >= 10 || totalScoreP2 >= 10) {
 		gameOver(true);
-
 	    } else {
 		roundScore1.setText("" + roundScoreP1);
 		total1.setText("" + totalScoreP1);
@@ -100,8 +99,6 @@ public class ViewJavaFX {
     }
 
     public void gameOver(boolean gameOver) {
-	btnRoll.setDisable(gameOver); // disable buttons
-	btnHold.setDisable(gameOver);
 	die.setImage(null); // clear image
 	die.setImage(new Image("images/pig.jpg"));
 	btnRestart.setMinWidth(460); // activate buttons
@@ -109,7 +106,16 @@ public class ViewJavaFX {
 	paneForButtons.getChildren().remove(btnRoll);
 	paneForButtons.getChildren().remove(btnHold);
 	paneForButtons.getChildren().addAll(btnRestart, btnHistory);
+    }
 
+    public void restartGame() {
+	btnRestart.setOnAction((ActionEvent e) -> {
+	    controller.resetGame(); // clear scores
+	    paneForButtons.getChildren().remove(btnRestart); // remove and replace buttons
+	    paneForButtons.getChildren().remove(btnHistory);
+	    paneForButtons.getChildren().addAll(btnRoll, btnHold);
+	    refreshData();
+	});
     }
 
     /**
@@ -236,8 +242,10 @@ public class ViewJavaFX {
 	primaryStage.setResizable(false);
 	primaryStage.show();
 
+	refreshData();// clears data upon game start
 	rollDie();
 	holdRound();
+	restartGame();
 
     }
 

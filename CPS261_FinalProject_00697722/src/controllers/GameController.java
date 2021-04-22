@@ -51,11 +51,6 @@ public class GameController {
 	case Initialized:
 	    view.displayGUI(stage);
 	    break;
-//	case GameOver:
-//	    System.out.println("game over");
-//	    break;
-	// view.displayPig();
-	// reset game
 	}
     }
 
@@ -75,6 +70,13 @@ public class GameController {
 
     public List<Player> getPlayers() {
 	return game.getPlayers();
+    }
+
+    public void resetGame() {
+	game.getPlayers().get(0).setTotal(0);
+	game.getPlayers().get(0).resetRoundScore();
+	game.getPlayers().get(1).setTotal(0);
+	game.getPlayers().get(1).resetRoundScore();
     }
 
 }

@@ -16,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -70,6 +71,7 @@ public class ViewJavaFX {
 
 	// build player names
 	playerName1 = new Text(controller.getGame().getPlayers().get(0).getName());
+	playerName1.setFill(Color.web("#1F51FF"));
 	playerName2 = new Text(controller.getGame().getPlayers().get(1).getName());
 	playerName1.setFont(new Font(36));
 	playerName2.setFont(new Font(36));
@@ -93,13 +95,16 @@ public class ViewJavaFX {
 
 	// build player labels on left
 	label1 = new Label("Player 1");
+	label1.setTextFill(Color.web("#1F51FF"));
 	label1.setPadding(new Insets(10, 0, 0, 10));
 	leftSplit = new VBox(label1);
 	label1.setFont(new Font(24));
 
 	// Creating Labels for scores
 	Label roundScoreLabel1 = new Label("Round score");
+	roundScoreLabel1.setTextFill(Color.web("#d3d3d3"));
 	Label totalLabel1 = new Label("Total");
+	totalLabel1.setTextFill(Color.web("#d3d3d3"));
 
 	// Creating TextFields for scores
 	TextField roundScore1 = new TextField();
@@ -127,17 +132,20 @@ public class ViewJavaFX {
 	gridPane1.add(totalLabel1, 0, 1);
 	gridPane1.add(total1, 1, 1);
 	leftSplit.getChildren().addAll(vbox1, gridPane1);
-	leftSplit.setStyle("-fx-background-color: #ffbd05");
+	leftSplit.setStyle("-fx-background-color: black");
 
 	// build player labels on right
 	label2 = new Label("Player 2");
+	label1.setTextFill(Color.web("#1F51FF"));
 	label2.setPadding(new Insets(10, 0, 0, 375));
 	rightSplit = new VBox(label2);
 	label2.setFont(new Font(24));
 
 	// Creating Labels for scores
 	Label roundScoreLabel2 = new Label("Round score");
+	roundScoreLabel2.setTextFill(Color.web("black"));
 	Label totalLabel2 = new Label("Total");
+	totalLabel2.setTextFill(Color.web("black"));
 
 	// Creating TextFields for scores
 	TextField roundScore2 = new TextField();

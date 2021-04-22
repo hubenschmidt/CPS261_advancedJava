@@ -1,6 +1,7 @@
 package views;
 
 import controllers.GameController;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -48,6 +49,12 @@ public class ViewJavaFX {
 	this.controller = controller;
     }
 
+    public void rollDice() {
+	btnRoll.setOnAction((ActionEvent e) -> {
+	    controller.roll();
+	});
+    }
+
     /**
      * displays user interface
      * 
@@ -92,6 +99,8 @@ public class ViewJavaFX {
 	borderPane = new BorderPane();
 	borderPane.setBottom(paneForButtons);
 	borderPane.setLeft(paneForNames);
+
+	rollDice();
 
 	// build player labels on left
 	label1 = new Label("Player 1");

@@ -60,4 +60,8 @@ public class GameController {
 	}
     }
 
+    public void roll() {
+	game.roll();
+    }
+
 }

@@ -33,6 +33,7 @@ public class Die {
 
     public void roll() {
 	top = 1 + (int) (Math.random() * sides); // cast from double to int in view of physical constraints of a die
+	System.out.println(top);
 
     }
 

@@ -22,36 +22,44 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ViewJavaFX {
+    /*
+     * Setting up primary elements of JavaFX scene
+     */
     private GameController controller;
-    private StackPane stackPane;
+    private StackPane stackPane = new StackPane();
     private Scene scene;
-
     private Text playerName1;
     private Text playerName2;
-
     private Button btnRoll = new Button("Roll");
     private Button btnHold = new Button("Hold");
     private HBox paneForButtons;
     private HBox paneForNames;
     private BorderPane borderPane;
-
     private VBox vbox1;
     private VBox vbox2;
     private Label label1;
     private Label label2;
+    private SplitPane split = new SplitPane();
     private VBox leftSplit;
     private VBox rightSplit;
 
-    private SplitPane split;
-    private TextField roundScore1 = new TextField();
-    private Label roundScoreLabel1;
-    private TextField total1 = new TextField();
+    // Creating die image
     private ImageView die = new ImageView();
-    // Creating a Grid Pane
-    GridPane gridPane1 = new GridPane();
+
+    // Creating Grid Panes for scores Labels and TextFields;
+    private GridPane gridPane1 = new GridPane();
+    private GridPane gridPane2 = new GridPane();
+
+    // Creating Labels for scores
+    private Label roundScoreLabel1 = new Label("Round score");
+    private Label roundScoreLabel2 = new Label("Round score");
+    private Label totalLabel1 = new Label("Total");
+    private Label totalLabel2 = new Label("Total");
 
     // Creating TextFields for scores
+    private TextField roundScore1 = new TextField();
     private TextField roundScore2 = new TextField();
+    private TextField total1 = new TextField();
     private TextField total2 = new TextField();
 
     private Button btnRestart = new Button("Restart");
@@ -110,11 +118,19 @@ public class ViewJavaFX {
 
     public void restartGame() {
 	btnRestart.setOnAction((ActionEvent e) -> {
+	    die.setImage(null); // clear image
 	    controller.resetGame(); // clear scores
-	    paneForButtons.getChildren().remove(btnRestart); // remove and replace buttons
-	    paneForButtons.getChildren().remove(btnHistory);
+	    paneForButtons.getChildren().removeAll(btnRestart, btnHistory); // remove and replace buttons
 	    paneForButtons.getChildren().addAll(btnRoll, btnHold);
 	    refreshData();
+
+	});
+    }
+
+    public void checkHistory() {
+	btnHistory.setOnAction((ActionEvent e) -> {
+	    die.setImage(null);// clear image
+
 	});
     }
 
@@ -123,12 +139,9 @@ public class ViewJavaFX {
      * 
      * @param primaryStage
      */
-
     public void displayGUI(Stage primaryStage) {
 
 	primaryStage.setTitle("A Game of Pig");
-	stackPane = new StackPane();
-	split = new SplitPane();
 
 	// build buttons
 	btnRoll.setMinWidth(460);
@@ -149,7 +162,7 @@ public class ViewJavaFX {
 	vbox2.setAlignment(Pos.TOP_RIGHT);
 	vbox2.setPadding(new Insets(0, 100, 0, 0));
 
-	// build buttons
+	// build buttons holder
 	paneForButtons = new HBox(16);// space between buttons is 16
 	paneForButtons.getChildren().addAll(btnRoll, btnHold);
 	paneForButtons.setAlignment(Pos.CENTER);
@@ -162,16 +175,12 @@ public class ViewJavaFX {
 	label1 = new Label("Player 1");
 	label1.setTextFill(Color.web("#1F51FF"));
 	label1.setPadding(new Insets(10, 0, 0, 10));
-	leftSplit = new VBox(label1);
 	label1.setFont(new Font(24));
+	leftSplit = new VBox(label1);
 
-	// Creating Labels for scores
-	roundScoreLabel1 = new Label("Round score");
 	roundScoreLabel1.setTextFill(Color.web("#d3d3d3"));
-	Label totalLabel1 = new Label("Total");
-	totalLabel1.setTextFill(Color.web("#d3d3d3"));
 
-	// Creating TextFields for scores
+	totalLabel1.setTextFill(Color.web("#d3d3d3"));
 
 	// Setting size for the pane
 	gridPane1.setMinSize(400, 200);
@@ -202,13 +211,8 @@ public class ViewJavaFX {
 	label2.setFont(new Font(24));
 
 	// Creating Labels for scores
-	Label roundScoreLabel2 = new Label("Round score");
 	roundScoreLabel2.setTextFill(Color.web("black"));
-	Label totalLabel2 = new Label("Total");
 	totalLabel2.setTextFill(Color.web("black"));
-
-	// Creating a Grid Pane
-	GridPane gridPane2 = new GridPane();
 
 	// Setting size for the pane
 	gridPane2.setMinSize(400, 200);
@@ -246,6 +250,7 @@ public class ViewJavaFX {
 	rollDie();
 	holdRound();
 	restartGame();
+	checkHistory();
 
     }
 

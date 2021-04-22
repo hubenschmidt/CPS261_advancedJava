@@ -57,12 +57,6 @@ public class ViewJavaFX {
 	primaryStage.setTitle("A Game of Pig");
 	stackPane = new StackPane();
 	split = new SplitPane();
-//	initialInstructions = new Text("Click Roll to Roll");
-//	controller.getGame().getPlayers().get(0).getName();
-
-	// build card group
-//	cardsRow = new Group();
-//	cardsRow.setManaged(true); // automatic layout enabled for cards
 
 	Image image = new Image("/images/dice1.png");
 	ImageView die = new ImageView();
@@ -75,18 +69,18 @@ public class ViewJavaFX {
 	btnHold.setMinWidth(100);
 
 	// build player names
-//	playerName1 = new Text(controller.getGame().getPlayers().get(0).getName());
-//	playerName2 = new Text(controller.getGame().getPlayers().get(1).getName());
-//	playerName1.setFont(new Font(36));
-//	playerName2.setFont(new Font(36));
-//	vbox1 = new VBox();
-//	vbox1.getChildren().addAll(playerName1);
-//	vbox1.setAlignment(Pos.TOP_LEFT);
-//	vbox1.setPadding(new Insets(200, 0, 0, 200));
-//	vbox2 = new VBox();
-//	vbox2.getChildren().addAll(playerName2);
-//	vbox2.setAlignment(Pos.TOP_RIGHT);
-//	vbox2.setPadding(new Insets(200, 200, 0, 0));
+	playerName1 = new Text(controller.getGame().getPlayers().get(0).getName());
+	playerName2 = new Text(controller.getGame().getPlayers().get(1).getName());
+	playerName1.setFont(new Font(36));
+	playerName2.setFont(new Font(36));
+	vbox1 = new VBox();
+	vbox1.getChildren().addAll(playerName1);
+	vbox1.setAlignment(Pos.TOP_LEFT);
+	vbox1.setPadding(new Insets(0, 0, 0, 100));
+	vbox2 = new VBox();
+	vbox2.getChildren().addAll(playerName2);
+	vbox2.setAlignment(Pos.TOP_RIGHT);
+	vbox2.setPadding(new Insets(0, 100, 0, 0));
 
 	// build buttons
 	paneForButtons = new HBox(16);// space between buttons is 16
@@ -96,13 +90,6 @@ public class ViewJavaFX {
 	borderPane = new BorderPane();
 	borderPane.setBottom(paneForButtons);
 	borderPane.setLeft(paneForNames);
-
-	// build instructions box
-//	initialInstructions.setFont(new Font(64));
-//	instructionsBox = new HBox();
-//	instructionsBox.setStyle("-fx-background-color: white");
-//	instructionsBox.setMaxSize(10, 10);
-//	instructionsBox.getChildren().addAll(initialInstructions);
 
 	// build player labels on left
 	label1 = new Label("Player 1");
@@ -139,12 +126,12 @@ public class ViewJavaFX {
 	gridPane1.add(roundScore1, 1, 0);
 	gridPane1.add(totalLabel1, 0, 1);
 	gridPane1.add(total1, 1, 1);
-	leftSplit.getChildren().addAll(gridPane1);
+	leftSplit.getChildren().addAll(vbox1, gridPane1);
 	leftSplit.setStyle("-fx-background-color: #ffbd05");
 
 	// build player labels on right
 	label2 = new Label("Player 2");
-	label2.setPadding(new Insets(10, 0, 0, 10));
+	label2.setPadding(new Insets(10, 0, 0, 375));
 	rightSplit = new VBox(label2);
 	label2.setFont(new Font(24));
 
@@ -178,7 +165,7 @@ public class ViewJavaFX {
 	gridPane2.add(total2, 0, 1);
 	gridPane2.add(totalLabel2, 1, 1);
 
-	rightSplit.getChildren().addAll(gridPane2);
+	rightSplit.getChildren().addAll(vbox2, gridPane2);
 	rightSplit.setStyle("-fx-background-color: #ffbd05");
 
 	// set up split pane
@@ -186,9 +173,9 @@ public class ViewJavaFX {
 	split.setDividerPosition(1, 0);
 
 	stackPane.getChildren().addAll(split, borderPane, die);
-//	stackPane.getChildren().addAll(split, borderPane, instructionsBox);
 	scene = new Scene(stackPane, 960, 680);
 	primaryStage.setScene(scene);
+	primaryStage.setResizable(false);
 	primaryStage.show();
 
     }

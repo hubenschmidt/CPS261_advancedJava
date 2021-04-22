@@ -1,15 +1,18 @@
 package views;
 
+import controllers.GameController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -18,17 +21,15 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class ViewJavaFX {
-//	PigGameController controller;
+    GameController controller;
     StackPane stackPane;
     Scene scene;
     Text initialInstructions;
-    Text deckEmptyInstructions;
     Text playerName1;
     Text playerName2;
-    Group cardsRow;
     FlowPane flowPane;
-    Button btnDealCards;
-    Button btnShuffleDeck;
+    Button btnRoll;
+    Button btnHold;
     HBox paneForButtons;
     HBox paneForNames;
     BorderPane borderPane;
@@ -42,9 +43,9 @@ public class ViewJavaFX {
     HBox instructionsBox;
     SplitPane split;
 
-//	public ViewJavaFX(CardGameController controller) {
-//		this.controller = controller;
-//	}
+    public ViewJavaFX(GameController controller) {
+	this.controller = controller;
+    }
 
     /**
      * displays user interface
@@ -53,19 +54,25 @@ public class ViewJavaFX {
      */
 
     public void displayGUI(Stage primaryStage) {
-	primaryStage.setTitle("JavaFX Cards");
+	primaryStage.setTitle("A Game of Pig");
 	stackPane = new StackPane();
 	split = new SplitPane();
-	initialInstructions = new Text("Click the cards after dealing");
+//	initialInstructions = new Text("Click Roll to Roll");
 //	controller.getGame().getPlayers().get(0).getName();
 
 	// build card group
-	cardsRow = new Group();
-	cardsRow.setManaged(true); // automatic layout enabled for cards
+//	cardsRow = new Group();
+//	cardsRow.setManaged(true); // automatic layout enabled for cards
+
+	Image image = new Image("/images/dice1.png");
+	ImageView die = new ImageView();
+	die.setImage(image);
 
 	// build buttons
-	btnDealCards = new Button("Deal / Refresh");
-	btnShuffleDeck = new Button("Shuffle Cards");
+	btnRoll = new Button("Roll");
+	btnHold = new Button("Hold");
+	btnRoll.setMinWidth(100);
+	btnHold.setMinWidth(100);
 
 	// build player names
 //	playerName1 = new Text(controller.getGame().getPlayers().get(0).getName());
@@ -83,7 +90,7 @@ public class ViewJavaFX {
 
 	// build buttons
 	paneForButtons = new HBox(16);// space between buttons is 16
-	paneForButtons.getChildren().addAll(btnDealCards, btnShuffleDeck);
+	paneForButtons.getChildren().addAll(btnRoll, btnHold);
 	paneForButtons.setAlignment(Pos.CENTER);
 	paneForButtons.setPadding(new Insets(0, 0, 20, 0));
 	borderPane = new BorderPane();
@@ -91,31 +98,95 @@ public class ViewJavaFX {
 	borderPane.setLeft(paneForNames);
 
 	// build instructions box
-	initialInstructions.setFont(new Font(64));
-	instructionsBox = new HBox();
-	instructionsBox.setStyle("-fx-background-color: white");
-	instructionsBox.setMaxSize(10, 10);
-	instructionsBox.getChildren().addAll(initialInstructions);
+//	initialInstructions.setFont(new Font(64));
+//	instructionsBox = new HBox();
+//	instructionsBox.setStyle("-fx-background-color: white");
+//	instructionsBox.setMaxSize(10, 10);
+//	instructionsBox.getChildren().addAll(initialInstructions);
 
-	// build player labels on left and right
+	// build player labels on left
 	label1 = new Label("Player 1");
 	label1.setPadding(new Insets(10, 0, 0, 10));
 	leftSplit = new VBox(label1);
 	label1.setFont(new Font(24));
-//	leftSplit.getChildren().addAll(vbox1);
-	leftSplit.setStyle("-fx-background-color: cadetblue");
+
+	// Creating Labels for scores
+	Label roundScoreLabel1 = new Label("Round score");
+	Label totalLabel1 = new Label("Total");
+
+	// Creating TextFields for scores
+	TextField roundScore1 = new TextField();
+	TextField total1 = new TextField();
+
+	// Creating a Grid Pane
+	GridPane gridPane1 = new GridPane();
+
+	// Setting size for the pane
+	gridPane1.setMinSize(400, 200);
+
+	// Setting the padding
+	gridPane1.setPadding(new Insets(10, 10, 10, 10));
+
+	// Setting the vertical and horizontal gaps between the columns
+	gridPane1.setVgap(5);
+	gridPane1.setHgap(5);
+
+	// Setting the Grid alignment
+	gridPane1.setAlignment(Pos.BASELINE_RIGHT);
+
+	// Arranging all the nodes in the grid
+	gridPane1.add(roundScoreLabel1, 0, 0);
+	gridPane1.add(roundScore1, 1, 0);
+	gridPane1.add(totalLabel1, 0, 1);
+	gridPane1.add(total1, 1, 1);
+	leftSplit.getChildren().addAll(gridPane1);
+	leftSplit.setStyle("-fx-background-color: #ffbd05");
+
+	// build player labels on right
 	label2 = new Label("Player 2");
 	label2.setPadding(new Insets(10, 0, 0, 10));
 	rightSplit = new VBox(label2);
 	label2.setFont(new Font(24));
-	rightSplit.setStyle("-fx-background-color: cadetblue");
-//	rightSplit.getChildren().addAll(vbox2);
+
+	// Creating Labels for scores
+	Label roundScoreLabel2 = new Label("Round score");
+	Label totalLabel2 = new Label("Total");
+
+	// Creating TextFields for scores
+	TextField roundScore2 = new TextField();
+	TextField total2 = new TextField();
+
+	// Creating a Grid Pane
+	GridPane gridPane2 = new GridPane();
+
+	// Setting size for the pane
+	gridPane2.setMinSize(400, 200);
+
+	// Setting the padding
+	gridPane2.setPadding(new Insets(10, 10, 10, 10));
+
+	// Setting the vertical and horizontal gaps between the columns
+	gridPane2.setVgap(5);
+	gridPane2.setHgap(5);
+
+	// Setting the Grid alignment
+	gridPane2.setAlignment(Pos.BASELINE_LEFT);
+
+	// Arranging all the nodes in the grid
+	gridPane2.add(roundScore2, 0, 0);
+	gridPane2.add(roundScoreLabel2, 1, 0);
+	gridPane2.add(total2, 0, 1);
+	gridPane2.add(totalLabel2, 1, 1);
+
+	rightSplit.getChildren().addAll(gridPane2);
+	rightSplit.setStyle("-fx-background-color: #ffbd05");
 
 	// set up split pane
 	split.getItems().addAll(leftSplit, rightSplit);
 	split.setDividerPosition(1, 0);
 
-	stackPane.getChildren().addAll(split, borderPane, instructionsBox, cardsRow);
+	stackPane.getChildren().addAll(split, borderPane, die);
+//	stackPane.getChildren().addAll(split, borderPane, instructionsBox);
 	scene = new Scene(stackPane, 960, 680);
 	primaryStage.setScene(scene);
 	primaryStage.show();

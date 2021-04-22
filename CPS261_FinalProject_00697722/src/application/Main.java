@@ -2,6 +2,7 @@ package application;
 
 import java.util.ArrayList;
 
+import controllers.GameController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import models.Game;
@@ -19,16 +20,14 @@ public class Main extends Application {
 	    players.add(p2);
 	    Game game = new Game(players);
 
-//		PigGameController controller = new PigGameController(cardsPerHand, players);
-//		ViewJavaFX viewJavaFX = new ViewJavaFX(controller);
-	    ViewJavaFX viewJavaFX = new ViewJavaFX();
-	    viewJavaFX.displayGUI(primaryStage);
+	    GameController controller = new GameController(players);
+	    ViewJavaFX viewJavaFX = new ViewJavaFX(controller);
 
-//	    if (controller.getState() != null) {
-//		System.out.println(controller.getState().toString());
-//		viewJavaFX.displayGUI(primaryStage);
-//
-//	}
+	    if (controller.getState() != null) {
+		System.out.println(controller.getState().toString());
+		viewJavaFX.displayGUI(primaryStage);
+
+	    }
 
 //	    BorderPane root = new BorderPane();
 //	    Scene scene = new Scene(root, 400, 400);

@@ -125,29 +125,12 @@ public class ViewJavaFX {
 	btnRestart.setMinWidth(460); // activate buttons
 	btnHistory.setMinWidth(460);
 
-	// save box score here for retrieval by displayHistoryTable
-
-	// step 1: set the winner
+	// set the winner
 	controller.getGame().setWinner(); // player comparison logic is located on game object
 
-//	List<Player> players = controller.getGame().getPlayers();
-//	Date date = controller.getGame().getDate();
-//	int p1total = controller.getGame().getPlayers().get(0).getTotal();
-//	int p2total = controller.getGame().getPlayers().get(1).getTotal();
-
-//	Player winner;
-//	Player loser;
-//	if (p1total > p2total) {
-//	    winner = controller.getGame().getPlayers().get(0);
-//	    loser = controller.getGame().getPlayers().get(1);
-//	} else {
-//	    winner = controller.getGame().getPlayers().get(1);
-//	    loser = controller.getGame().getPlayers().get(0);
-//	}
-//
-//	controller.getGame().setWinner(winner);
-//	controller.getGame().setLoser(loser);
-
+	/*
+	 * for debugging
+	 */
 	System.out.println("Game results, " + controller.getGame().getDate() + ":");
 	System.out.println("Player1 name: " + controller.getGame().getPlayers().get(0).getName() + ", Score: "
 		+ controller.getGame().getPlayers().get(0).getTotal() + ", Winner: "
@@ -156,18 +139,6 @@ public class ViewJavaFX {
 	System.out.println("Player2 name: " + controller.getGame().getPlayers().get(1).getName() + ", Score: "
 		+ controller.getGame().getPlayers().get(1).getTotal() + ", Winner: "
 		+ controller.getGame().getPlayers().get(1).isWinner());
-
-//	System.out.println("Player2 name: " + players.get(1).getName() + ", Date: " + date + ", Score: " + p2total
-//		+ ", Winner: " + winner.getName() + ", Loser: " + loser.getName());
-
-//	Map<Game,ArrayList<Player>> multiMap = new HashMap<>();
-
-//	Map<Object,Pair<Integer,String>> multiMap = new HashMap<Object,Pair<Integer,String>>();
-
-//	controller.getGame().getActivePlayer().setWinner(); // the active player when the game ends is
-//	Player winner = controller.getGame().getActivePlayer();
-//	System.out.println(winner);// the winner
-//	System.out.println(controller.getGame().g);
 
 	paneForButtons.getChildren().remove(btnRoll);
 	paneForButtons.getChildren().remove(btnHold);

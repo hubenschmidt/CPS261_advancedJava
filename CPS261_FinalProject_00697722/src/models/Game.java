@@ -1,11 +1,10 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Game {
     private Die die;
-    private List<Player> players;
+    private ArrayList<Player> players;
     private Player activePlayer;
     private CurrentDateTime date;
 
@@ -25,11 +24,11 @@ public class Game {
 	this.die = die;
     }
 
-    public List<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
 	return players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(ArrayList<Player> players) {
 	this.players = players;
     }
 
@@ -107,7 +106,7 @@ public class Game {
 	int p1total = getPlayers().get(0).getTotal();
 	int p2total = getPlayers().get(1).getTotal();
 
-	if (p1total > p1total) {
+	if (p1total > p2total) {
 	    getPlayers().get(0).setWinner(true);
 	}
 	getPlayers().get(1).setWinner(false);

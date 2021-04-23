@@ -128,6 +128,9 @@ public class ViewJavaFX {
 	// set the winner
 	controller.getGame().setWinner(); // player comparison logic is located on game object
 
+	// update history
+	controller.updateHistory();
+
 	/*
 	 * for debugging
 	 */
@@ -139,6 +142,8 @@ public class ViewJavaFX {
 	System.out.println("Player2 name: " + controller.getGame().getPlayers().get(1).getName() + ", Score: "
 		+ controller.getGame().getPlayers().get(1).getTotal() + ", Winner: "
 		+ controller.getGame().getPlayers().get(1).isWinner());
+
+	System.out.println("History: " + controller.getHistory());
 
 	paneForButtons.getChildren().remove(btnRoll);
 	paneForButtons.getChildren().remove(btnHold);

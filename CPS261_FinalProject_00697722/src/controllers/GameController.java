@@ -1,10 +1,11 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import javafx.stage.Stage;
 import models.Game;
+import models.History;
 import models.Player;
 import views.ViewJavaFX;
 
@@ -13,12 +14,14 @@ public class GameController {
 	Initialized, GameOver
     }
 
+    private History history;
     private Game game;
     private State state;
     private ViewJavaFX view;
     private Stage stage = new Stage();
 
     public GameController(ArrayList<Player> players) {
+	this.history = new History();
 	this.game = new Game(players);
 	System.out.println(players.get(0).getName() + " " + players.get(1).getName());
 	this.state = State.Initialized;
@@ -68,7 +71,7 @@ public class GameController {
 	return game.getActivePlayer();
     }
 
-    public List<Player> getPlayers() {
+    public ArrayList<Player> getPlayers() {
 	return game.getPlayers();
     }
 
@@ -77,6 +80,15 @@ public class GameController {
 	game.getPlayers().get(0).resetRoundScore();
 	game.getPlayers().get(1).setTotal(0);
 	game.getPlayers().get(1).resetRoundScore();
+    }
+
+    public void updateHistory() {
+	history.update(game, game.getPlayers());
+    }
+
+    public Map<Game, ArrayList<Player>> getHistory() {
+	return history.getGames();
+
     }
 
 }

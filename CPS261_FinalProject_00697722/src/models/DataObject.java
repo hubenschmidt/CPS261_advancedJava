@@ -1,36 +1,34 @@
 package models;
 
-import javafx.beans.property.SimpleStringProperty;
-
 //object mapping for JavaFX TableView. I would have preferred to add the History object directly to the table, however this alterate approach seems to work:
 public class DataObject {
-    private SimpleStringProperty name;
-    private SimpleStringProperty date;
+    private String name;
+    private String date;
     private int finalScore;
-    private SimpleStringProperty winOrLose;
+    private boolean winOrLose;
 
-    public DataObject(String name, String date, int finalScore, String winOrLose) {
+    public DataObject(String name, String date, int finalScore, boolean winOrLose) {
 
-	this.name = new SimpleStringProperty(name);
-	this.date = new SimpleStringProperty(date);
+	this.name = name;
+	this.date = date;
 	this.finalScore = finalScore;
-	this.winOrLose = new SimpleStringProperty(winOrLose);
+	this.winOrLose = winOrLose;
 
     }
 
-    public SimpleStringProperty getName() {
+    public String getName() {
 	return name;
     }
 
-    public void setName(SimpleStringProperty name) {
+    public void setName(String name) {
 	this.name = name;
     }
 
-    public SimpleStringProperty getDate() {
+    public String getDate() {
 	return date;
     }
 
-    public void setDate(SimpleStringProperty date) {
+    public void setDate(String date) {
 	this.date = date;
     }
 
@@ -42,11 +40,11 @@ public class DataObject {
 	this.finalScore = finalScore;
     }
 
-    public SimpleStringProperty getWinOrLose() {
+    public boolean getWinOrLose() {
 	return winOrLose;
     }
 
-    public void setWinOrLose(SimpleStringProperty winOrLose) {
+    public void setWinOrLose(boolean winOrLose) {
 	this.winOrLose = winOrLose;
     }
 

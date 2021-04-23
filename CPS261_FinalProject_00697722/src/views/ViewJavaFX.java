@@ -83,6 +83,8 @@ public class ViewJavaFX {
     private TableColumn finalScoreCol = new TableColumn("Score");
     private TableColumn winLoseCol = new TableColumn("Win or Lose");
 
+    int i;
+
     public ViewJavaFX(GameController controller) {
 	this.controller = controller;
     }
@@ -198,11 +200,14 @@ public class ViewJavaFX {
 //	}
 
 //	    data.add(new DataObject("file5", "D:\\myFiles\\file4.txt", "75 MB", "25/09/2018"));
-	controller.getHistory().entrySet().forEach(e -> data
-		.add(new DataObject(e.getValue().get(0).getName(), e.getKey().getDate().toString(),
-			e.getValue().get(0).getTotal(),
-//			    e.getValue().get(i).isWinner()
-			"25/09/2018")));
+
+	for (i = 0; i < controller.getPlayers().size(); i++) {
+	    controller.getHistory().entrySet().forEach(el -> data
+		    .add(new DataObject(el.getValue().get(i).getName(), el.getKey().getDate().toString(),
+			    el.getValue().get(i).getTotal(),
+			    el.getValue().get(i).isWinner())));
+
+	}
 
 	// creating columns
 	nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));

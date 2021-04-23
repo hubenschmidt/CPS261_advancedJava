@@ -100,17 +100,15 @@ public class GameController {
 //	    System.out.println("Player2 name: " + player.get(1).getName() + ", hashCode: " + player.get(1).hashCode());
 	}
 
-	history.getGames().entrySet().stream().map(e -> e.getKey().getDate()).forEach(System.out::println);
-	;
-
 	return history.getGames();
     }
 
     public void StreamHistory() {
+//	history.getGames().entrySet().stream().map(e -> e.getKey().getDate()).forEach(System.out::println);
+//	history.getGames().keySet().forEach(e -> System.out.println(e.getDate()));
+	history.getGames().keySet().forEach(e -> {
+	    e.getDate();
 
-//	Stream<Entry<Game, ArrayList<Player>>> entries = history.getGames().entrySet().stream(); // obtain key value pairs
-
-	history.getGames().entrySet().stream(); // obtain key Value pairs
-
+	});
     }
 }

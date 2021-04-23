@@ -1,16 +1,20 @@
 package views;
 
 import controllers.GameController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -22,6 +26,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.DataObject;
 
 public class ViewJavaFX {
     /*
@@ -70,13 +75,13 @@ public class ViewJavaFX {
     // create history table vbox
     private VBox historyTableVBox = new VBox();
     private Button exitButton = new Button("Exit History");
-    private TableView table = new TableView();
+    private TableView table = new TableView<DataObject>();
     private Label historyTableLabel = new Label("Game History");
 
-    private TableColumn name = new TableColumn("Name");
-    private TableColumn date = new TableColumn("Date");
-    private TableColumn finalScore = new TableColumn("Score");
-    private TableColumn winOrLose = new TableColumn("Win or Lose");
+    private TableColumn nameCol = new TableColumn("Name");
+    private TableColumn dateCol = new TableColumn("Date");
+    private TableColumn finalScoreCol = new TableColumn("Score");
+    private TableColumn winLoseCol = new TableColumn("Win or Lose");
 
     public ViewJavaFX(GameController controller) {
 	this.controller = controller;
@@ -160,26 +165,41 @@ public class ViewJavaFX {
 
     public void displayHistoryTable() {
 	historyTableVBox.getChildren().removeAll(historyTableLabel, table, exitButton);// clear table if exists
-	table.getColumns().removeAll(name, date, finalScore, winOrLose);// clear table if exists
+	table.getColumns().removeAll(nameCol, dateCol, finalScoreCol, winLoseCol);// clear table if exists
 
 	historyTableLabel.setFont(new Font("Arial", 20));
 	historyTableLabel.setTextFill(Color.web("white"));
 
-	table.getColumns().addAll(name, date, finalScore, winOrLose);
-
 	// add data here
 	// call to game controller to do Stream of Map
-//	System.out.println(controller.getHistory().entrySet().stream()
-//		.map(e -> e.toString()));
-	controller.getHistory();
+
+//	controller.getHistory().entrySet().stream().map(e -> e.getKey().getDate()).forEach(System.out::println);
 
 	// use stream to access History
 	// and add to each column
 
-	name.setCellValueFactory(null);
-	date.setCellValueFactory(null);
-	finalScore.setCellValueFactory(null);
-	winOrLose.setCellValueFactory(null);
+//	controller.StreamHistory();
+//	controller.getHistory().keySet().forEach(e -> {
+//	    e.getDate();
+//	});
+
+	ObservableList<DataObject> data = FXCollections.observableArrayList(
+		new DataObject("file1", "D:\\myFiles\\file1.txt", "25 MB", "12/01/2017"),
+		new DataObject("file2", "D:\\myFiles\\file2.txt", "30 MB", "01/11/2019"),
+		new DataObject("file3", "D:\\myFiles\\file3.txt", "50 MB", "12/04/2017"),
+		new DataObject("file4", "D:\\myFiles\\file4.txt", "75 MB", "25/09/2018"));
+
+	// creating columns
+	nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
+	dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
+	finalScoreCol.setCellValueFactory(new PropertyValueFactory<>("finalScore"));
+	winLoseCol.setCellValueFactory(new PropertyValueFactory<>("winOrLose"));
+
+	// adding data to the table
+	ObservableList<String> list = FXCollections.observableArrayList();
+	table.setItems(data);
+	table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+	table.getColumns().addAll(nameCol, dateCol, finalScoreCol, winLoseCol);
 
 	// use stream to compute total wins / losses
 

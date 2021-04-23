@@ -1,8 +1,5 @@
 package views;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 import controllers.GameController;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -25,8 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import models.Game;
-import models.Player;
 
 public class ViewJavaFX {
     /*
@@ -139,22 +134,16 @@ public class ViewJavaFX {
 	/*
 	 * for debugging
 	 */
-	System.out.println("Game results, " + controller.getGame().getDate() + ":");
-	System.out.println("Player1 name: " + controller.getGame().getPlayers().get(0).getName() + ", Score: "
-		+ controller.getGame().getPlayers().get(0).getTotal() + ", Winner: "
-		+ controller.getGame().getPlayers().get(0).isWinner());
+//	System.out.println("Game results, " + controller.getGame().getDate() + ":");
+//	System.out.println("Player1 name: " + controller.getGame().getPlayers().get(0).getName() + ", Score: "
+//		+ controller.getGame().getPlayers().get(0).getTotal() + ", Winner: "
+//		+ controller.getGame().getPlayers().get(0).isWinner());
+//
+//	System.out.println("Player2 name: " + controller.getGame().getPlayers().get(1).getName() + ", Score: "
+//		+ controller.getGame().getPlayers().get(1).getTotal() + ", Winner: "
+//		+ controller.getGame().getPlayers().get(1).isWinner());
 
-	System.out.println("Player2 name: " + controller.getGame().getPlayers().get(1).getName() + ", Score: "
-		+ controller.getGame().getPlayers().get(1).getTotal() + ", Winner: "
-		+ controller.getGame().getPlayers().get(1).isWinner());
-
-	System.out.println("History: " + controller.getHistory().toString());
-
-	for (Map.Entry<Game, ArrayList<Player>> entry : controller.getHistory().entrySet()) {
-	    String game = entry.getKey().toString();
-	    String player = entry.getValue().toString();
-	    System.out.println(game + " " + player);
-	}
+	controller.getHistory();
 
 	paneForButtons.getChildren().remove(btnRoll);
 	paneForButtons.getChildren().remove(btnHold);

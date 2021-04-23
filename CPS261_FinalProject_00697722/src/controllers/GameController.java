@@ -87,8 +87,15 @@ public class GameController {
     }
 
     public Map<Game, ArrayList<Player>> getHistory() {
+	// for debugging:
+//	for (Map.Entry<Game, ArrayList<Player>> entry : history.getGames().entrySet()) {
+//	    Game game = entry.getKey();
+//	    ArrayList<Player> player = entry.getValue();
+//	    System.out.println("Game history: " + game.getDate());
+//	    System.out.println("Player1 name: " + player.get(0).getName());
+//	    System.out.println("Player2 name: " + player.get(1).getName());
+//	}
 	return history.getGames();
-
     }
 
 }

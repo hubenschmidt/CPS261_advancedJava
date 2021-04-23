@@ -94,11 +94,10 @@ public class GameController {
 	for (Map.Entry<Game, ArrayList<Player>> entry : history.getGames().entrySet()) {
 	    Game game = entry.getKey();
 	    ArrayList<Player> player = entry.getValue();
-	    System.out.println("Game history: " + game.getDate());
-	    System.out.println("Player1 name: " + player.get(0).getName());
-	    System.out.println("Player1 memory location: " + player.get(0));
-	    System.out.println("Player2 name: " + player.get(1).getName());
-	    System.out.println("Player2 memory location: " + player.get(1));
+	    System.out.println("Game history:");
+	    System.out.println("Game " + game.getDate() + " hashCode: " + game.hashCode());
+	    System.out.println("Player1 name: " + player.get(0).getName() + ", hashCode: " + player.get(0).hashCode());
+	    System.out.println("Player2 name: " + player.get(1).getName() + ", hashCode: " + player.get(1).hashCode());
 	}
 	return history.getGames();
     }

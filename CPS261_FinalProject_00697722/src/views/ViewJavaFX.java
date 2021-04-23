@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -34,7 +36,7 @@ public class ViewJavaFX {
     private Button btnHold = new Button("Hold");
     private HBox paneForButtons;
     private HBox paneForNames;
-    private BorderPane borderPane;
+    private BorderPane borderPane = new BorderPane();;
     private VBox vbox1;
     private VBox vbox2;
     private Label label1;
@@ -64,6 +66,15 @@ public class ViewJavaFX {
 
     private Button btnRestart = new Button("Restart");
     private Button btnHistory = new Button("Check History");
+
+    // create history table vbox
+    private VBox historyTableVBox = new VBox();
+    private Button exitButton = new Button("Exit History");
+    private TableView table = new TableView();
+    private Label label = new Label("Address Book");
+    private TableColumn firstNameCol = new TableColumn("First Name");
+    private TableColumn lastNameCol = new TableColumn("Last Name");
+    private TableColumn emailCol = new TableColumn("Email");
 
     public ViewJavaFX(GameController controller) {
 	this.controller = controller;
@@ -122,6 +133,7 @@ public class ViewJavaFX {
 	    controller.resetGame(); // clear scores
 	    paneForButtons.getChildren().removeAll(btnRestart, btnHistory); // remove and replace buttons
 	    paneForButtons.getChildren().addAll(btnRoll, btnHold);
+	    stackPane.getChildren().remove(historyTableVBox);
 	    refreshData();
 
 	});
@@ -130,7 +142,34 @@ public class ViewJavaFX {
     public void checkHistory() {
 	btnHistory.setOnAction((ActionEvent e) -> {
 	    die.setImage(null);// clear image
+	    displayHistoryTable();
 
+	});
+    }
+
+    public void displayHistoryTable() {
+	historyTableVBox.getChildren().removeAll(label, table, exitButton);// clear table if exists
+	table.getColumns().removeAll(firstNameCol, lastNameCol, emailCol);// clear table if exists
+
+	label.setFont(new Font("Arial", 20));
+
+	table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+
+	historyTableVBox.setSpacing(5);
+	historyTableVBox.setPadding(new Insets(200, 0, 0, 10));
+	historyTableVBox.getChildren().addAll(label, table, exitButton);
+	paneForButtons.getChildren().removeAll(btnRestart, btnHistory); // remove and replace buttons
+	stackPane.getChildren().add(historyTableVBox);
+	exitHistory();
+
+    }
+
+    public void exitHistory() {
+	exitButton.setOnAction((ActionEvent e) -> {
+	    System.out.println("remove table");
+	    stackPane.getChildren().remove(historyTableVBox);// clear table
+	    paneForButtons.getChildren().addAll(btnRoll, btnHold);
+	    restartGame();
 	});
     }
 
@@ -167,7 +206,7 @@ public class ViewJavaFX {
 	paneForButtons.getChildren().addAll(btnRoll, btnHold);
 	paneForButtons.setAlignment(Pos.CENTER);
 	paneForButtons.setPadding(new Insets(0, 0, 20, 0));
-	borderPane = new BorderPane();
+
 	borderPane.setBottom(paneForButtons);
 	borderPane.setLeft(paneForNames);
 
@@ -249,8 +288,8 @@ public class ViewJavaFX {
 	refreshData();// clears data upon game start
 	rollDie();
 	holdRound();
-	restartGame();
 	checkHistory();
+	restartGame();
 
     }
 

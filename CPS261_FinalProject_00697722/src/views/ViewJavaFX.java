@@ -81,7 +81,7 @@ public class ViewJavaFX {
     private TableColumn nameCol = new TableColumn("Name");
     private TableColumn dateCol = new TableColumn("Date");
     private TableColumn finalScoreCol = new TableColumn("Score");
-    private TableColumn winLoseCol = new TableColumn("Win or Lose");
+    private TableColumn winLoseCol = new TableColumn("Win");
 
     int i;
 
@@ -220,6 +220,7 @@ public class ViewJavaFX {
 	table.setItems(data);
 	table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	table.getColumns().addAll(nameCol, dateCol, finalScoreCol, winLoseCol);
+	table.getSortOrder().add(dateCol);
 
 	// use stream to compute total wins / losses
 

@@ -178,18 +178,20 @@ public class ViewJavaFX {
 	// use stream to access History
 	// and add to each column
 
-	controller.getHistory().entrySet().forEach(e -> e.getKey().getDate().toString());
-
 	ObservableList<DataObject> data = FXCollections.observableArrayList(
 		new DataObject("file1", "D:\\myFiles\\file1.txt", "25 MB", "12/01/2017"),
 		new DataObject("file2", "D:\\myFiles\\file2.txt", "30 MB", "01/11/2019"),
 		new DataObject("file3", "D:\\myFiles\\file3.txt", "50 MB", "12/04/2017"),
 		new DataObject("file4", "D:\\myFiles\\file4.txt", "75 MB", "25/09/2018"));
 
-	for (int i = 0; i < controller.getHistory().size(); i++) {
-	    data.add(new DataObject("file5", "D:\\myFiles\\file4.txt", "75 MB", "25/09/2018"));
+//	controller.getHistory().entrySet().forEach(e -> data.add(new DataObject(e.getKey().getDate(), e.getValue().get(0).getName())));
+	controller.getHistory().entrySet().forEach(e -> data
+		.add(new DataObject(e.getKey().getDate().toString(), "D:\\myFiles\\file4.txt", "75 MB", "25/09/2018")));
 
-	}
+//
+//	for (int i = 0; i < controller.getHistory().size(); i++) {
+//	    data.add(new DataObject("file5", "D:\\myFiles\\file4.txt", "75 MB", "25/09/2018"));
+//	}
 
 	// creating columns
 	nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));

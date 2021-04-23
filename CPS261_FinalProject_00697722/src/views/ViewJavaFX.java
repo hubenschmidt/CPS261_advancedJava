@@ -71,7 +71,8 @@ public class ViewJavaFX {
     private VBox historyTableVBox = new VBox();
     private Button exitButton = new Button("Exit History");
     private TableView table = new TableView();
-    private Label label = new Label("Address Book");
+    private Label historyTableLabel = new Label("Game History");
+
     private TableColumn firstNameCol = new TableColumn("First Name");
     private TableColumn lastNameCol = new TableColumn("Last Name");
     private TableColumn emailCol = new TableColumn("Email");
@@ -129,10 +130,12 @@ public class ViewJavaFX {
 
     public void restartGame() {
 	btnRestart.setOnAction((ActionEvent e) -> {
+	    paneForButtons.getChildren().remove(btnHold);// clear button if exists from exitHistory()
 	    die.setImage(null); // clear image
 	    controller.resetGame(); // clear scores
 	    paneForButtons.getChildren().removeAll(btnRestart, btnHistory); // remove and replace buttons
 	    paneForButtons.getChildren().addAll(btnRoll, btnHold);
+	    btnHold.setDisable(false); // re-enable Hold button if disabled by exitHistory()
 	    stackPane.getChildren().remove(historyTableVBox);
 	    refreshData();
 
@@ -148,16 +151,17 @@ public class ViewJavaFX {
     }
 
     public void displayHistoryTable() {
-	historyTableVBox.getChildren().removeAll(label, table, exitButton);// clear table if exists
+	historyTableVBox.getChildren().removeAll(historyTableLabel, table, exitButton);// clear table if exists
 	table.getColumns().removeAll(firstNameCol, lastNameCol, emailCol);// clear table if exists
 
-	label.setFont(new Font("Arial", 20));
+	historyTableLabel.setFont(new Font("Arial", 20));
+	historyTableLabel.setTextFill(Color.web("white"));
 
 	table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
 
 	historyTableVBox.setSpacing(5);
 	historyTableVBox.setPadding(new Insets(200, 0, 0, 10));
-	historyTableVBox.getChildren().addAll(label, table, exitButton);
+	historyTableVBox.getChildren().addAll(historyTableLabel, table, exitButton);
 	paneForButtons.getChildren().removeAll(btnRestart, btnHistory); // remove and replace buttons
 	stackPane.getChildren().add(historyTableVBox);
 	exitHistory();
@@ -166,9 +170,9 @@ public class ViewJavaFX {
 
     public void exitHistory() {
 	exitButton.setOnAction((ActionEvent e) -> {
-	    System.out.println("remove table");
 	    stackPane.getChildren().remove(historyTableVBox);// clear table
-	    paneForButtons.getChildren().addAll(btnRoll, btnHold);
+	    paneForButtons.getChildren().addAll(btnRestart, btnHold);
+	    btnHold.setDisable(true);
 	    restartGame();
 	});
     }

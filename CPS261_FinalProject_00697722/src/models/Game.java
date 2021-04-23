@@ -1,12 +1,16 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Game {
     private Die die;
     private List<Player> players;
     private Player activePlayer;
+    private Date date;
+    private Player winner;
+    private Player loser;
 
     public Game(ArrayList<Player> players) {
 	System.out.println("initializing Game");
@@ -37,6 +41,30 @@ public class Game {
 
     public void setActivePlayer(Player activePlayer) {
 	this.activePlayer = activePlayer;
+    }
+
+    public Date getDate() {
+	return date;
+    }
+
+    public void setDate(Date date) {
+	this.date = date;
+    }
+
+    public Player getWinner() {
+	return winner;
+    }
+
+    public void setWinner(Player winner) {
+	this.winner = winner;
+    }
+
+    public Player getLoser() {
+	return loser;
+    }
+
+    public void setLoser(Player loser) {
+	this.loser = loser;
     }
 
     public boolean playerOneTurn() {

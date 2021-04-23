@@ -1,5 +1,8 @@
 package views;
 
+import java.util.Date;
+import java.util.List;
+
 import controllers.GameController;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -22,6 +25,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.Player;
 
 public class ViewJavaFX {
     /*
@@ -73,9 +77,10 @@ public class ViewJavaFX {
     private TableView table = new TableView();
     private Label historyTableLabel = new Label("Game History");
 
-    private TableColumn firstNameCol = new TableColumn("First Name");
-    private TableColumn lastNameCol = new TableColumn("Last Name");
-    private TableColumn emailCol = new TableColumn("Email");
+    private TableColumn name = new TableColumn("Name");
+    private TableColumn date = new TableColumn("Date");
+    private TableColumn finalScore = new TableColumn("Score");
+    private TableColumn winOrLose = new TableColumn("Win or Lose");
 
     public ViewJavaFX(GameController controller) {
 	this.controller = controller;
@@ -123,6 +128,40 @@ public class ViewJavaFX {
 	die.setImage(new Image("images/pig.jpg"));
 	btnRestart.setMinWidth(460); // activate buttons
 	btnHistory.setMinWidth(460);
+
+	// save box score here for retrieval by displayHistoryTable
+
+	// step 1: confirm the participants
+
+	List<Player> players = controller.getGame().getPlayers();
+	Date date = controller.getGame().getDate();
+	int p1total = controller.getGame().getPlayers().get(0).getTotal();
+	int p2total = controller.getGame().getPlayers().get(1).getTotal();
+	Player winner;
+	Player loser;
+	if (p1total > p2total) {
+	    winner = controller.getGame().getPlayers().get(0);
+	    loser = controller.getGame().getPlayers().get(1);
+	} else {
+	    winner = controller.getGame().getPlayers().get(1);
+	    loser = controller.getGame().getPlayers().get(0);
+	}
+
+	controller.getGame().setWinner(winner);
+	controller.getGame().setLoser(loser);
+
+	System.out.println("Game results:");
+	System.out.println("Player1 name: " + players.get(0).getName() + ", Date: " + date + ", Score: " + p1total
+		+ ", Winner: " + winner.getName() + ", Loser: " + loser.getName());
+
+	System.out.println("Player2 name: " + players.get(1).getName() + ", Date: " + date + ", Score: " + p2total
+		+ ", Winner: " + winner.getName() + ", Loser: " + loser.getName());
+
+//	controller.getGame().getActivePlayer().setWinner(); // the active player when the game ends is
+//	Player winner = controller.getGame().getActivePlayer();
+//	System.out.println(winner);// the winner
+//	System.out.println(controller.getGame().g);
+
 	paneForButtons.getChildren().remove(btnRoll);
 	paneForButtons.getChildren().remove(btnHold);
 	paneForButtons.getChildren().addAll(btnRestart, btnHistory);
@@ -138,7 +177,6 @@ public class ViewJavaFX {
 	    btnHold.setDisable(false); // re-enable Hold button if disabled by exitHistory()
 	    stackPane.getChildren().remove(historyTableVBox);
 	    refreshData();
-
 	});
     }
 
@@ -146,18 +184,24 @@ public class ViewJavaFX {
 	btnHistory.setOnAction((ActionEvent e) -> {
 	    die.setImage(null);// clear image
 	    displayHistoryTable();
-
 	});
     }
 
     public void displayHistoryTable() {
 	historyTableVBox.getChildren().removeAll(historyTableLabel, table, exitButton);// clear table if exists
-	table.getColumns().removeAll(firstNameCol, lastNameCol, emailCol);// clear table if exists
+
+	table.getColumns().removeAll(name, date, finalScore, winOrLose);// clear table if exists
 
 	historyTableLabel.setFont(new Font("Arial", 20));
 	historyTableLabel.setTextFill(Color.web("white"));
 
-	table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+	table.getColumns().addAll(name, date, finalScore, winOrLose);
+
+	// add data here
+	name.setCellValueFactory(null);
+	date.setCellValueFactory(null);
+	finalScore.setCellValueFactory(null);
+	winOrLose.setCellValueFactory(null);
 
 	historyTableVBox.setSpacing(5);
 	historyTableVBox.setPadding(new Insets(200, 0, 0, 10));
@@ -165,7 +209,6 @@ public class ViewJavaFX {
 	paneForButtons.getChildren().removeAll(btnRestart, btnHistory); // remove and replace buttons
 	stackPane.getChildren().add(historyTableVBox);
 	exitHistory();
-
     }
 
     public void exitHistory() {

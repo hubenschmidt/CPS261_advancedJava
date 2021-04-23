@@ -96,7 +96,9 @@ public class GameController {
 	    ArrayList<Player> player = entry.getValue();
 	    System.out.println("Game history: " + game.getDate());
 	    System.out.println("Player1 name: " + player.get(0).getName());
+	    System.out.println("Player1 memory location: " + player.get(0));
 	    System.out.println("Player2 name: " + player.get(1).getName());
+	    System.out.println("Player2 memory location: " + player.get(1));
 	}
 	return history.getGames();
     }

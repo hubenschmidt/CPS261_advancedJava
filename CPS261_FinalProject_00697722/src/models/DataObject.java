@@ -6,14 +6,14 @@ import javafx.beans.property.SimpleStringProperty;
 public class DataObject {
     private SimpleStringProperty name;
     private SimpleStringProperty date;
-    private SimpleStringProperty score;
+    private SimpleStringProperty finalScore;
     private SimpleStringProperty winOrLose;
 
-    public DataObject(String name, String date, String score, String winOrLose) {
+    public DataObject(String name, String date, String finalScore, String winOrLose) {
 
 	this.name = new SimpleStringProperty(name);
 	this.date = new SimpleStringProperty(date);
-	this.score = new SimpleStringProperty(score);
+	this.finalScore = new SimpleStringProperty(finalScore);
 	this.winOrLose = new SimpleStringProperty(winOrLose);
 
     }
@@ -34,12 +34,12 @@ public class DataObject {
 	this.date = date;
     }
 
-    public SimpleStringProperty getScore() {
-	return score;
+    public SimpleStringProperty getFinalScore() {
+	return finalScore;
     }
 
-    public void setScore(SimpleStringProperty score) {
-	this.score = score;
+    public void setScore(SimpleStringProperty finalScore) {
+	this.finalScore = finalScore;
     }
 
     public SimpleStringProperty getWinOrLose() {

@@ -160,7 +160,6 @@ public class ViewJavaFX {
 
     public void displayHistoryTable() {
 	historyTableVBox.getChildren().removeAll(historyTableLabel, table, exitButton);// clear table if exists
-
 	table.getColumns().removeAll(name, date, finalScore, winOrLose);// clear table if exists
 
 	historyTableLabel.setFont(new Font("Arial", 20));
@@ -169,6 +168,10 @@ public class ViewJavaFX {
 	table.getColumns().addAll(name, date, finalScore, winOrLose);
 
 	// add data here
+	// call to game controller to do Stream of Map
+//	System.out.println(controller.getHistory().entrySet().stream()
+//		.map(e -> e.toString()));
+	controller.getHistory();
 
 	// use stream to access History
 	// and add to each column

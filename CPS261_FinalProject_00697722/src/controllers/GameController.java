@@ -94,12 +94,23 @@ public class GameController {
 	for (Map.Entry<Game, ArrayList<Player>> entry : history.getGames().entrySet()) {
 	    Game game = entry.getKey();
 	    ArrayList<Player> player = entry.getValue();
-	    System.out.println("Game history:");
-	    System.out.println("Game " + game.getDate() + " hashCode: " + game.hashCode());
-	    System.out.println("Player1 name: " + player.get(0).getName() + ", hashCode: " + player.get(0).hashCode());
-	    System.out.println("Player2 name: " + player.get(1).getName() + ", hashCode: " + player.get(1).hashCode());
+//	    System.out.println("Game history:");
+//	    System.out.println("Game " + game.getDate() + " hashCode: " + game.hashCode());
+//	    System.out.println("Player1 name: " + player.get(0).getName() + ", hashCode: " + player.get(0).hashCode());
+//	    System.out.println("Player2 name: " + player.get(1).getName() + ", hashCode: " + player.get(1).hashCode());
 	}
+
+	history.getGames().entrySet().stream().map(e -> e.getKey().getDate()).forEach(System.out::println);
+	;
+
 	return history.getGames();
     }
 
+    public void StreamHistory() {
+
+//	Stream<Entry<Game, ArrayList<Player>>> entries = history.getGames().entrySet().stream(); // obtain key value pairs
+
+	history.getGames().entrySet().stream(); // obtain key Value pairs
+
+    }
 }

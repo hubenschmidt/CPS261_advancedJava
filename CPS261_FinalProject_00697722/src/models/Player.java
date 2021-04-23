@@ -4,11 +4,13 @@ public class Player {
     private String name;
     private int roundScore;
     private int total;
+    private boolean winner;
 
     public Player(String name, int roundScore, int total) {
 	this.name = name;
 	this.roundScore = roundScore;
 	this.total = total;
+	this.winner = false;
     }
 
     public String getName() {
@@ -29,6 +31,14 @@ public class Player {
 
     public void setTotal(int total) {
 	this.total = total;
+    }
+
+    public boolean isWinner() {
+	return winner;
+    }
+
+    public void setWinner(boolean winner) {
+	this.winner = winner;
     }
 
     public void resetRoundScore() {

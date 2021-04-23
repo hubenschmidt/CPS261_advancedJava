@@ -1,8 +1,5 @@
 package views;
 
-import java.util.Date;
-import java.util.List;
-
 import controllers.GameController;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -25,7 +22,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import models.Player;
 
 public class ViewJavaFX {
     /*
@@ -131,31 +127,42 @@ public class ViewJavaFX {
 
 	// save box score here for retrieval by displayHistoryTable
 
-	// step 1: confirm the participants
+	// step 1: set the winner
+	controller.getGame().setWinner(); // player comparison logic is located on game object
 
-	List<Player> players = controller.getGame().getPlayers();
-	Date date = controller.getGame().getDate();
-	int p1total = controller.getGame().getPlayers().get(0).getTotal();
-	int p2total = controller.getGame().getPlayers().get(1).getTotal();
-	Player winner;
-	Player loser;
-	if (p1total > p2total) {
-	    winner = controller.getGame().getPlayers().get(0);
-	    loser = controller.getGame().getPlayers().get(1);
-	} else {
-	    winner = controller.getGame().getPlayers().get(1);
-	    loser = controller.getGame().getPlayers().get(0);
-	}
+//	List<Player> players = controller.getGame().getPlayers();
+//	Date date = controller.getGame().getDate();
+//	int p1total = controller.getGame().getPlayers().get(0).getTotal();
+//	int p2total = controller.getGame().getPlayers().get(1).getTotal();
 
-	controller.getGame().setWinner(winner);
-	controller.getGame().setLoser(loser);
+//	Player winner;
+//	Player loser;
+//	if (p1total > p2total) {
+//	    winner = controller.getGame().getPlayers().get(0);
+//	    loser = controller.getGame().getPlayers().get(1);
+//	} else {
+//	    winner = controller.getGame().getPlayers().get(1);
+//	    loser = controller.getGame().getPlayers().get(0);
+//	}
+//
+//	controller.getGame().setWinner(winner);
+//	controller.getGame().setLoser(loser);
 
-	System.out.println("Game results:");
-	System.out.println("Player1 name: " + players.get(0).getName() + ", Date: " + date + ", Score: " + p1total
-		+ ", Winner: " + winner.getName() + ", Loser: " + loser.getName());
+	System.out.println("Game results, " + controller.getGame().getDate() + ":");
+	System.out.println("Player1 name: " + controller.getGame().getPlayers().get(0).getName() + ", Score: "
+		+ controller.getGame().getPlayers().get(0).getTotal() + ", Winner: "
+		+ controller.getGame().getPlayers().get(0).isWinner());
 
-	System.out.println("Player2 name: " + players.get(1).getName() + ", Date: " + date + ", Score: " + p2total
-		+ ", Winner: " + winner.getName() + ", Loser: " + loser.getName());
+	System.out.println("Player2 name: " + controller.getGame().getPlayers().get(1).getName() + ", Score: "
+		+ controller.getGame().getPlayers().get(1).getTotal() + ", Winner: "
+		+ controller.getGame().getPlayers().get(1).isWinner());
+
+//	System.out.println("Player2 name: " + players.get(1).getName() + ", Date: " + date + ", Score: " + p2total
+//		+ ", Winner: " + winner.getName() + ", Loser: " + loser.getName());
+
+//	Map<Game,ArrayList<Player>> multiMap = new HashMap<>();
+
+//	Map<Object,Pair<Integer,String>> multiMap = new HashMap<Object,Pair<Integer,String>>();
 
 //	controller.getGame().getActivePlayer().setWinner(); // the active player when the game ends is
 //	Player winner = controller.getGame().getActivePlayer();

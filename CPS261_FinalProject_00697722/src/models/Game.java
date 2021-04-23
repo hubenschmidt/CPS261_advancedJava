@@ -1,22 +1,20 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Game {
     private Die die;
     private List<Player> players;
     private Player activePlayer;
-    private Date date;
-    private Player winner;
-    private Player loser;
+    private CurrentDateTime date;
 
     public Game(ArrayList<Player> players) {
 	System.out.println("initializing Game");
 	this.die = new Die(6, 1);
 	this.players = players;
 	this.activePlayer = players.get(0);
+	this.date = new CurrentDateTime();
     }
 
     public Die getDie() {
@@ -43,29 +41,25 @@ public class Game {
 	this.activePlayer = activePlayer;
     }
 
-    public Date getDate() {
+    public CurrentDateTime getDate() {
 	return date;
     }
 
-    public void setDate(Date date) {
-	this.date = date;
-    }
-
-    public Player getWinner() {
-	return winner;
-    }
-
-    public void setWinner(Player winner) {
-	this.winner = winner;
-    }
-
-    public Player getLoser() {
-	return loser;
-    }
-
-    public void setLoser(Player loser) {
-	this.loser = loser;
-    }
+//    public Player getWinner() {
+//	return winner;
+//    }
+//
+//    public void setWinner(Player winner) {
+//	this.winner = winner;
+//    }
+//
+//    public Player getLoser() {
+//	return loser;
+//    }
+//
+//    public void setLoser(Player loser) {
+//	this.loser = loser;
+//    }
 
     public boolean playerOneTurn() {
 	return activePlayer == getPlayers().get(0);
@@ -104,6 +98,19 @@ public class Game {
 	activePlayer.saveScore();
 	newTurn();
 	die.setFace(1);
+    }
+
+    /*
+     * Compares player total scores to set winner of game
+     */
+    public void setWinner() {
+	int p1total = getPlayers().get(0).getTotal();
+	int p2total = getPlayers().get(1).getTotal();
+
+	if (p1total > p1total) {
+	    getPlayers().get(0).setWinner(true);
+	}
+	getPlayers().get(1).setWinner(false);
     }
 
 }

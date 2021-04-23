@@ -131,19 +131,7 @@ public class ViewJavaFX {
 	// update history
 	controller.updateHistory();
 
-	/*
-	 * for debugging
-	 */
-//	System.out.println("Game results, " + controller.getGame().getDate() + ":");
-//	System.out.println("Player1 name: " + controller.getGame().getPlayers().get(0).getName() + ", Score: "
-//		+ controller.getGame().getPlayers().get(0).getTotal() + ", Winner: "
-//		+ controller.getGame().getPlayers().get(0).isWinner());
-//
-//	System.out.println("Player2 name: " + controller.getGame().getPlayers().get(1).getName() + ", Score: "
-//		+ controller.getGame().getPlayers().get(1).getTotal() + ", Winner: "
-//		+ controller.getGame().getPlayers().get(1).isWinner());
-
-	controller.getHistory();
+//	controller.getHistory();
 
 	paneForButtons.getChildren().remove(btnRoll);
 	paneForButtons.getChildren().remove(btnHold);
@@ -181,10 +169,16 @@ public class ViewJavaFX {
 	table.getColumns().addAll(name, date, finalScore, winOrLose);
 
 	// add data here
+
+	// use stream to access History
+	// and add to each column
+
 	name.setCellValueFactory(null);
 	date.setCellValueFactory(null);
 	finalScore.setCellValueFactory(null);
 	winOrLose.setCellValueFactory(null);
+
+	// use stream to compute total wins / losses
 
 	historyTableVBox.setSpacing(5);
 	historyTableVBox.setPadding(new Insets(200, 0, 0, 10));

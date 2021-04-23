@@ -1,5 +1,8 @@
 package views;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import controllers.GameController;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -22,6 +25,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import models.Game;
+import models.Player;
 
 public class ViewJavaFX {
     /*
@@ -143,7 +148,13 @@ public class ViewJavaFX {
 		+ controller.getGame().getPlayers().get(1).getTotal() + ", Winner: "
 		+ controller.getGame().getPlayers().get(1).isWinner());
 
-	System.out.println("History: " + controller.getHistory());
+	System.out.println("History: " + controller.getHistory().toString());
+
+	for (Map.Entry<Game, ArrayList<Player>> entry : controller.getHistory().entrySet()) {
+	    String game = entry.getKey().toString();
+	    String player = entry.getValue().toString();
+	    System.out.println(game + " " + player);
+	}
 
 	paneForButtons.getChildren().remove(btnRoll);
 	paneForButtons.getChildren().remove(btnHold);

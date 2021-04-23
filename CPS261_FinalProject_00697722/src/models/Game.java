@@ -44,22 +44,6 @@ public class Game {
 	return date;
     }
 
-//    public Player getWinner() {
-//	return winner;
-//    }
-//
-//    public void setWinner(Player winner) {
-//	this.winner = winner;
-//    }
-//
-//    public Player getLoser() {
-//	return loser;
-//    }
-//
-//    public void setLoser(Player loser) {
-//	this.loser = loser;
-//    }
-
     public boolean playerOneTurn() {
 	return activePlayer == getPlayers().get(0);
     }

@@ -23,6 +23,7 @@ public class History {
     public void update(Game game, ArrayList<Player> players) {
 	System.out.println("updating history..");
 	games.put(game, players);
+	System.out.println("Size of the history map: " + games.size());
 
     }
 

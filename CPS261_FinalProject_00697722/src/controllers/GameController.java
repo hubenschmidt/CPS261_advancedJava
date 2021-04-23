@@ -16,6 +16,7 @@ public class GameController {
 
     private History history;
     private Game game;
+    private ArrayList<Player> players;
     private State state;
     private ViewJavaFX view;
     private Stage stage = new Stage();
@@ -34,8 +35,8 @@ public class GameController {
 	return game;
     }
 
-    public void setGame(Game game) {
-	this.game = game;
+    public void setGame(ArrayList<Player> players) {
+	this.game = new Game(players);
     }
 
     public State getState() {
@@ -80,6 +81,8 @@ public class GameController {
 	game.getPlayers().get(0).resetRoundScore();
 	game.getPlayers().get(1).setTotal(0);
 	game.getPlayers().get(1).resetRoundScore();
+
+	setGame(getPlayers());
     }
 
     public void updateHistory() {
@@ -88,13 +91,13 @@ public class GameController {
 
     public Map<Game, ArrayList<Player>> getHistory() {
 	// for debugging:
-//	for (Map.Entry<Game, ArrayList<Player>> entry : history.getGames().entrySet()) {
-//	    Game game = entry.getKey();
-//	    ArrayList<Player> player = entry.getValue();
-//	    System.out.println("Game history: " + game.getDate());
-//	    System.out.println("Player1 name: " + player.get(0).getName());
-//	    System.out.println("Player2 name: " + player.get(1).getName());
-//	}
+	for (Map.Entry<Game, ArrayList<Player>> entry : history.getGames().entrySet()) {
+	    Game game = entry.getKey();
+	    ArrayList<Player> player = entry.getValue();
+	    System.out.println("Game history: " + game.getDate());
+	    System.out.println("Player1 name: " + player.get(0).getName());
+	    System.out.println("Player2 name: " + player.get(1).getName());
+	}
 	return history.getGames();
     }
 

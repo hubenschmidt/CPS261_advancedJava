@@ -1,9 +1,11 @@
 package controllers;
 
 import java.util.ArrayList;
-import java.util.Map;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+import models.DataObject;
 import models.Game;
 import models.History;
 import models.Player;
@@ -20,6 +22,7 @@ public class GameController {
     private State state;
     private ViewJavaFX view;
     private Stage stage = new Stage();
+    private int i;
 
     public GameController(ArrayList<Player> players) {
 	this.history = new History();
@@ -89,26 +92,23 @@ public class GameController {
 	history.update(game, game.getPlayers());
     }
 
-    public Map<Game, ArrayList<Player>> getHistory() {
-	// for debugging:
-	for (Map.Entry<Game, ArrayList<Player>> entry : history.getGames().entrySet()) {
-	    Game game = entry.getKey();
-	    ArrayList<Player> player = entry.getValue();
-//	    System.out.println("Game history:");
-//	    System.out.println("Game " + game.getDate() + " hashCode: " + game.hashCode());
-//	    System.out.println("Player1 name: " + player.get(0).getName() + ", hashCode: " + player.get(0).hashCode());
-//	    System.out.println("Player2 name: " + player.get(1).getName() + ", hashCode: " + player.get(1).hashCode());
+    /*
+     * Method for fetching data to pass to table view. I had difficulty accessing
+     * the History LinkedHashTable directly with JavaFX TableView, and so as a
+     * workaround and to speed development, I created DataObject to format the data
+     * in a single line, which seems to be the easiest way to interact with
+     * TableView.
+     */
+
+    public ObservableList<DataObject> getData() {
+	ObservableList<DataObject> data = FXCollections.observableArrayList();
+	for (i = 0; i < getPlayers().size(); i++) {
+	    history.getGames().entrySet().forEach(el -> data
+		    .add(new DataObject(el.getValue().get(i).getName(), el.getKey().getDate().toString(),
+			    el.getValue().get(i).getTotal(),
+			    el.getValue().get(i).isWinner())));
 	}
 
-	return history.getGames();
-    }
-
-    public void StreamHistory() {
-//	history.getGames().entrySet().stream().map(e -> e.getKey().getDate()).forEach(System.out::println);
-//	history.getGames().keySet().forEach(e -> System.out.println(e.getDate()));
-	history.getGames().keySet().forEach(e -> {
-	    e.getDate();
-
-	});
+	return data;
     }
 }

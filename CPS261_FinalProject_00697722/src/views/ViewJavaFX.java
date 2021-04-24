@@ -1,8 +1,6 @@
 package views;
 
 import controllers.GameController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -26,7 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import models.DataObject;
+//import models.DataObject;
 
 public class ViewJavaFX {
     /*
@@ -75,7 +73,7 @@ public class ViewJavaFX {
     // create history table vbox
     private VBox historyTableVBox = new VBox();
     private Button exitButton = new Button("Exit History");
-    private TableView table = new TableView<DataObject>();
+    private TableView table = new TableView<>();
     private Label historyTableLabel = new Label("Game History");
 
     private TableColumn nameCol = new TableColumn("Name");
@@ -172,43 +170,6 @@ public class ViewJavaFX {
 	historyTableLabel.setFont(new Font("Arial", 20));
 	historyTableLabel.setTextFill(Color.web("white"));
 
-	// add data here
-	// call to game controller to do Stream of Map
-
-//	controller.getHistory().entrySet().stream().map(e -> e.getKey().getDate()).forEach(System.out::println);
-
-	// use stream to access History
-	// and add to each column
-
-	ObservableList<DataObject> data = FXCollections.observableArrayList(
-//		new DataObject("file1", "D:\\myFiles\\file1.txt", "25 MB", "12/01/2017"),
-//		new DataObject("file2", "D:\\myFiles\\file2.txt", "30 MB", "01/11/2019"),
-//		new DataObject("file3", "D:\\myFiles\\file3.txt", "50 MB", "12/04/2017"),
-//		new DataObject("file4", "D:\\myFiles\\file4.txt", "75 MB", "25/09/2018")
-	);
-
-//	controller.getHistory().entrySet().forEach(e -> data.add(new DataObject(e.getKey().getDate(), e.getValue().get(0).getName())));
-
-//
-//	for (int i = 0; i < controller.getPlayers().size(); i++) {
-////	    data.add(new DataObject("file5", "D:\\myFiles\\file4.txt", "75 MB", "25/09/2018"));
-//	    controller.getHistory().entrySet().forEach(e -> data
-//		    .add(new DataObject(e.getValue().get(i).getName(), e.getKey().getDate().toString(),
-//			    e.getValue().get(i).getTotal(),
-////			    e.getValue().get(i).isWinner()
-//			    "25/09/2018")));
-//	}
-
-//	    data.add(new DataObject("file5", "D:\\myFiles\\file4.txt", "75 MB", "25/09/2018"));
-
-	for (i = 0; i < controller.getPlayers().size(); i++) {
-	    controller.getHistory().entrySet().forEach(el -> data
-		    .add(new DataObject(el.getValue().get(i).getName(), el.getKey().getDate().toString(),
-			    el.getValue().get(i).getTotal(),
-			    el.getValue().get(i).isWinner())));
-
-	}
-
 	// creating columns
 	nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 	dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -216,14 +177,13 @@ public class ViewJavaFX {
 	winLoseCol.setCellValueFactory(new PropertyValueFactory<>("winOrLose"));
 
 	// adding data to the table
-	ObservableList<String> list = FXCollections.observableArrayList();
-	table.setItems(data);
+//	ObservableList<String> list = FXCollections.observableArrayList();
+	table.setItems(controller.getData());
 	table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	table.getColumns().addAll(nameCol, dateCol, finalScoreCol, winLoseCol);
 	table.getSortOrder().add(dateCol);
 
 	// use stream to compute total wins / losses
-
 	historyTableVBox.setSpacing(5);
 	historyTableVBox.setPadding(new Insets(200, 0, 0, 10));
 	historyTableVBox.getChildren().addAll(historyTableLabel, table, exitButton);

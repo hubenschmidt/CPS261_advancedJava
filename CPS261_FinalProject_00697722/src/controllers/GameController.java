@@ -1,6 +1,8 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -107,7 +109,16 @@ public class GameController {
 			    el.getKey().getFinalScores().get(i),
 			    el.getKey().getWinLoss().get(i))));
 	}
-
 	return data;
+    }
+
+    public void computeTotalWins() {
+//	history.getGames().entrySet().stream()
+//		.filter(e -> "win".equals(e.getKey().getWinLoss().get(0)));
+
+	System.out.println(history.getGames().entrySet().stream().map(e -> e.getKey().getWinLoss())
+		.collect(Collectors.groupingBy(Function.identity(),
+			Collectors.counting())));
+
     }
 }

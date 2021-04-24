@@ -164,6 +164,7 @@ public class ViewJavaFX {
     }
 
     public void displayHistoryTable() {
+	controller.computeTotalWins();
 	historyTableVBox.getChildren().removeAll(historyTableLabel, table, exitButton);// clear table if exists
 	table.getColumns().removeAll(nameCol, dateCol, finalScoreCol, winLoseCol);// clear table if exists
 

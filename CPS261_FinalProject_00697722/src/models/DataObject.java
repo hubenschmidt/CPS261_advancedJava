@@ -5,9 +5,9 @@ public class DataObject {
     private String name;
     private String date;
     private int finalScore;
-    private boolean winOrLose;
+    private String winOrLose;
 
-    public DataObject(String name, String date, int finalScore, boolean winOrLose) {
+    public DataObject(String name, String date, int finalScore, String winOrLose) {
 
 	this.name = name;
 	this.date = date;
@@ -40,11 +40,11 @@ public class DataObject {
 	this.finalScore = finalScore;
     }
 
-    public boolean getWinOrLose() {
+    public String getWinOrLose() {
 	return winOrLose;
     }
 
-    public void setWinOrLose(boolean winOrLose) {
+    public void setWinOrLose(String winOrLose) {
 	this.winOrLose = winOrLose;
     }
 

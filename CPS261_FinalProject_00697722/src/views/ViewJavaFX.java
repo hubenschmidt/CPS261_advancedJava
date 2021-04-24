@@ -177,7 +177,6 @@ public class ViewJavaFX {
 	winLoseCol.setCellValueFactory(new PropertyValueFactory<>("winOrLose"));
 
 	// adding data to the table
-//	ObservableList<String> list = FXCollections.observableArrayList();
 	table.setItems(controller.getData());
 	table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	table.getColumns().addAll(nameCol, dateCol, finalScoreCol, winLoseCol);

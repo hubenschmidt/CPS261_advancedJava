@@ -1,12 +1,15 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Game {
     private Die die;
     private ArrayList<Player> players;
     private Player activePlayer;
     private CurrentDateTime date;
+    private List<Integer> finalScores = new ArrayList<>(); // for displaying final scores on game history view
+    private List<String> winLoss = new ArrayList<>(); // for displaying winner on game history view
 
     public Game(ArrayList<Player> players) {
 	System.out.println("initializing Game");
@@ -42,6 +45,22 @@ public class Game {
 
     public CurrentDateTime getDate() {
 	return date;
+    }
+
+    public List<Integer> getFinalScores() {
+	return finalScores;
+    }
+
+    public void setFinalScores(int finalScore) {
+	this.finalScores.add(finalScore);
+    }
+
+    public List<String> getWinLoss() {
+	return winLoss;
+    }
+
+    public void setWinLoss(String winLoss) {
+	this.winLoss.add(winLoss);
     }
 
     public boolean playerOneTurn() {
@@ -91,9 +110,14 @@ public class Game {
 	int p2total = getPlayers().get(1).getTotal();
 
 	if (p1total > p2total) {
-	    getPlayers().get(0).setWinner(true);
+	    setWinLoss("win"); // set player1 as win
+	    setWinLoss("loss");// set player2 as loss
+	} else if (p2total > p1total) {
+	    setWinLoss("loss");// set player1 as win
+	    setWinLoss("win");// set player2 as loss
 	}
-	getPlayers().get(1).setWinner(false);
+	// record final scores
+	setFinalScores(p1total);
+	setFinalScores(p2total);
     }
-
 }

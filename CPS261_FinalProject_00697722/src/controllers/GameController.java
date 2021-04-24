@@ -99,14 +99,13 @@ public class GameController {
      * in a single line, which seems to be the easiest way to interact with
      * TableView.
      */
-
     public ObservableList<DataObject> getData() {
 	ObservableList<DataObject> data = FXCollections.observableArrayList();
 	for (i = 0; i < getPlayers().size(); i++) {
 	    history.getGames().entrySet().forEach(el -> data
 		    .add(new DataObject(el.getValue().get(i).getName(), el.getKey().getDate().toString(),
-			    el.getValue().get(i).getTotal(),
-			    el.getValue().get(i).isWinner())));
+			    el.getKey().getFinalScores().get(i),
+			    el.getKey().getWinLoss().get(i))));
 	}
 
 	return data;

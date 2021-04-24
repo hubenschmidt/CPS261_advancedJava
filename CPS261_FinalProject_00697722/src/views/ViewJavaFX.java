@@ -182,7 +182,6 @@ public class ViewJavaFX {
 	table.getColumns().addAll(nameCol, dateCol, finalScoreCol, winLoseCol);
 	table.getSortOrder().add(dateCol);
 
-	// use stream to compute total wins / losses
 	historyTableVBox.setSpacing(5);
 	historyTableVBox.setPadding(new Insets(200, 0, 0, 10));
 	historyTableVBox.getChildren().addAll(historyTableLabel, table, exitButton);

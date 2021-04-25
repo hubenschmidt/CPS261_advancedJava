@@ -81,7 +81,10 @@ public class ViewJavaFX {
     private TableColumn finalScoreCol = new TableColumn("Score");
     private TableColumn winLoseCol = new TableColumn("Win");
 
-    int i;
+    // create wins display
+    private Text displayWins;
+
+    private int i;
 
     public ViewJavaFX(GameController controller) {
 	this.controller = controller;
@@ -164,7 +167,7 @@ public class ViewJavaFX {
     }
 
     public void displayHistoryTable() {
-	controller.computeTotalWins();
+	displayPlayerWins();
 	historyTableVBox.getChildren().removeAll(historyTableLabel, table, exitButton);// clear table if exists
 	table.getColumns().removeAll(nameCol, dateCol, finalScoreCol, winLoseCol);// clear table if exists
 
@@ -189,6 +192,35 @@ public class ViewJavaFX {
 	paneForButtons.getChildren().removeAll(btnRestart, btnHistory); // remove and replace buttons
 	stackPane.getChildren().add(historyTableVBox);
 	exitHistory();
+    }
+
+    public void displayPlayerWins() {
+//	Map<String, Long> p1winsAndLosses = new LinkedHashMap<String, Long>();
+//	p1winsAndLosses.putAll(controller.computeTotalWins());
+
+//	System.out.println(p1winsAndLosses);
+
+	System.out.println(controller.computeTotalWins());
+
+	String p1Name = controller.getPlayers().get(0).getName();
+	String p2Name = controller.getPlayers().get(1).getName();
+
+	if (controller.computeTotalWins().keySet().contains("win")) {
+	    System.out.println(controller.computeTotalWins().values().toArray()[0]);
+
+	}
+//
+//	String p1Wins = p1winsAndLosses.entrySet().stream().reduce((first, second) -> second).orElse(null).getValue()
+//		.toString();
+//	String p2Wins = p1winsAndLosses.entrySet().stream().reduce((first, second) -> first).orElse(null).getValue()
+//		.toString();
+
+//	displayWins = new Text(p1Name + "wins");
+//	System.out.println(displayWins);
+//	displayWins = new Text(p2Name + " has" + p2Wins + "wins");
+//	System.out.println(displayWins);
+//	stackPane.getChildren().add(displayWins);
+
     }
 
     public void exitHistory() {

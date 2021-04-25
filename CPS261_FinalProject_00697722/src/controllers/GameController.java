@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -119,9 +120,13 @@ public class GameController {
 	// player 2's number of wins based on the player 1 losses OR
 	// we could try to implement a Parallel Stream.
 	// OR simply create a second method that does the same thing for player 2
-	System.out.println(history.getGames().entrySet().stream().map(e -> e.getKey().getWinLoss().get(0))
-		.collect(Collectors.groupingBy(Function.identity(),
-			Collectors.counting())));
+	for (i = 0; i < getPlayers().size(); i++) {
+	    Map<String, Long> winLossCount = history.getGames().entrySet().stream()
+		    .map(e -> e.getKey().getWinLoss().get(i))
+		    .collect(Collectors.groupingBy(Function.identity(),
+			    Collectors.counting()));
+	    System.out.println(winLossCount);
+	}
 
     }
 }

@@ -84,6 +84,7 @@ public class ViewJavaFX {
     // create wins display
     private Text displayWinsP1;
     private Text displayWinsP2;
+    private VBox displayWinsVBox = new VBox();
 
     private int i;
 
@@ -140,8 +141,6 @@ public class ViewJavaFX {
 	// update history
 	controller.updateHistory();
 
-//	controller.getHistory();
-
 	paneForButtons.getChildren().remove(btnRoll);
 	paneForButtons.getChildren().remove(btnHold);
 	paneForButtons.getChildren().addAll(btnRestart, btnHistory);
@@ -168,8 +167,8 @@ public class ViewJavaFX {
     }
 
     public void displayHistoryTable() {
-	displayPlayerWins();
-	historyTableVBox.getChildren().removeAll(historyTableLabel, table, exitButton);// clear table if exists
+	historyTableVBox.getChildren().removeAll(historyTableLabel, table, exitButton, displayWinsVBox);// clear table
+													// if exists
 	table.getColumns().removeAll(nameCol, dateCol, finalScoreCol, winLoseCol);// clear table if exists
 
 	historyTableLabel.setFont(new Font("Arial", 20));
@@ -188,9 +187,12 @@ public class ViewJavaFX {
 	table.getSortOrder().add(dateCol);
 
 	historyTableVBox.setSpacing(5);
-	historyTableVBox.setPadding(new Insets(200, 0, 0, 10));
+	historyTableVBox.setPadding(new Insets(150, 0, 0, 10));
 	historyTableVBox.getChildren().addAll(historyTableLabel, table, exitButton);
 	paneForButtons.getChildren().removeAll(btnRestart, btnHistory); // remove and replace buttons
+
+	displayPlayerWins();
+
 	stackPane.getChildren().add(historyTableVBox);
 	exitHistory();
     }
@@ -200,6 +202,7 @@ public class ViewJavaFX {
      */
 
     public void displayPlayerWins() {
+	displayWinsVBox.getChildren().removeAll(displayWinsP1, displayWinsP2);
 	String p1Name = controller.getPlayers().get(0).getName();
 	String p2Name = controller.getPlayers().get(1).getName();
 	long p1Wins = 0;
@@ -228,8 +231,11 @@ public class ViewJavaFX {
 	    System.out.println("Jen has " + p2Wins + " wins.");
 	}
 	displayWinsP1 = new Text("William has " + p1Wins + " wins.");
+
 	displayWinsP2 = new Text("Jen has " + p2Wins + " wins.");
-	stackPane.getChildren().addAll(displayWinsP1, displayWinsP2);
+	displayWinsVBox.setStyle("-fx-background-color: white");
+	displayWinsVBox.getChildren().addAll(displayWinsP1, displayWinsP2);
+	historyTableVBox.getChildren().addAll(displayWinsVBox);
     }
 
     public void exitHistory() {

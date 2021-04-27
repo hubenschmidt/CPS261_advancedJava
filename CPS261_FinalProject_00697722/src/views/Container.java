@@ -51,12 +51,32 @@ public class Container {
 	return btnHold;
     }
 
+    public Button getBtnRestart() {
+	return btnRestart;
+    }
+
+    public Button getBtnHistory() {
+	return btnHistory;
+    }
+
     public LeftSplit getLeftSplit() {
 	return leftSplit;
     }
 
     public RightSplit getRightSplit() {
 	return rightSplit;
+    }
+
+    public ImageView getDie() {
+	return die;
+    }
+
+    public HBox getPaneForButtons() {
+	return paneForButtons;
+    }
+
+    public StackPane getStackPane() {
+	return stackPane;
     }
 
     public Group render() {

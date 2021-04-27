@@ -77,6 +77,7 @@ public class Game {
 	} else {
 	    activePlayer = getPlayers().get(0);
 	}
+
     }
 
     /*

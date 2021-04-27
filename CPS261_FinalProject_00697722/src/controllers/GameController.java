@@ -12,7 +12,7 @@ import models.DataObject;
 import models.Game;
 import models.History;
 import models.Player;
-import views.ViewJavaFX;
+import views.View;
 
 public class GameController {
     public enum State {
@@ -23,7 +23,7 @@ public class GameController {
     private Game game;
     private ArrayList<Player> players;
     private State state;
-    private ViewJavaFX view;
+    private View view;
     private Stage stage = new Stage();
     private int i;
 
@@ -59,7 +59,7 @@ public class GameController {
     public void run() {
 	switch (state) {
 	case Initialized:
-	    view.displayGUI(stage);
+	    view.render(stage);
 	    break;
 	}
     }

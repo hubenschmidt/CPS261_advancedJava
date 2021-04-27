@@ -25,7 +25,6 @@ public class Main extends Application {
 	     * start controller, start view
 	     */
 	    GameController controller = new GameController(players);
-//	    ViewJavaFX viewJavaFX = new ViewJavaFX(controller);
 	    View view = new View(controller);
 
 	    /*
@@ -33,7 +32,6 @@ public class Main extends Application {
 	     */
 	    if (controller.getState() != null) {
 		System.out.println(controller.getState().toString());
-//		viewJavaFX.displayGUI(primaryStage);
 		view.render(primaryStage);
 	    }
 

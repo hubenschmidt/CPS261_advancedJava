@@ -18,7 +18,7 @@ public class Player {
     }
 
     public int getRoundScore() {
-	if (total < 10) {
+	if (total < 100) {
 	    return roundScore;
 	} else {
 	    return -1;

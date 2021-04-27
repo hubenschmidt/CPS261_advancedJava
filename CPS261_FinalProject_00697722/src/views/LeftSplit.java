@@ -44,6 +44,10 @@ public class LeftSplit {
 	return total1;
     }
 
+    public VBox getSplit() {
+	return split;
+    }
+
     public VBox render() {
 	// build player name
 	playerName1.setFill(Color.web("#1F51FF"));
@@ -61,9 +65,11 @@ public class LeftSplit {
 	label1.setFont(new Font(24));
 	labelBox1.getChildren().add(label1);
 
-	roundScoreLabel1.setTextFill(Color.web("#d3d3d3"));
-
-	totalLabel1.setTextFill(Color.web("#d3d3d3"));
+	// format round score and total score boxes
+	roundScoreLabel1.setStyle("-fx-text-fill: red; -fx-font-size: 18px;");
+	totalLabel1.setStyle("-fx-text-fill: #1F51FF; -fx-font-size: 18px;");
+	roundScore1.setStyle("-fx-text-fill: red; -fx-font-size: 18px;");
+	total1.setStyle("-fx-text-fill: #1F51FF; -fx-font-size: 18px;");
 
 	// Setting size for the pane
 	gridPane1.setMinSize(480, 600);

@@ -11,6 +11,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
+/*
+ * Container class contains all view component classes,
+ * and makes these available to View class
+ */
 public class Container {
     private GameController controller;
     private Group group;
@@ -25,6 +29,7 @@ public class Container {
     private Button btnRestart;
     private Button btnHistory;
     private HBox paneForButtons;
+    private HistoryTable historyTable;
 
     public Container(GameController controller) {
 	this.controller = controller;
@@ -40,6 +45,7 @@ public class Container {
 	this.die = new ImageView();
 	this.btnRestart = new Button("Restart");
 	this.btnHistory = new Button("Check History");
+	this.historyTable = new HistoryTable(controller);
 
     }
 
@@ -77,6 +83,10 @@ public class Container {
 
     public StackPane getStackPane() {
 	return stackPane;
+    }
+
+    public HistoryTable getHistoryTable() {
+	return historyTable;
     }
 
     public Group render() {

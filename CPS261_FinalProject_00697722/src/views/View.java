@@ -3,12 +3,13 @@ package views;
 import controllers.GameController;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/*
+ * View class contains all the user interaction methods used throughout the application
+ * by other views classes
+ */
 public class View {
     private GameController controller;
     private Scene scene;
@@ -26,11 +27,17 @@ public class View {
 	primaryStage.setResizable(false);
 	primaryStage.show();
 
+	/*
+	 * calling methods in the render() method makes these dynamically available
+	 * throughout the user interaction
+	 */
 	refreshData();// clears data upon game start
+	highlightActivePlayer();
 	rollDie();
 	holdRound();
-//	checkHistory();
-//	restartGame();
+	checkHistory();
+	exitHistory();
+	restartGame();
     }
 
     /*
@@ -47,8 +54,23 @@ public class View {
     public void holdRound() {
 	container.getBtnHold().setOnAction((ActionEvent e) -> {
 	    controller.hold();
+	    highlightActivePlayer();
 	    refreshData();
 	});
+    }
+
+    /*
+     * style changes based on turn
+     */
+    public void highlightActivePlayer() {
+	// if player 1
+	if (controller.getPlayers().get(0).equals(controller.getActivePlayer())) {
+	    container.getLeftSplit().getSplit().setStyle("-fx-background-color: #ffbd05");
+	    container.getRightSplit().getSplit().setStyle("-fx-background-color: black");
+	} else { // if player 2
+	    container.getRightSplit().getSplit().setStyle("-fx-background-color: #ffbd05");
+	    container.getLeftSplit().getSplit().setStyle("-fx-background-color: black");
+	}
     }
 
     public void refreshData() {
@@ -58,9 +80,9 @@ public class View {
 	int totalScoreP2 = controller.getPlayers().get(1).getTotal();
 
 	if (controller.getState().toString() == "Initialized") {
-	    if (totalScoreP1 >= 10 || totalScoreP2 >= 10) {
+	    if (totalScoreP1 >= 100 || totalScoreP2 >= 100) {
 		gameOver(true);
-	    } else {
+	    } else { // clear scores
 		container.getLeftSplit().getRoundScore1().setText("" + roundScoreP1);
 		container.getLeftSplit().getTotal1().setText("" + totalScoreP1);
 		container.getRightSplit().getRoundScore2().setText("" + roundScoreP2);
@@ -100,95 +122,31 @@ public class View {
 	    container.getPaneForButtons().getChildren().removeAll(container.getBtnRestart(), container.getBtnHistory());
 	    container.getPaneForButtons().getChildren().addAll(container.getBtnRoll(), container.getBtnHold());
 	    container.getBtnHold().setDisable(false); // re-enable Hold button if disabled by exitHistory()
-	    container.getStackPane().getChildren().remove(historyTableVBox);
+	    container.getStackPane().getChildren().remove(container.getHistoryTable());
 	    refreshData();
 	});
     }
 
+    /*
+     * When Check History button is clicked, this method accesses the stackPane
+     * component on Container class, and adds the result of the getHistoryTable
+     * method (which itself returns the HistoryTable component)
+     */
     public void checkHistory() {
 	container.getBtnHistory().setOnAction((ActionEvent e) -> {
 	    container.getDie().setImage(null);// clear image
-	    displayHistoryTable();
+	    container.getStackPane().getChildren().add(container.getHistoryTable().render());
 	});
     }
 
-    public void displayHistoryTable() {
-	historyTableVBox.getChildren().removeAll(historyTableLabel, table, exitButton, displayWinsVBox);// clear table
-													// if exists
-	table.getColumns().removeAll(nameCol, dateCol, finalScoreCol, winLoseCol);// clear table if exists
-
-	historyTableLabel.setFont(new Font("Arial", 20));
-	historyTableLabel.setTextFill(Color.web("white"));
-
-	// creating columns
-	nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-	dateCol.setCellValueFactory(new PropertyValueFactory<>("date"));
-	finalScoreCol.setCellValueFactory(new PropertyValueFactory<>("finalScore"));
-	winLoseCol.setCellValueFactory(new PropertyValueFactory<>("winOrLose"));
-
-	// adding data to the table
-	table.setItems(controller.getData());
-	table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-	table.getColumns().addAll(nameCol, dateCol, finalScoreCol, winLoseCol);
-	table.getSortOrder().add(dateCol);
-
-	historyTableVBox.setSpacing(5);
-	historyTableVBox.setPadding(new Insets(150, 0, 0, 10));
-	historyTableVBox.getChildren().addAll(historyTableLabel, table, exitButton);
-	paneForButtons.getChildren().removeAll(btnRestart, btnHistory); // remove and replace buttons
-
-	displayPlayerWins();
-
-	container.getStackPane().getChildren().add(historyTableVBox);
-	exitHistory();
-    }
-
     /*
-     * gets and displays win total
+     * When exit button is clicked, restart the game.
      */
-
-    public void displayPlayerWins() {
-	displayWinsVBox.getChildren().removeAll(displayWinsP1, displayWinsP2);
-	String p1Name = controller.getPlayers().get(0).getName();
-	String p2Name = controller.getPlayers().get(1).getName();
-	long p1Wins = 0;
-	long p2Wins = 0;
-
-	/*
-	 * controller.computeTotalWins() returns a Java 8 stream of LinkedHashMap. For
-	 * example, it may return any of the following: {loss=1, win=2}, {loss=1},
-	 * {win=1}, or {win=2}. if either key "win" or "loss" is null, it does *not*
-	 * return {loss=0, win=1} or {loss=1, win=0}. and so, use conditional logic
-	 * based on player 1 loss/win data to get wins for player 2.
-	 */
-
-	if (controller.computeTotalWins().keySet().contains("win")
-		&& !controller.computeTotalWins().keySet().contains("loss")) {
-	    p1Wins = (long) controller.computeTotalWins().values().toArray()[0];
-	    System.out.println("William has " + p1Wins + " wins.");
-	} else if (controller.computeTotalWins().keySet().contains("loss")
-		&& !controller.computeTotalWins().keySet().contains("win")) {
-	    p2Wins = (long) controller.computeTotalWins().values().toArray()[0];
-	    System.out.println("Jen has " + p2Wins + " wins.");
-	} else {
-	    p1Wins = (long) controller.computeTotalWins().values().toArray()[1];
-	    p2Wins = (long) controller.computeTotalWins().values().toArray()[0];
-	    System.out.println("William has " + p1Wins + " wins.");
-	    System.out.println("Jen has " + p2Wins + " wins.");
-	}
-	displayWinsP1 = new Text("William has " + p1Wins + " wins.");
-
-	displayWinsP2 = new Text("Jen has " + p2Wins + " wins.");
-	displayWinsVBox.setStyle("-fx-background-color: white");
-	displayWinsVBox.getChildren().addAll(displayWinsP1, displayWinsP2);
-	historyTableVBox.getChildren().addAll(displayWinsVBox);
-    }
-
     public void exitHistory() {
-	exitButton.setOnAction((ActionEvent e) -> {
-	    stackPane.getChildren().remove(historyTableVBox);// clear table
-	    paneForButtons.getChildren().addAll(btnRestart, btnHold);
-	    btnHold.setDisable(true);
+	container.getHistoryTable().getExitButton().setOnAction((ActionEvent e) -> {
+	    container.getStackPane().getChildren().remove(container.getHistoryTable().getHistoryTableVBox());// clear
+													     // table
+	    container.getBtnHold().setDisable(true);
 	    restartGame();
 	});
     }

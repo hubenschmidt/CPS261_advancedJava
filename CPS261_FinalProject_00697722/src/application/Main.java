@@ -8,6 +8,9 @@ import javafx.stage.Stage;
 import models.Player;
 import views.View;
 
+/*
+ * Driver class executes the application
+ */
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {

@@ -3,6 +3,9 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Defines game properties and logic
+ */
 public class Game {
     private Die die;
     private ArrayList<Player> players;
@@ -12,12 +15,15 @@ public class Game {
     private List<String> winLoss = new ArrayList<>(); // for displaying winner on game history view
 
     public Game(ArrayList<Player> players) {
-	System.out.println("initializing Game");
 	this.die = new Die(6, 1);
 	this.players = players;
 	this.activePlayer = players.get(0);
 	this.date = new CurrentDateTime();
     }
+
+    /*
+     * getters and setters
+     */
 
     public Die getDie() {
 	return die;
@@ -63,6 +69,10 @@ public class Game {
 	this.winLoss.add(winLoss);
     }
 
+    /*
+     * The following methods control the game's functionality and logic
+     */
+
     public boolean playerOneTurn() {
 	return activePlayer == getPlayers().get(0);
     }
@@ -83,14 +93,15 @@ public class Game {
     /*
      * if you roll a 1, then roundScore resets and it is player 2's turn
      */
-    public void roll() {
+    public int roll() {
 	die.roll();
 	int face = die.getFace();
 	activePlayer.updateRound(face);
 	if (face == 1) {
-	    activePlayer.resetRoundScore();
 	    newTurn();
+	    activePlayer.resetRoundScore();
 	}
+	return activePlayer.getRoundScore();
     }
 
     /*

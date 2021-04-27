@@ -14,9 +14,28 @@ import models.History;
 import models.Player;
 import views.View;
 
+/*
+ * If a state change takes place on an object instantiated from a model class,
+ * then the controller will recognize and pass the change to application view.
+ * If a user interaction is recorded by an event handler within a view class, then
+ * the controller will pass the update to the model.  
+ * 
+ *
+ * The model then passes the update back to the controller and then back to the view.
+ * 
+ * 
+ * I experimented with state management on the controller,
+ * ultimately preserving a piece of code I might try to expand in the future, 
+ * as it only contains one state here.
+ * This could be used as a way to manage state changes across an complex application 
+ * containing many classes and dynamically updated views.
+ * 
+ * State could also exist as a separate container class from the controller.
+ */
 public class GameController {
     public enum State {
-	Initialized, GameOver
+	Initialized,
+//	GameOver
     }
 
     private History history;
@@ -63,6 +82,10 @@ public class GameController {
 	    break;
 	}
     }
+
+    /*
+     * The following methods control game logic and program flow
+     */
 
     public int roll() {
 	game.roll();
@@ -112,6 +135,10 @@ public class GameController {
 	}
 	return data;
     }
+
+    /*
+     * Computes total wins using Java8 stream
+     */
 
     public Map<String, Long> computeTotalWins() {
 	return history.getGames().entrySet().stream()

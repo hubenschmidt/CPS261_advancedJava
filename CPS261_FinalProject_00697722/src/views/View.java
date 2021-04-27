@@ -46,6 +46,7 @@ public class View {
     public void rollDie() {
 	container.getBtnRoll().setOnAction((ActionEvent e) -> {
 	    int face = controller.roll();
+	    checkForTurnSwitch(face); // listen for die roll of 1
 	    refreshData();
 	    refreshDie(face);
 	});
@@ -70,6 +71,15 @@ public class View {
 	} else { // if player 2
 	    container.getRightSplit().getSplit().setStyle("-fx-background-color: #ffbd05");
 	    container.getLeftSplit().getSplit().setStyle("-fx-background-color: black");
+	}
+    }
+
+    /*
+     * check for changes based on die roll
+     */
+    public void checkForTurnSwitch(int face) {
+	if (face == 1) {
+	    highlightActivePlayer();
 	}
     }
 

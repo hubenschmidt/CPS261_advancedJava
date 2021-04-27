@@ -1,5 +1,9 @@
 package models;
 
+/*
+ * Defines properties for die object
+ */
+
 public class Die {
     private int sides;
     private int face;
@@ -9,6 +13,10 @@ public class Die {
 	this.face = face;
 
     }
+
+    /*
+     * getters and setters
+     */
 
     public int getSides() {
 	return sides;

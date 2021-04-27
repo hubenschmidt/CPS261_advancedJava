@@ -3,6 +3,9 @@ package models;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/*
+ * Utility class to format date and time
+ */
 public class CurrentDateTime {
     private DateTimeFormatter dtf;
     private LocalDateTime now;

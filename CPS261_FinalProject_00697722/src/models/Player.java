@@ -1,5 +1,8 @@
 package models;
 
+/*
+ * Defines properties and methods for individual player
+ */
 public class Player {
     private String name;
     private int roundScore;
@@ -12,6 +15,10 @@ public class Player {
 	this.total = total;
 	this.winner = false;
     }
+
+    /*
+     * getters and setters
+     */
 
     public String getName() {
 	return name;
@@ -33,6 +40,9 @@ public class Player {
 	this.total = total;
     }
 
+    /*
+     * The following methods control the player's functionality and logic
+     */
     public boolean isWinner() {
 	return winner;
     }

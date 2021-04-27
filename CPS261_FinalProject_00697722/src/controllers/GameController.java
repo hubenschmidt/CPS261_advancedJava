@@ -114,22 +114,6 @@ public class GameController {
     }
 
     public Map<String, Long> computeTotalWins() {
-	// currently,this computes for player1 only.
-	// display player 1's wins and losses in console. We could stop here by
-	// computing
-	// player 2's number of wins based on the player 1 losses OR
-	// we could try to implement a Parallel Stream.
-	// OR simply create a second method that does the same thing for player 2
-//	Map<String, Long> arr = new HashMap<String, Long>();
-//
-//	arr.putAll(history.getGames().entrySet().stream()
-//		.map(e -> e.getKey().getWinLoss().get(i))
-//		.collect(Collectors.groupingBy(Function.identity(),
-//			Collectors.counting())));
-//
-//	System.out.println(arr.values());
-//	return arr;
-
 	return history.getGames().entrySet().stream()
 		.map(e -> e.getKey().getWinLoss().get(0))
 		.collect(Collectors.groupingBy(Function.identity(),

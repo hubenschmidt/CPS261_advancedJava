@@ -1,6 +1,10 @@
 package models;
 
-//object mapping for JavaFX TableView. I would have preferred to add the History object directly to the table, however this alterate approach seems to work:
+/*
+ * object mapping for JavaFX TableView. I would have preferred to add the History 
+ * object directly to the table, however this alternate approach seems to work
+ */
+
 public class DataObject {
     private String name;
     private String date;
@@ -13,7 +17,6 @@ public class DataObject {
 	this.date = date;
 	this.finalScore = finalScore;
 	this.winOrLose = winOrLose;
-
     }
 
     public String getName() {

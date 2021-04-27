@@ -6,7 +6,7 @@ import controllers.GameController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import models.Player;
-import views.ViewJavaFX;
+import views.View;
 
 public class Main extends Application {
     @Override
@@ -25,14 +25,16 @@ public class Main extends Application {
 	     * start controller, start view
 	     */
 	    GameController controller = new GameController(players);
-	    ViewJavaFX viewJavaFX = new ViewJavaFX(controller);
+//	    ViewJavaFX viewJavaFX = new ViewJavaFX(controller);
+	    View view = new View(controller);
 
 	    /*
 	     * if there is a game state, display GUI
 	     */
 	    if (controller.getState() != null) {
 		System.out.println(controller.getState().toString());
-		viewJavaFX.displayGUI(primaryStage);
+//		viewJavaFX.displayGUI(primaryStage);
+		view.render(primaryStage);
 	    }
 
 	} catch (Exception e) {

@@ -93,15 +93,14 @@ public class Game {
     /*
      * if you roll a 1, then roundScore resets and it is player 2's turn
      */
-    public int roll() {
+    public void roll() {
 	die.roll();
 	int face = die.getFace();
 	activePlayer.updateRound(face);
 	if (face == 1) {
-	    newTurn();
 	    activePlayer.resetRoundScore();
+	    newTurn();
 	}
-	return activePlayer.getRoundScore();
     }
 
     /*
